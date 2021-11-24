@@ -2,6 +2,7 @@
 
 ## Idee per il progetto
 * Granular synth
+* MIDI Controls
 * Visualization 
 * Harmonizer
 * Scales & Chords analyzer
