@@ -6,6 +6,7 @@
 * Harmonizer
 * Scales & Chords analyzer
 * Tonal & Rhythmic JND detection
+* MIDI controls
 
 ## Domande
 * Come sfruttare le idee?
@@ -27,3 +28,5 @@ Eventualmente grosso visualizzatore psichedelico.
 https://trello.com/b/IWccLP6l/lezzosteps
 
 ### Gargiulo - Orsatti - Morena - Perego
+
+This is a Test
