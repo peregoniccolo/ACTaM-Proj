@@ -29,4 +29,3 @@ https://trello.com/b/IWccLP6l/lezzosteps
 
 ### Gargiulo - Orsatti - Morena - Perego
 
-This is a Test
