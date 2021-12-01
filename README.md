@@ -1,5 +1,10 @@
 # ACTam-CMRM Project
 
+## Per runnare GranJS example (funziona con parcel)
+* nella cartella del progetto: npm i
+* nella cartella example: npm i
+* nella cartella example: npm start 
+
 ## Idee per il progetto
 * Granular synth
 * Visualization 
@@ -28,5 +33,3 @@ Eventualmente grosso visualizzatore psichedelico.
 https://trello.com/b/IWccLP6l/lezzosteps
 
 ### Gargiulo - Orsatti - Morena - Perego
-
-Prova
