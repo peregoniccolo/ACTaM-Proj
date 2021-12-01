@@ -106,3 +106,4 @@ dist
 # non autogenerati
 
 .DS_Store
+.vscode
