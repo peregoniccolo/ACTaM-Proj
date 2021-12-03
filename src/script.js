@@ -218,7 +218,8 @@ function drawBuffer() {
 */
 
 
-/*
+/* MIDI PROTOCOL
+
 function dropHandler(ev) {
     console.log('File dropped');
 
@@ -248,4 +249,57 @@ function dragOverHandler(ev) {
     ev.preventDefault()
 }
 
+*/
+
+/*
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+let ctx;
+const startButton = document.querySelector('button'); // need a button to create the audio context
+startButton.addEventListener('click', () =>{
+    ctx = new AudioContext;
+})
+
+if(navigator.requestMIDIAccess){
+    navigator.requestMIDIAccess().then( onMIDISuccess, onMIDIFailure );
+}
+
+
+function onMIDISuccess( midiAccess ) {
+    midiAccess.addEventListener('statechange', updateDevices)
+    const input = midiAccess.inputs;
+    inputs.forEach((input) => {
+        input.addEventListener('midimessage', handleInput);
+  })
+}
+
+function handleInput(input){
+    const command = input.data[0]
+    const note = input.data[1]
+    const velocity = input.data[2]
+
+    switch(command){
+        case 144:
+        if (velocity > 0){
+        noteon(note, velocity);
+        } 
+        else{
+        noteoff(note);
+        }
+        break;
+        case 128:
+        noteoff(note);
+        break;
+    }
+}
+
+function noteon(note, velocity){
+
+}
+function noteon(note, velocity){
+    
+}
+
+function onMIDIFailure() {
+  console.log( "Failed to get MIDI access " );
+}
 */
