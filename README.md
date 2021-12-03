@@ -4,6 +4,17 @@
 * nella cartella del progetto: npm i
 * nella cartella example: npm i
 * nella cartella example: npm start 
+* nel caso ci sia questo warning dopo start:
+```console
+Browserslist: caniuse-lite is outdated. Please run next command `npm update caniuse-lite browserslist`
+Browserslist: caniuse-lite is outdated. Please run next command `npm update caniuse-lite browserslist`
+```
+
+* Risolvi con questo:
+    
+```
+macdonald@MacBook-Pro example % npm update caniuse-lite browserslist
+```
 
 ## Idee per il progetto
 * Granular synth

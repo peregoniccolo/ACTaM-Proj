@@ -3,11 +3,6 @@ import Granular from '../libs/Granular/Granular';
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
-import Vue from 'vue'
-import KnobControl from 'vue-knob-control'
-
-Vue.use(KnobControl)
-
 //PROCESSO GENERALE: creo un granular con vari parametri, gli passo un bufer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
 // questa funzione crea e fa suonare delle Voice (che a loro volta creano e fanno suonare dei grain).
 
@@ -21,7 +16,7 @@ async function getData(url) { //funzione da modificare in modo da prendere il fi
 
     request.responseType = 'arraybuffer';
 
-    request.onload = function() {
+    request.onload = function () {
       const audioData = request.response;
 
       resolve(audioData);
@@ -33,7 +28,7 @@ async function getData(url) { //funzione da modificare in modo da prendere il fi
 
 async function init() {
   const audioContext = p5.prototype.getAudioContext();
-  
+
   const granular = new Granular({
     audioContext,
     envelope: {
@@ -74,9 +69,9 @@ async function init() {
 
   resume.addEventListener('click', () => {
     const id = granular.startVoice({ //passo a startVoice una posizione e un volume, lei la passerà a sua volta a una voice che viene creata al suo interno 
-                                      //(guarda Granular.js -> startVoice).
-                                      //Nel momento in cui viene chiamata play su questa voice essa creerà e suonerà un grain nel modo opportuno (guarda Granular.js -> createGain)
-                                      
+      //(guarda Granular.js -> startVoice).
+      //Nel momento in cui viene chiamata play su questa voice essa creerà e suonerà un grain nel modo opportuno (guarda Granular.js -> createGain)
+
       position: 0.1,
       volume: 0.5
     });
