@@ -43,3 +43,9 @@
     font-size: 14px;
     text-align:center;
 }
+
+#audiocanvas {
+    width: 800px;
+    height: 130px;
+    margin: 2rem auto;
+}
