@@ -104,6 +104,10 @@ dist
 .tern-port
 
 # non autogenerati
-
 .DS_Store
 .vscode
+!example/dist
+example/dist/*.html
+example/dist/*.js
+
+# è un po' un magheggio ma poi sistemo meglio quando non ci sarà più example

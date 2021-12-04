@@ -3,10 +3,6 @@ import Granular from '../libs/Granular/Granular';
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
-const { JSDOM } = require( "jsdom" );
-const { window } = new JSDOM( "" );
-const $ = require( "jquery" )( window );
-
 //PROCESSO GENERALE: creo un granular con vari parametri, gli passo un bufer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
 // questa funzione crea e fa suonare delle Voice (che a loro volta creano e fanno suonare dei grain).
 
@@ -66,6 +62,7 @@ async function init() {
   granular.on('grainCreated', () => console.log('grain created'));
 
   const data = await getData('example.wav');
+  console.log(data)
 
   await granular.setBuffer(data);
 

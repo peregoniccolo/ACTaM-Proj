@@ -16,15 +16,10 @@
   "author": "Philipp Fromme",
   "license": "MIT",
   "devDependencies": {
-    "@vue/component-compiler-utils": "^3.3.0",
-    "parcel-bundler": "^1.10.3",
-    "vue-template-compiler": "^2.6.14"
+    "parcel-bundler": "^1.10.3"
   },
   "dependencies": {
     "deasync": "^0.1.24",
-    "jquery": "^3.6.0",
-    "jquery-knob": "^1.2.11",
-    "jqwidgets-scripts": "^13.1.0",
     "p5": "^0.7.2"
   }
 }
