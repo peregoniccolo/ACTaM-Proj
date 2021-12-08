@@ -2,6 +2,9 @@ var inputBuffer, currentAudio;
 var c = new AudioContext();
 c.resume()
 
+
+// VIEW
+// The methods below handle the interaction of the user with the drag & drop upload zone.
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     const dropZoneElement = inputElement.closest(".drop_zone");
 
@@ -9,7 +12,6 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     dropZoneElement.addEventListener('click', e => {
         inputElement.click();
     });
-
 
     inputElement.addEventListener('change', e => {
         if (inputElement.files.length) {
@@ -35,10 +37,10 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         e.preventDefault();
 
         if (e.dataTransfer.files.length) {
-            // dropped file is handled here
+            // Dropped file is handled here
             var file = e.dataTransfer.files[0];
 
-            // conversion to data buffer (inputBuffer)
+            // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
                 startProcessing()
@@ -50,25 +52,6 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
     });
 });
-
-function startProcessing() {
-    // TODO load new page / modify page
-    // TODO link to gran js
-
-    // play test
-    
-    if (currentAudio != null){
-        // if the context was already playing
-        c.close()
-        c = new AudioContext()
-        c.resume()
-    }
-    currentAudio = c.createBufferSource();
-    currentAudio.buffer = inputBuffer;
-    currentAudio.connect(c.destination);
-    currentAudio.start(c.currentTime); 
-    draw(normalizeData(filterData(inputBuffer)))
-}
 
 /**
  * 
@@ -112,6 +95,28 @@ function updateThumbnail(dropZoneElement, file) {
 }
 */
 
+// CONTROLLER
+
+function startProcessing() {
+    // TODO load new page / modify page
+    // TODO link to gran js
+
+    // play test
+    
+    if (currentAudio != null){
+        // if the context was already playing
+        c.close()
+        c = new AudioContext()
+        c.resume()
+    }
+    currentAudio = c.createBufferSource();
+    currentAudio.buffer = inputBuffer;
+    currentAudio.connect(c.destination);
+    currentAudio.start(c.currentTime); 
+    draw(normalizeData(filterData(inputBuffer)))
+}
+
+// Scrivete cosa fa, grazie.
 function filterData(audioBuffer) {
     const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
     const samples = 200; // Number of samples we want to have in our final data set

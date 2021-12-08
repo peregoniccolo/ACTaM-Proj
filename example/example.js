@@ -3,7 +3,8 @@ import Granular from '../libs/Granular/Granular';
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
-//PROCESSO GENERALE: creo un granular con vari parametri, gli passo un bufer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
+//PROCESSO GENERALE: creo un oggetto granular con vari parametri,
+// a cui passo un buffer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
 // questa funzione crea e fa suonare delle Voice (che a loro volta creano e fanno suonare dei grain).
 
 //IN QUESTO CASO: ogni tot ms abasso il pitch dei grain
