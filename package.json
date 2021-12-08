@@ -10,6 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/peregoniccolo/ACTaM-Proj.git"
   },
+  "browserslist": [
+    "last 1 Chrome version",
+    "Firefox ESR",
+    "last 1 safari version",
+    "last 1 opera version",
+    "last 1 edge version"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,6 +26,8 @@
   "homepage": "https://github.com/peregoniccolo/ACTaM-Proj#readme",
   "dependencies": {
     "granular-js": "^0.6.0",
-    "parcel-bundler": "^1.12.5"
+    "parcel-bundler": "^1.12.5",
+    "p5": "^0.7.2",
+    "deasync": "^0.1.24"
   }
 }

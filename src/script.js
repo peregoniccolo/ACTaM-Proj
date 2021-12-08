@@ -1,3 +1,5 @@
+import { getDataFromFile } from "./modules/granular_module";
+import { init } from "./modules/granular_module";
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
 c.resume()
@@ -43,7 +45,9 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
             // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
-                startProcessing()
+                init(inputBuffer)
+
+                //startProcessing()
                // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
             });
         }
