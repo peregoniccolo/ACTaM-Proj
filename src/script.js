@@ -1,9 +1,13 @@
-import { getDataFromFile } from "./modules/granular_module";
 import { init } from "./modules/granular_module";
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
 c.resume()
 
+var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: 'blue',
+    progressColor: 'yellow'
+});
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
@@ -41,11 +45,14 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if (e.dataTransfer.files.length) {
             // Dropped file is handled here
             var file = e.dataTransfer.files[0];
+            
 
             // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
                 init(inputBuffer)
+                wavesurfer.loadBlob(file);
+
 
                 //startProcessing()
                // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
@@ -100,6 +107,11 @@ function updateThumbnail(dropZoneElement, file) {
 */
 
 // CONTROLLER
+
+function loadWave(file) {
+    url = URL.createObjectURL(file);
+    wavesurfer.load(url);
+}
 
 function startProcessing() {
     // TODO load new page / modify page
