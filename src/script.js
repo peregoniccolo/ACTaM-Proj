@@ -77,20 +77,20 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     });
 });
 
+var currentGranularTime;
 
 document.getElementById('waveform').addEventListener('click', e => {
-    //setTimeout(getCurrentTime,5);
-    var currentTime = setTimeout(wavesurfer.getCurrentTime(), 5)
-    setPosition(normalizeTime(currentTime))
+    setTimeout(getGranTime,5);
 });
 
 
-function getCurrentTime() {
-    console.log(wavesurfer.getCurrentTime());
+function getGranTime() {
+    console.log("current time: " + wavesurfer.getCurrentTime());
+    currentGranularTime = wavesurfer.getCurrentTime();
+    setPosition(normalizeTime(currentGranularTime))
 }
 
 function normalizeTime(time) {
-    console.log("getDuro(): "+ wavesurfer.getDuration())
     var fileLen = wavesurfer.getDuration();
     console.log("fileLen: " + fileLen);
     console.log("time/fileLen: " + time/fileLen)
