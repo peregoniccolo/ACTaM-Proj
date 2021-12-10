@@ -9,53 +9,43 @@ import 'p5/lib/addons/p5.sound';
 
 //IN QUESTO CASO: ogni tot ms abasso il pitch dei grain
 
-export async function getDataFromFile(file) { //funzione da modificare in modo da prendere il file drag & droppato dall'utente
-    
-  }
+var grainIds = []
 
-export async function getDataURL(url) { //funzione da modificare in modo da prendere il file drag & droppato dall'utente
-  return new Promise((resolve) => {
-    const request = new XMLHttpRequest();
+const audioContext = p5.prototype.getAudioContext();
 
-    request.open('GET', url, true);
+export var granular = new Granular({
+  audioContext,
+  envelope: {
+    attack: 0,
+    release: 0.5
+  },
+  density: 0.1,
+  spread: 0.1,
+  pitch: 1
+});
 
-    request.responseType = 'arraybuffer';
+var voiceOption = {
+  position:0.5,
+  volume: 0.5
+};
 
-    request.onload = function () {
-      const audioData = request.response;
-
-      resolve(audioData);
-    }
-
-    request.send();
-  });
+export function setPosition(pos){
+  voiceOption.position=pos;
 }
 
-  const audioContext = p5.prototype.getAudioContext();
+export function setVolume(vol){
+  voiceOption.volume=vol;
+}
 
-  export var granular = new Granular({
-    audioContext,
-    envelope: {
-      attack: 0,
-      release: 0.5
-    },
-    density: 0.1,
-    spread: 0.1,
-    pitch: 1
-  });
+export function playGrain(){
+  id = granular.startVoice(voiceOption)
+  grainIds.push(id)
+}
 
-  var voiceOption = {
-    position:0.5,
-    volume: 0.5
-  };
+export function stopGrain(){
+  granular.stopVoice(grainIds[0]);
+}
 
-  export function setPosition(pos){
-    voiceOption.position=pos;
-  }
-
-  export function setVolume(vol){
-    voiceOption.volume=vol;
-  }
 
 
   function setGranular() {
@@ -76,9 +66,9 @@ export async function getDataURL(url) { //funzione da modificare in modo da pren
 
     compressor.process(reverb, 0.005, 6, 10, -24, 0.05); // [attack], [knee], [ratio], [threshold], [release]
 
-    granular.on('settingBuffer', () => console.log('setting buffer'));
-    granular.on('bufferSet', () => console.log('buffer set'));
-    granular.on('grainCreated', () => console.log('grain created'));
+    //granular.on('settingBuffer', () => console.log('setting buffer'));
+    //granular.on('bufferSet', () => console.log('buffer set'));
+    //granular.on('grainCreated', () => console.log('grain created'));
   }
 
   export async function init(file) {
@@ -90,6 +80,9 @@ export async function getDataURL(url) { //funzione da modificare in modo da pren
   console.log(data)
 
   await granular.setBuffer(data);
+
+
+  // GESTIONE BOTTONE TRYME
   const resume = document.getElementById('resume');
    
   resume.addEventListener('click', () => {
@@ -122,7 +115,23 @@ export async function getDataURL(url) { //funzione da modificare in modo da pren
 })
 }
 
+export async function getDataURL(url) { //funzione da modificare in modo da prendere il file drag & droppato dall'utente
+  return new Promise((resolve) => {
+    const request = new XMLHttpRequest();
 
+    request.open('GET', url, true);
+
+    request.responseType = 'arraybuffer';
+
+    request.onload = function () {
+      const audioData = request.response;
+
+      resolve(audioData);
+    }
+
+    request.send();
+  });
+}
 
   /**
    EVENT LISTENER PER BOTTONE

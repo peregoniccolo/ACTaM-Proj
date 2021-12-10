@@ -167,10 +167,11 @@ export default class Granular {
           }
 
           // next interval
-          const density = map(self.state.density, 1, 0, 0, 1); //mappa il valore di density dell'oggetto granular in modo che più sia alto self.state.density più sia bassa
-                                                                //questa const density, così facendo interval verrà più corto e quindi setTimeout chiamerà più spesso _innerPlay
-                                                                //In particolare se self.state.density è compreso tra 0 e 1
-                                                                // mappa self.state.density in 1-self.state.density
+          const density = map(self.state.density, 1, 0, 0, 1); 
+          //mappa il valore di density dell'oggetto granular in modo che più sia alto self.state.density più sia bassa
+          //questa const density, così facendo interval verrà più corto e quindi setTimeout chiamerà più spesso _innerPlay
+          //In particolare se self.state.density è compreso tra 0 e 1
+          // mappa self.state.density in 1-self.state.density
           const interval = (density * 500) + 70;
           console.log("interval del setTimeout in play()" + interval)
 
