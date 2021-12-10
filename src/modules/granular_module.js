@@ -51,7 +51,6 @@ export async function getDataURL(url) { //funzione da modificare in modo da pren
 
   export function setPosition(pos){
     voiceOption.position=pos;
-    console.log("voice position: " + voiceOption.position)
   }
 
   export function setVolume(vol){

@@ -85,14 +85,11 @@ document.getElementById('waveform').addEventListener('click', e => {
 
 //prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
 function setGranTime() {
-    console.log("current time: " + wavesurfer.getCurrentTime());
     setPosition(normalizeTime(wavesurfer.getCurrentTime()))
 }
 
 function normalizeTime(time) {
     var fileLen = wavesurfer.getDuration();
-    console.log("fileLen: " + fileLen);
-    console.log("time/fileLen: " + time/fileLen)
     return time/fileLen
 }
 
