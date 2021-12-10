@@ -1,5 +1,6 @@
 import { init } from "./modules/granular_module";
-
+import { granular } from "./modules/granular_module";
+import { setPosition } from "./modules/granular_module";
 
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
@@ -13,7 +14,7 @@ var wavesurfer = WaveSurfer.create({
     cursorColor: 'c5d5c5',
     height: 256,
     responsive: true,
-
+    cursorWidth: 2,
 });
 
 
@@ -75,6 +76,22 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
     });
 });
+
+//GESTIONE EVENTO CLICK SULLA WAVEFORM
+
+document.getElementById('waveform').addEventListener('click', e => {
+    setTimeout(setGranTime,5);
+});
+
+//prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
+function setGranTime() {
+    setPosition(normalizeTime(wavesurfer.getCurrentTime()))
+}
+
+function normalizeTime(time) {
+    var fileLen = wavesurfer.getDuration();
+    return time/fileLen
+}
 
 /**
  * 
