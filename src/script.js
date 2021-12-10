@@ -1,5 +1,6 @@
 import { init } from "./modules/granular_module";
-
+import { granular } from "./modules/granular_module";
+import { setPosition } from "./modules/granular_module";
 
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
@@ -78,12 +79,22 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
 
 document.getElementById('waveform').addEventListener('click', e => {
-    setTimeout(getCurrentTime,5);
+    //setTimeout(getCurrentTime,5);
+    var currentTime = setTimeout(wavesurfer.getCurrentTime(), 5)
+    setPosition(normalizeTime(currentTime))
 });
 
 
 function getCurrentTime() {
     console.log(wavesurfer.getCurrentTime());
+}
+
+function normalizeTime(time) {
+    console.log("getDuro(): "+ wavesurfer.getDuration())
+    var fileLen = wavesurfer.getDuration();
+    console.log("fileLen: " + fileLen);
+    console.log("time/fileLen: " + time/fileLen)
+    return time/fileLen
 }
 
 /**

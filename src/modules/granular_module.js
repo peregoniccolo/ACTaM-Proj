@@ -31,10 +31,9 @@ export async function getDataURL(url) { //funzione da modificare in modo da pren
   });
 }
 
-export async function init(file) {
   const audioContext = p5.prototype.getAudioContext();
 
-  const granular = new Granular({
+  export var granular = new Granular({
     audioContext,
     envelope: {
       attack: 0,
@@ -45,26 +44,46 @@ export async function init(file) {
     pitch: 1
   });
 
-  //usa p5.js che è molto simile a WebAudio
-  const delay = new p5.Delay();
+  var voiceOption = {
+    position:0.5,
+    volume: 0.5
+  };
 
-  delay.process(granular, 0.5, 0.5, 3000); // source, delayTime, feedback, filter frequency
+  export function setPosition(pos){
+    voiceOption.position=pos;
+  }
 
-  const reverb = new p5.Reverb();
+  export function setVolume(vol){
+    voiceOption.volume=vol;
+  }
+
+
+  function setGranular() {
+      //usa p5.js che è molto simile a WebAudio
+    const delay = new p5.Delay();
+
+    delay.process(granular, 0.5, 0.5, 3000); // source, delayTime, feedback, filter frequency
+
+    const reverb = new p5.Reverb();
 
   // due to a bug setting parameters will throw error
   // https://github.com/processing/p5.js/issues/3090
-  reverb.process(delay); // source, reverbTime, decayRate in %, reverse
+    reverb.process(delay); // source, reverbTime, decayRate in %, reverse
 
-  reverb.amp(3);
+    reverb.amp(3);
 
-  const compressor = new p5.Compressor();
+    const compressor = new p5.Compressor();
 
-  compressor.process(reverb, 0.005, 6, 10, -24, 0.05); // [attack], [knee], [ratio], [threshold], [release]
+    compressor.process(reverb, 0.005, 6, 10, -24, 0.05); // [attack], [knee], [ratio], [threshold], [release]
 
-  granular.on('settingBuffer', () => console.log('setting buffer'));
-  granular.on('bufferSet', () => console.log('buffer set'));
-  granular.on('grainCreated', () => console.log('grain created'));
+    granular.on('settingBuffer', () => console.log('setting buffer'));
+    granular.on('bufferSet', () => console.log('buffer set'));
+    granular.on('grainCreated', () => console.log('grain created'));
+  }
+
+  export async function init(file) {
+  
+  setGranular();
 
   const data = file;
   //await getDataFromFile(file);
@@ -74,13 +93,12 @@ export async function init(file) {
   const resume = document.getElementById('resume');
    
   resume.addEventListener('click', () => {
-      const id = granular.startVoice({ //passo a startVoice una posizione e un volume, lei la passerà a sua volta a una voice che viene creata al suo interno 
+      const id = granular.startVoice( //passo a startVoice una posizione e un volume, lei la passerà a sua volta a una voice che viene creata al suo interno 
        //(guarda Granular.js -> startVoice).
        //Nel momento in cui viene chiamata play su questa voice essa creerà e suonerà un grain nel modo opportuno (guarda Granular.js -> createGain)
-       
-       position: 0.1,
-       volume: 0.5
-   });
+       voiceOption
+      
+   );
    
    let pitch = 1;
    
@@ -103,6 +121,8 @@ export async function init(file) {
    }, 2000);
 })
 }
+
+
 
   /**
    EVENT LISTENER PER BOTTONE
