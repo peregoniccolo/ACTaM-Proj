@@ -1,9 +1,11 @@
-import { init } from "./modules/granular_module";
+import { init, stopGrain } from "./modules/granular_module";
 import { granular } from "./modules/granular_module";
 import { setPosition } from "./modules/granular_module";
-
+import { ClickAndHold } from "./ClickAndHold";
+import { playGrain } from "./modules/granular_module";
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
+var waveformDiv = document.getElementById('waveform')
 c.resume()
 
 // Wave Representation Object
@@ -17,7 +19,8 @@ var wavesurfer = WaveSurfer.create({
     cursorWidth: 2,
 });
 
-
+// Classe che gestisce il click and hold della waveform.
+ new ClickAndHold(waveformDiv, playGrain, stopGrain);
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
@@ -60,6 +63,8 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
             // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
+
+
                 init(inputBuffer)
                 wavesurfer.loadBlob(file);
                 
@@ -79,7 +84,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
 //GESTIONE EVENTO CLICK SULLA WAVEFORM
 
-document.getElementById('waveform').addEventListener('click', e => {
+waveformDiv.addEventListener('click', e => {
     setTimeout(setGranTime,5);
 });
 
@@ -92,6 +97,13 @@ function normalizeTime(time) {
     var fileLen = wavesurfer.getDuration();
     return time/fileLen
 }
+
+
+
+
+
+
+
 
 /**
  * 
