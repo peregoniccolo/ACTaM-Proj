@@ -13,7 +13,7 @@ var wavesurfer = WaveSurfer.create({
     cursorColor: 'c5d5c5',
     height: 256,
     responsive: true,
-
+    cursorWidth: 2,
 });
 
 
@@ -75,6 +75,16 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
     });
 });
+
+
+document.getElementById('waveform').addEventListener('click', e => {
+    setTimeout(getCurrentTime,5);
+});
+
+
+function getCurrentTime() {
+    console.log(wavesurfer.getCurrentTime());
+}
 
 /**
  * 
