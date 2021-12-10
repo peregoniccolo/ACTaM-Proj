@@ -77,17 +77,16 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     });
 });
 
-var currentGranularTime;
+//GESTIONE EVENTO CLICK SULLA WAVEFORM
 
 document.getElementById('waveform').addEventListener('click', e => {
-    setTimeout(getGranTime,5);
+    setTimeout(setGranTime,5);
 });
 
-
-function getGranTime() {
+//prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
+function setGranTime() {
     console.log("current time: " + wavesurfer.getCurrentTime());
-    currentGranularTime = wavesurfer.getCurrentTime();
-    setPosition(normalizeTime(currentGranularTime))
+    setPosition(normalizeTime(wavesurfer.getCurrentTime()))
 }
 
 function normalizeTime(time) {
