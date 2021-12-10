@@ -3,22 +3,18 @@ import Granular from '../libs/Granular/Granular';
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
-// import Vue from "vue";
-// import App from "./App.vue";
-
-// window.onload = function () {
-// 	new Vue({
-// 		render: h => h(App)
-// 	}).$mount("#app");
-// }
-
 // jquery knobs
 $('.knob').each(function () {
 
 	var $this = $(this);
+	// console.log($this);
 	var myVal = $this.attr("rel");
+	var elementId = $this.attr("id");
+
 	$this.knob({
-		'change': function (v) { console.log(v); },
+		'change': function (v) {
+			updateValues(elementId, v);
+		},
 		'angleArc': 270,
 		'angleOffset': -135,
 		'lineCap': 'round'
@@ -37,6 +33,22 @@ $('.knob').each(function () {
 	})
 
 });
+
+function updateValues(id, newVal) {
+	switch (id) {
+		case 'density-knob':
+			console.log("density", newVal);
+			break;
+		case 'spread-knob':
+			console.log("spread", newVal);
+			break;
+		case 'pitch-knob':
+			console.log("pitch", newVal);
+			break;
+		default:
+			break;
+	}
+}
 
 
 //PROCESSO GENERALE: creo un granular con vari parametri, gli passo un bufer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
