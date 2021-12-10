@@ -109,5 +109,6 @@ dist
 !example/dist
 example/dist/*.html
 example/dist/*.js
+example/dist/*.css
 
 # è un po' un magheggio ma poi sistemo meglio quando non ci sarà più example

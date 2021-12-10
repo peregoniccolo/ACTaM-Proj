@@ -3,14 +3,41 @@ import Granular from '../libs/Granular/Granular';
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
-import Vue from "vue";
-import App from "./App.vue";
+// import Vue from "vue";
+// import App from "./App.vue";
 
-window.onload = function () {
-	new Vue({
-		render: h => h(App)
-	}).$mount("#app");
-}
+// window.onload = function () {
+// 	new Vue({
+// 		render: h => h(App)
+// 	}).$mount("#app");
+// }
+
+// jquery knobs
+$('.knob').each(function () {
+
+	var $this = $(this);
+	var myVal = $this.attr("rel");
+	$this.knob({
+		'change': function (v) { console.log(v); },
+		'angleArc': 270,
+		'angleOffset': -135,
+		'lineCap': 'round'
+	});
+
+	$({
+		value: 0,
+	}).animate({
+		value: myVal
+	}, {
+		duration: 1000,
+		easing: 'swing',
+		step: function () {
+			$this.val(Math.ceil(this.value)).trigger('change');
+		}
+	})
+
+});
+
 
 //PROCESSO GENERALE: creo un granular con vari parametri, gli passo un bufer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
 
