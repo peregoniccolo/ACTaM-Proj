@@ -1,13 +1,22 @@
 import { init } from "./modules/granular_module";
+
+
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
 c.resume()
 
+// Wave Representation Object
 var wavesurfer = WaveSurfer.create({
     container: '#waveform',
-    waveColor: 'blue',
-    progressColor: 'yellow'
+    waveColor: '#9fa9a3',
+    progressColor: '#e3e0cc',
+    cursorColor: 'c5d5c5',
+    height: 256,
+    responsive: true,
+
 });
+
+
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
@@ -52,14 +61,17 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 inputBuffer = decodedAudio
                 init(inputBuffer)
                 wavesurfer.loadBlob(file);
-
-
+                
+                
                 //startProcessing()
-               // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+                // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
             });
         }
-
+        
         dropZoneElement.classList.remove('drop_zone--over');
+        document.getElementById('waveform').classList.remove('nodisplay')
+
+        //dropZoneElement.classList.add('drop_zone_input');  // La drop zone scompare dopo aver droppato un sample.
 
     });
 });

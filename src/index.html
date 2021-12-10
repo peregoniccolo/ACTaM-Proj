@@ -4,19 +4,25 @@
     </head>
     <body>
         
+        <div class="nodisplay" id="waveform">
+    
+        </div>
             <div class='drop_zone'>
                 <span class ='drop_zone_prompt'>Drag your sample here...</span>
                     <input type ='file' id='sample' name='myFile' class='drop_zone_input'>
+                </div>
+                
+            <div id='container_button'>
+                <div id='try_button_div'>    
+                    <button id="resume">Try me!</button>
+                </div>
             </div>
+
             <div>
                 <canvas id="audiocanvas">
 
                 </canvas>
             </div>
-        	<button id="resume">Try me!</button>
-            <div id="waveform"></div>
-
-
     </body>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <script src='script.js'></script>
