@@ -1,13 +1,15 @@
 import { init, stopGrain } from "./modules/granular_module";
-import { granular } from "./modules/granular_module";
 import { setPosition } from "./modules/granular_module";
-import { ClickAndHold } from "./ClickAndHold";
+import { ClickAndHold } from "./modules/ClickAndHold";
 import { playGrain } from "./modules/granular_module";
+
+
+
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
 var waveformDiv = document.getElementById('waveform')
-c.resume()
-
+// Classe che gestisce il click and hold della waveform.
+var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 500);
 // Wave Representation Object
 var wavesurfer = WaveSurfer.create({
     container: '#waveform',
@@ -17,10 +19,22 @@ var wavesurfer = WaveSurfer.create({
     height: 256,
     responsive: true,
     cursorWidth: 2,
+  
 });
 
-// Classe che gestisce il click and hold della waveform.
- new ClickAndHold(waveformDiv, playGrain, stopGrain);
+c.resume()
+
+
+// Click-to-seek
+
+
+/* Aggiornamento del cursore all'evento 'mousedown'
+waveformDiv.addEventListener('mousedown', (e, progress) => {
+    setTimeout(() => this.seekTo(progress), 6);
+
+    
+});
+*/
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
@@ -63,12 +77,9 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
             // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
-
-
                 init(inputBuffer)
-                wavesurfer.loadBlob(file);
-                
-                
+                loadFile(file);
+          
                 //startProcessing()
                 // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
             });
@@ -81,27 +92,6 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
     });
 });
-
-//GESTIONE EVENTO CLICK SULLA WAVEFORM
-
-waveformDiv.addEventListener('click', e => {
-    setTimeout(setGranTime,5);
-});
-
-//prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
-function setGranTime() {
-    setPosition(normalizeTime(wavesurfer.getCurrentTime()))
-}
-
-function normalizeTime(time) {
-    var fileLen = wavesurfer.getDuration();
-    return time/fileLen
-}
-
-
-
-
-
 
 
 
@@ -147,12 +137,39 @@ function updateThumbnail(dropZoneElement, file) {
 }
 */
 
+
+
+
+
 // CONTROLLER
+
+// Utility: create a new waveform representation based on the audio file passed as an argument.
+function loadFile(file) {
+    wavesurfer.loadBlob(file);
+
+}
 
 function loadWave(file) {
     url = URL.createObjectURL(file);
     wavesurfer.load(url);
 }
+
+//GESTIONE EVENTO CLICK SULLA WAVEFORM
+
+waveformDiv.addEventListener('click', e => {
+    setTimeout(setGranTime,5);
+});
+
+//prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
+function setGranTime() {
+    setPosition(normalizeTime(wavesurfer.getCurrentTime()))
+}
+
+function normalizeTime(time) {
+    var fileLen = wavesurfer.getDuration();
+    return time/fileLen
+}
+
 
 function startProcessing() {
     // TODO load new page / modify page
@@ -173,6 +190,9 @@ function startProcessing() {
     draw(normalizeData(filterData(inputBuffer)))
 }
 
+
+
+/**
 // Scrivete cosa fa, grazie.
 function filterData(audioBuffer) {
     const rawData = audioBuffer.getChannelData(0); // We only need to work with one channel of data
@@ -238,7 +258,7 @@ function draw(normalizedData) {
   }
 };
 
-
+*/
 
 /*
 

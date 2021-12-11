@@ -1,5 +1,4 @@
 import Granular from '../../libs/Granular/Granular';
-
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
@@ -13,7 +12,7 @@ var grainIds = []
 
 const audioContext = p5.prototype.getAudioContext();
 
-export var granular = new Granular({
+var granular = new Granular({
   audioContext,
   envelope: {
     attack: 0,
@@ -38,7 +37,7 @@ export function setVolume(vol){
 }
 
 export function playGrain(){
-  id = granular.startVoice(voiceOption)
+  var id = granular.startVoice(voiceOption)
   grainIds.push(id)
 }
 
@@ -48,7 +47,7 @@ export function stopGrain(){
 
 
 
-  function setGranular() {
+function setGranular() {
       //usa p5.js che è molto simile a WebAudio
     const delay = new p5.Delay();
 
@@ -69,16 +68,14 @@ export function stopGrain(){
     //granular.on('settingBuffer', () => console.log('setting buffer'));
     //granular.on('bufferSet', () => console.log('buffer set'));
     //granular.on('grainCreated', () => console.log('grain created'));
-  }
+}
 
-  export async function init(file) {
-  
+export async function init(file) {
+
   setGranular();
-
   const data = file;
   //await getDataFromFile(file);
-  console.log(data)
-
+  //console.log(data)
   await granular.setBuffer(data);
 
 
