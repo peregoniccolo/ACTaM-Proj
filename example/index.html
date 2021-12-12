@@ -1,42 +1,39 @@
 <html>
 
 <head>
-	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://unpkg.com/input-knob"></script> -->
-	<!-- jquery knobs -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+    <!-- jquery knobs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
 </head>
 
 <body>
-	<h1>Hello granular-js</h1>
+    <h1>Hello granular-js</h1>
 
-	<div>
-		<h2>Clicca il bottone!</h2>
-		<button id="resume">Try me!</button>
-	</div>
+    <div>
+        <h2>Clicca il bottone!</h2>
+        <button id="resume">Try me!</button>
+    </div>
 
-	<div id="knob-bar" style="display: inline-flex;">
+    <div id="knob-bar" style="display: inline-flex;">
 
-		<div class="vert">
-			<input id="density-knob" class="knob animated" rel="50">
-			<label>Density</label>
-		</div>
-		<div class="vert">
-			<input id="spread-knob" class="knob animated" rel="50">
-			<label>Spread</label>
-		</div>
-		<div class="vert">
-			<input id="pitch-knob" class="knob animated" rel="50">
-			<label>Pitch</label>
-		</div>
+        <div class="vert">
+            <input id="density-knob" class="knob animated" rel="0.5">
+            <label>Density</label>
+        </div>
+        <div class="vert">
+            <input id="spread-knob" class="knob animated" rel="0.5">
+            <label>Spread</label>
+        </div>
+        <div class="vert">
+            <input id="pitch-knob" class="knob animated" rel="0.5">
+            <label>Pitch</label>
+        </div>
 
-	</div>
+    </div>
 
-
-	<script src="./example.js"></script>
+    <script src="./example.js"></script>
 </body>
 
 </html>
