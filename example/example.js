@@ -130,6 +130,10 @@ async function init() {
     const resume = document.getElementById('resume');
 
     resume.addEventListener('click', () => {
+
+
+        updateGranValues();
+
         const id = granular.startVoice({
             //passo a startVoice una posizione e un volume, lei la passerà a sua volta a una voice che viene creata al suo interno 
             //(guarda Granular.js -> startVoice).
@@ -140,23 +144,29 @@ async function init() {
         });
 
         const interval = setInterval(() => {
-            granular.set({
-                density
-            });
-            granular.set({
-                spread
-            });
-            granular.set({
-                pitch
-            });
+            updateGranValues()
         }, 200);
 
         setTimeout(() => {
             clearInterval(interval);
 
+            updateGranValues()
+
             granular.stopVoice(id);
         }, 2000);
     })
+
+    function updateGranValues() {
+        granular.set({
+            density
+        });
+        granular.set({
+            spread
+        });
+        granular.set({
+            pitch
+        });
+    }
 }
 
 init();
