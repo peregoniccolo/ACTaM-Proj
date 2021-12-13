@@ -4,7 +4,7 @@ import { ClickAndHold } from "./modules/ClickAndHold";
 import { playGrain } from "./modules/granular_module";
 
 
-
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
 var waveformDiv = document.getElementById('waveform')
