@@ -173,7 +173,7 @@ export default class Granular {
           //In particolare se self.state.density è compreso tra 0 e 1
           // mappa self.state.density in 1-self.state.density
           const interval = (density * 500) + 70;
-          console.log("interval del setTimeout in play()" + interval)
+          //console.log("interval del setTimeout in play()" + interval)
 
           this.timeout = setTimeout(_innerPlay, interval); //se interval viene fuori negativo perchè self.state.density è troppo grande allora viene usato un valore minimo
                                                           //di default, in tal caso _innerPlay verrà chiamato MOLTO spesso

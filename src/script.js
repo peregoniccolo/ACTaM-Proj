@@ -24,18 +24,22 @@ var wavesurfer = WaveSurfer.create({
 
 c.resume()
 
-waveformDiv.addEventListener('mousedown', (e, progress) => {
-    waveformDiv.addEventListener('mousemove', () => {
-        console.log('piedi')
-    } )
-    //setTimeout(() => wavesurfer.seekTo(progress), 0);
+var mouseState = false;
+
+waveformDiv.addEventListener('mousedown', (e) => {
+    mouseState = true;
+
+    waveformDiv.addEventListener('mousemove', (e) => {
+        if(mouseState){
+            console.log('piedi');
+        }
+    })
+        //setTimeout(() => wavesurfer.seekTo(progress), 0);
 
 })
 
-waveformDiv.addEventListener('mouseup', (e, progress) => {
-    waveformDiv.removeEventListener('mousemove', () => {
-        console.log('gomiti')
-    } , false)
+waveformDiv.addEventListener('mouseup', (e) => {
+    mouseState = false;
     //setTimeout(() => wavesurfer.seekTo(progress), 0);
 
 })
@@ -160,6 +164,7 @@ function loadWave(file) {
 }
 
 //GESTIONE EVENTO CLICK SULLA WAVEFORM
+
 
 waveformDiv.addEventListener('click', e => {
     setTimeout(setGranTime,5);
