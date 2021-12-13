@@ -24,17 +24,22 @@ var wavesurfer = WaveSurfer.create({
 
 c.resume()
 
-
-// Click-to-seek
-
-
-/* Aggiornamento del cursore all'evento 'mousedown'
 waveformDiv.addEventListener('mousedown', (e, progress) => {
-    setTimeout(() => this.seekTo(progress), 6);
+    waveformDiv.addEventListener('mousemove', () => {
+        console.log('piedi')
+    } )
+    //setTimeout(() => wavesurfer.seekTo(progress), 0);
 
-    
-});
-*/
+})
+
+waveformDiv.addEventListener('mouseup', (e, progress) => {
+    waveformDiv.removeEventListener('mousemove', () => {
+        console.log('gomiti')
+    } , false)
+    //setTimeout(() => wavesurfer.seekTo(progress), 0);
+
+})
+
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.

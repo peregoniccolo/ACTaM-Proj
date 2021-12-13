@@ -50,6 +50,10 @@
     display: none;
 }
 
+.waveform {
+    padding-bottom: 20px;
+}
+
 #audiocanvas {
     width: 800px;
     height: 130px;
