@@ -46,12 +46,14 @@
 }
 
 
+
 .nodisplay {
     display: none;
 }
 
 .waveform {
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 #audiocanvas {

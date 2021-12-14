@@ -9,16 +9,28 @@ var inputBuffer, currentAudio;
 var c = new AudioContext();
 var waveformDiv = document.getElementById('waveform')
 // Classe che gestisce il click and hold della waveform.
-var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 500);
+var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 0);
 // Wave Representation Object
-var wavesurfer = WaveSurfer.create({
-    container: '#waveform',
+let wavesurfer = WaveSurfer.create({
+    container: document.querySelector('#waveform'),
     waveColor: '#9fa9a3',
     progressColor: '#e3e0cc',
     cursorColor: 'c5d5c5',
     height: 256,
     responsive: true,
     cursorWidth: 2,
+    plugins: [
+        WaveSurfer.cursor.create({
+            showTime: true,
+            opacity: 1,
+            customShowTimeStyle: {
+                'background-color': '#000',
+                color: '#fff',
+                padding: '2px',
+                'font-size': '10px'
+            }
+        })
+    ]
   
 });
 
@@ -29,6 +41,9 @@ var mouseState = false;
 waveformDiv.addEventListener('mousedown', (e) => {
     mouseState = true;
 
+    if(mouseState){
+        console.log('piedi');
+    }
     waveformDiv.addEventListener('mousemove', (e) => {
         if(mouseState){
             console.log('piedi');

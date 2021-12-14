@@ -166,6 +166,7 @@ export default class Granular {
             this.grainsCount = 0;
           }
 
+
           // next interval
           const density = map(self.state.density, 1, 0, 0, 1); 
           //mappa il valore di density dell'oggetto granular in modo che più sia alto self.state.density più sia bassa
@@ -268,7 +269,7 @@ export default class Granular {
     volume = clamp(volume, 0, 1); //se volume è minore di 0 lo setta a zero, se valore è maggiore di 1 lo setta a 1
 
     // parameters
-    const attack = this.state.envelope.attack * 0.4;
+    let attack = this.state.envelope.attack * 0.4;
     let release = this.state.envelope.release * 1.5;
 
     if (release < 0) {
