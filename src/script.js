@@ -9,9 +9,11 @@ var inputBuffer, currentAudio;
 var c = new AudioContext();
 var waveformDiv = document.getElementById('waveform')
 // Classe che gestisce il click and hold della waveform.
-var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 0);
+
+//var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 0);
+
 // Wave Representation Object
-let wavesurfer = WaveSurfer.create({
+var wavesurfer = WaveSurfer.create({
     container: document.querySelector('#waveform'),
     waveColor: '#9fa9a3',
     progressColor: '#e3e0cc',
@@ -24,11 +26,15 @@ let wavesurfer = WaveSurfer.create({
             showTime: true,
             opacity: 1,
             customShowTimeStyle: {
-                'background-color': '#000',
-                color: '#fff',
+                'background-color': '484f4f',
+                color: '8ca3a3',
                 padding: '2px',
-                'font-size': '10px'
-            }
+                'font-size': '8px',
+                'font-family' : 'Sans-Serif'
+            },
+            hideOnBlur: true,
+            showTime : true,
+            followCursorY : true,
         })
     ]
   
@@ -38,24 +44,25 @@ c.resume()
 
 var mouseState = false;
 
+
 waveformDiv.addEventListener('mousedown', (e) => {
     mouseState = true;
 
     if(mouseState){
-        console.log('piedi');
+        playGrain()
     }
     waveformDiv.addEventListener('mousemove', (e) => {
         if(mouseState){
-            console.log('piedi');
+            //setGranTime() non funziona. il metodo deve essere aggiornato in modo da passare la posizione reale
+            playGrain()
         }
     })
-        //setTimeout(() => wavesurfer.seekTo(progress), 0);
 
 })
 
 waveformDiv.addEventListener('mouseup', (e) => {
     mouseState = false;
-    //setTimeout(() => wavesurfer.seekTo(progress), 0);
+    stopGrain()
 
 })
 
@@ -180,10 +187,6 @@ function loadWave(file) {
 
 //GESTIONE EVENTO CLICK SULLA WAVEFORM
 
-
-waveformDiv.addEventListener('click', e => {
-    setTimeout(setGranTime,5);
-});
 
 //prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
 function setGranTime() {
