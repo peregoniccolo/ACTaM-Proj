@@ -37,8 +37,15 @@ export function setVolume(vol){
 }
 
 export function playGrain(position=null){
+  if(position) {
+    setPosition(position)
     var id = granular.startVoice(voiceOption)
     grainIds.push(id)
+  }
+  else {
+    var id = granular.startVoice(voiceOption)
+    grainIds.push(id)
+  }
 }
 
 export function stopGrain(){

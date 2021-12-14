@@ -1,5 +1,5 @@
 .drop_zone {
-    border: 4px dashed rgb(7, 160, 165);
+    border: 4px dashed rgb(145, 121, 77);
     border-radius: 10px;
     max-width: 200px;
     height: 200px;
@@ -85,7 +85,7 @@
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #80ced6;
+    background-color: #6f7449;
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px rgb(151, 145, 145);
@@ -95,7 +95,7 @@
   #resume:hover {background-color: #618685}
   
   #resume:active {
-    background-color: #3e8e41;
+    background-color: #5a7544;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }

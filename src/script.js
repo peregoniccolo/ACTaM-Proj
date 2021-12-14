@@ -17,7 +17,7 @@ var wavesurfer = WaveSurfer.create({
     container: document.querySelector('#waveform'),
     waveColor: '#9fa9a3',
     progressColor: '#e3e0cc',
-    cursorColor: 'c5d5c5',
+    cursorColor: '#405d27',
     height: 256,
     responsive: true,
     cursorWidth: 2,
@@ -53,8 +53,8 @@ waveformDiv.addEventListener('mousedown', (e) => {
     }
     waveformDiv.addEventListener('mousemove', (e) => {
         if(mouseState){
-            //setGranTime() non funziona. il metodo deve essere aggiornato in modo da passare la posizione reale
-            playGrain()
+            var position = normalizeTime(wavesurfer.backend.getPlayedTime());
+            playGrain(position);
         }
     })
 
