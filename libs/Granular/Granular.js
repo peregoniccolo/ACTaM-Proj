@@ -158,6 +158,7 @@ export default class Granular {
       play() { //creo e suono il grain
         const _innerPlay = () => {
           const grain = self.createGrain(this.position, this.volume); 
+          console.log("position in startVoice: " + this.position)
 
           this.grains[ this.grainsCount ] = grain;
           this.grainsCount++;

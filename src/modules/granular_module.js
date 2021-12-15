@@ -19,7 +19,7 @@ var granular = new Granular({
     release: 0.1
   },
   density: 0.1,
-  spread: 10,
+  spread: 0.01,
   pitch: 1
 });
 

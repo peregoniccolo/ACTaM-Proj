@@ -47,17 +47,25 @@ var mouseState = false;
 
 waveformDiv.addEventListener('mousedown', (e) => {
     mouseState = true;
+    var bnds = e.target.getBoundingClientRect();
+    var x = e.clientX - bnds.left;
+    var posX = updateCursorPosition(x);
+    console.log("pos in sec: " + posX)
+    //console.log("pos normalizzata: " + normalizeTime(posX));
 
     if(mouseState){
-        playGrain()
+        playGrain(normalizeTime(posX))
     }
     waveformDiv.addEventListener('mousemove', (e) => {
+        bnds = e.target.getBoundingClientRect();
+        x = e.clientX - bnds.left;
+        posX = updateCursorPosition(x);
+
         if(mouseState){
-            var position = normalizeTime(wavesurfer.backend.getPlayedTime());
-            playGrain(position);
+            setPosition(normalizeTime(posX));
+            console.log("pos in mousemove: " + normalizeTime(posX));
         }
     })
-
 })
 
 waveformDiv.addEventListener('mouseup', (e) => {
@@ -65,6 +73,22 @@ waveformDiv.addEventListener('mouseup', (e) => {
     stopGrain()
 
 })
+
+//Da posizione in pixel a posizione in secondi
+function updateCursorPosition(xpos) {
+        const  duration = wavesurfer.getDuration();
+        const elementWidth =
+            wavesurfer.drawer.width /
+            wavesurfer.params.pixelRatio;
+        const scrollWidth = wavesurfer.drawer.getScrollX();
+
+        const scrollTime =
+            (duration / wavesurfer.drawer.width) * scrollWidth;
+
+        const timeValue = Math.max(0, (xpos / elementWidth) * duration) + scrollTime;
+
+        return timeValue
+}
 
 
 // VIEW
