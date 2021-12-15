@@ -10,16 +10,17 @@ import 'p5/lib/addons/p5.sound';
 
 var grainIds = []
 
+
 const audioContext = p5.prototype.getAudioContext();
 
 var granular = new Granular({
   audioContext,
   envelope: {
-    attack: 0,
-    release: 0.5
+    attack: 0.001, //occhio a mettere attack 0 perchè poi verrà impostato random
+    release: 0.1
   },
   density: 0.1,
-  spread: 0.1,
+  spread: 10,
   pitch: 1
 });
 
@@ -36,11 +37,20 @@ export function setVolume(vol){
   voiceOption.volume=vol;
 }
 
-export function playGrain(){
-  var id = granular.startVoice(voiceOption)
-  grainIds.push(id)
+// Riprogettare
+export function playGrain(position=null){
+  if(position) {
+    setPosition(position)
+    var id = granular.startVoice(voiceOption)
+    grainIds.push(id)
+  }
+  else {
+    var id = granular.startVoice(voiceOption)
+    grainIds.push(id)
+  }
 }
 
+// Riprogettare
 export function stopGrain(){
   granular.stopVoice(grainIds[0]);
 }
@@ -48,10 +58,10 @@ export function stopGrain(){
 
 
 function setGranular() {
-      //usa p5.js che è molto simile a WebAudio
+    /*usa p5.js che è molto simile a WebAudio
     const delay = new p5.Delay();
 
-    delay.process(granular, 0.5, 0.5, 3000); // source, delayTime, feedback, filter frequency
+    delay.process(granular, 0.1, 0.5, 3000); // source, delayTime, feedback, filter frequency
 
     const reverb = new p5.Reverb();
 
@@ -68,6 +78,7 @@ function setGranular() {
     //granular.on('settingBuffer', () => console.log('setting buffer'));
     //granular.on('bufferSet', () => console.log('buffer set'));
     //granular.on('grainCreated', () => console.log('grain created'));
+    */
 }
 
 export async function init(file) {

@@ -1,46 +1,52 @@
 import { init, stopGrain } from "./modules/granular_module";
 import { setPosition } from "./modules/granular_module";
-import { ClickAndHold } from "./modules/ClickAndHold";
 import { playGrain } from "./modules/granular_module";
 
-
-
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var inputBuffer, currentAudio;  
 var c = new AudioContext();
 var waveformDiv = document.getElementById('waveform')
-// Classe che gestisce il click and hold della waveform.
-var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 500);
+
+
 // Wave Representation Object
 var wavesurfer = WaveSurfer.create({
-    container: '#waveform',
+    container: document.querySelector('#waveform'),
     waveColor: '#9fa9a3',
     progressColor: '#e3e0cc',
-    cursorColor: 'c5d5c5',
+    cursorColor: '#405d27',
     height: 256,
     responsive: true,
     cursorWidth: 2,
+    plugins: [
+        WaveSurfer.cursor.create({
+            showTime: true,
+            opacity: 1,
+            customShowTimeStyle: {
+                'background-color': '484f4f',
+                color: '8ca3a3',
+                padding: '2px',
+                'font-size': '8px',
+                'font-family' : 'Sans-Serif'
+            },
+            hideOnBlur: true,
+            showTime : true,
+            followCursorY : true,
+        })
+    ]
   
 });
 
 c.resume()
 
+var mouseState = false;
 
-// Click-to-seek
-
-
-/* Aggiornamento del cursore all'evento 'mousedown'
-waveformDiv.addEventListener('mousedown', (e, progress) => {
-    setTimeout(() => this.seekTo(progress), 6);
-
-    
-});
-*/
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
+
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     const dropZoneElement = inputElement.closest(".drop_zone");
-
+    
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
         inputElement.click();
@@ -51,35 +57,35 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
             updateThumbnail(dropZoneElement, inputElement.files[0]);
         }
     })
-
+    
     // Callback function called when the user drag a file in drop zone. 
     dropZoneElement.addEventListener('dragover', e => {
         e.preventDefault();
         dropZoneElement.classList.add("drop_zone--over");
     });
-
+    
     // Event handler for drag animation.
     ['dragleave', 'dragend'].forEach(type => {
         dropZoneElement.addEventListener(type, e => {
             dropZoneElement.classList.remove('drop_zone--over');
         });
     });
-
+    
     // File handling
     dropZoneElement.addEventListener('drop', e => {
         e.preventDefault();
-
+        
         if (e.dataTransfer.files.length) {
             // Dropped file is handled here
             var file = e.dataTransfer.files[0];
             
-
+            
             // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
                 init(inputBuffer)
                 loadFile(file);
-          
+                
                 //startProcessing()
                 // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
             });
@@ -87,55 +93,41 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         
         dropZoneElement.classList.remove('drop_zone--over');
         document.getElementById('waveform').classList.remove('nodisplay')
-
+        
         //dropZoneElement.classList.add('drop_zone_input');  // La drop zone scompare dopo aver droppato un sample.
-
+        
     });
 });
 
+waveformDiv.addEventListener('mousedown', (e) => {
+    mouseState = true;
 
-
-/**
- * 
- * @param {HTMLElement} dropZoneElement 
- * @param {File} file 
- */
-
-/*
-function updateThumbnail(dropZoneElement, file) {
-
-    let thumbnailElement = dropZoneElement.querySelector('.drop_zone_thumb');
-
-    // First time: remove the prompt.
-    if (dropZoneElement.querySelector('.drop_zone_prompt')) {
-        dropZoneElement.querySelector('.drop_zone_prompt').remove();
+    if(mouseState){
+        playGrain()
     }
-
-    // If the thumbnail do not exists, we create it
-    if (!thumbnailElement) {
-        thumbnailElement = document.createElement('div');
-        thumbnailElement.classList.add('drop_zone_thumb');
-        dropZoneElement.appendChild(thumbnailElement);
-    }
-
-    thumbnailElement.dataset.label = file.name;
-
-    if (file.type.startsWith("audio/")) {
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-
-            // TODO handle audio tumbnail
-
+    waveformDiv.addEventListener('mousemove', (e) => {
+        if(mouseState){
+    
+            setTimeout(setGranTime, 5)
+            playGrain();
         }
+    })
 
-    } else {
-        thumbnailElement.style.backgroundImage = null;
-    }
+})
 
-}
-*/
+waveformDiv.addEventListener('mouseup', (e) => {
+    mouseState = false;
+    stopGrain()
+
+})
+
+waveformDiv.addEventListener('mouseout', (e) => {
+    mouseState = false;
+    stopGrain()
+
+})
+
+
 
 
 
@@ -156,14 +148,6 @@ function loadWave(file) {
 
 //GESTIONE EVENTO CLICK SULLA WAVEFORM
 
-waveformDiv.addEventListener('click', e => {
-    setTimeout(setGranTime,5);
-});
-
-//prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
-function setGranTime() {
-    setPosition(normalizeTime(wavesurfer.getCurrentTime()))
-}
 
 function normalizeTime(time) {
     var fileLen = wavesurfer.getDuration();
