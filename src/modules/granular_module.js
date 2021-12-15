@@ -10,7 +10,6 @@ import 'p5/lib/addons/p5.sound';
 
 var grainIds = []
 
-
 const audioContext = p5.prototype.getAudioContext();
 
 var granular = new Granular({
@@ -20,7 +19,7 @@ var granular = new Granular({
     release: 0.1
   },
   density: 0.1,
-  spread: 10,
+  spread: 0.01,
   pitch: 1
 });
 
@@ -37,7 +36,6 @@ export function setVolume(vol){
   voiceOption.volume=vol;
 }
 
-// Riprogettare
 export function playGrain(position=null){
   if(position) {
     setPosition(position)
@@ -50,7 +48,6 @@ export function playGrain(position=null){
   }
 }
 
-// Riprogettare
 export function stopGrain(){
   granular.stopVoice(grainIds[0]);
 }
