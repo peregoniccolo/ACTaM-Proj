@@ -1,14 +1,30 @@
 #knob-bar {
+    margin-left: 10%;
+    margin-right: 10%;
     display: inline-flex;
-    width: 100%;
+    width: 80%;
     justify-content: center;
+}
+
+#envelop-bar {
+    margin-left: 10%;
+    margin-right: 10%;
+    display: inline-block;
+    width: 80%;
+    justify-content: center;
+}
+
+#envelop-canvas {
+    width: 40%;
+    object-fit: contain;
+    border: 2px solid black;
 }
 
 .vert {
     display: grid;
     width: 20%;
     height: 100%;
-    padding: 5%;
+    padding: 2%;
     justify-content: center;
     text-align: center;
 }

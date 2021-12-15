@@ -3,7 +3,12 @@ import Granular from '../libs/Granular/Granular';
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
+// model
 var density, spread, pitch = 0.5;
+var envelope = {
+    attack: 0,
+    release: 0.5
+}
 
 // jquery knobs
 $('.knob').each(function() {
@@ -13,12 +18,14 @@ $('.knob').each(function() {
     var elementId = $this.attr("id");
 
     $this.knob({
+        // onclick
         'change': function(v) {
             updateModelValues(elementId, v);
         },
         'release': function(v) {
             updateModelValues(elementId, v);
         }, // entrambi perchè altrimenti lo scroll non modifica i valori
+
         'min': 0,
         'max': 1,
         'step': 0.01,
@@ -27,6 +34,7 @@ $('.knob').each(function() {
         'lineCap': 'round',
         'width': '100%',
         'heigth': '80%',
+        'fgColor': '#222222',
     });
 
     $({
@@ -46,16 +54,24 @@ $('.knob').each(function() {
 function updateModelValues(id, newVal) {
     switch (id) {
         case 'density-knob':
-            console.log("density", newVal);
+            //console.log("density", newVal);
             density = newVal;
             break;
         case 'spread-knob':
-            console.log("spread", newVal);
+            //console.log("spread", newVal);
             spread = newVal;
             break;
         case 'pitch-knob':
-            console.log("pitch", newVal);
+            //console.log("pitch", newVal);
             pitch = newVal;
+            break;
+        case 'attack-knob':
+            console.log("attack", newVal);
+            envelope.attack = newVal;
+            break;
+        case 'release-knob':
+            console.log("release", newVal);
+            envelope.release = newVal;
             break;
         default:
             break;
@@ -93,8 +109,8 @@ async function init() {
     const granular = new Granular({
         audioContext,
         envelope: {
-            attack: 0,
-            release: 0.5
+            attack: envelope.attack,
+            release: envelope.release
         },
         density: density,
         spread: spread,
@@ -104,7 +120,7 @@ async function init() {
     //usa p5.js che è molto simile a WebAudio
     const delay = new p5.Delay();
 
-    delay.process(granular, 0.5, 0, 3000); // source, delayTime, feedback, filter frequency
+    delay.process(granular, 0.5, 0.5, 3000); // source, delayTime, feedback, filter frequency
 
     const reverb = new p5.Reverb();
 
@@ -123,7 +139,6 @@ async function init() {
     granular.on('grainCreated', () => console.log('grain created'));
 
     const data = await getData('example.wav');
-    console.log(data)
 
     await granular.setBuffer(data);
 
@@ -131,6 +146,7 @@ async function init() {
 
     resume.addEventListener('click', () => {
 
+        spread = 1;
 
         updateGranValues();
 
@@ -166,6 +182,10 @@ async function init() {
         granular.set({
             pitch
         });
+        granular.set({
+            envelope
+        });
+
     }
 }
 
