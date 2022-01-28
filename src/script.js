@@ -62,8 +62,8 @@ waveformDiv.addEventListener('mousedown', (e) => {
         posX = updateCursorPosition(x);
 
         if(mouseState){
-            setPosition(normalizeTime(posX));
-            console.log("pos in mousemove: " + normalizeTime(posX));
+            playGrain(normalizeTime(posX));
+            console.log("pos in mousemove: " + posX);
         }
     })
 })

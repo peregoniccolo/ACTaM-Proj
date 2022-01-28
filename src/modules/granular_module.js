@@ -12,6 +12,9 @@ var grainIds = []
 
 const audioContext = p5.prototype.getAudioContext();
 
+var voiceState = false;
+var voice = null;
+
 var granular = new Granular({
   audioContext,
   envelope: {
@@ -37,19 +40,36 @@ export function setVolume(vol){
 }
 
 export function playGrain(position=null){
+
+  if (position) {
+    if(voiceState) {
+      setPosition(position)
+      //aggiungere setvolume
+      voice.voice.update(voiceOption);
+    } else {
+      var id = granular.startVoice(voiceOption)
+      voice = granular.getVoice(id);
+      console.log(voice);
+      voiceState = true;
+      grainIds.push(id)
+
+  
+    }
+  }
+  /*
   if(position) {
     setPosition(position)
-    var id = granular.startVoice(voiceOption)
-    grainIds.push(id)
+    voic= granular.startVoice(voiceOption)
   }
   else {
-    var id = granular.startVoice(voiceOption)
     grainIds.push(id)
-  }
+  } */ 
 }
 
 export function stopGrain(){
+  voiceState = false;
   granular.stopVoice(grainIds[0]);
+  grainIds = [];
 }
 
 
