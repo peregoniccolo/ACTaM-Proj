@@ -74,6 +74,12 @@ waveformDiv.addEventListener('mouseup', (e) => {
 
 })
 
+waveformDiv.addEventListener('mouseout', (e) => {
+    mouseState = false;
+    stopGrain()
+
+})
+
 //Da posizione in pixel a posizione in secondi
 function updateCursorPosition(xpos) {
         const  duration = wavesurfer.getDuration();
