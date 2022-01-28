@@ -305,10 +305,14 @@ function onMIDISuccess( midiAccess ) {
   })
 }
 
+function handleVelocity(velocity){
+    return velocity/128
+}
+
 function handleInput(input){
     const command = input.data[0]
     const note = input.data[1]
-    const velocity = input.data[2]
+    const velocity = handleVelocity(input.data[2])
 
     switch(command){
         case 144:
