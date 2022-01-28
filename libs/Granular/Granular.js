@@ -207,6 +207,7 @@ export default class Granular {
 
             if (!id) {
                 id = ids.next()
+                console.log("id post next: " + id);
             }
 
             const voice = new Voice(position, volume);
