@@ -6,6 +6,6 @@ export default class Ids {
   }
 
   next() {
-    const id = `${ this.prefix }_${ this.id++ }`;
+    var id = `${ this.prefix }_${ this.id++ }`;
   }
 }

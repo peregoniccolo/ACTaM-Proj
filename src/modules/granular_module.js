@@ -42,9 +42,9 @@ export function setVolume(vol){
 export function playGrain(position=null){
 
   if (position) {
+    setPosition(position)
+    //aggiungere setvolume
     if(voiceState) {
-      setPosition(position)
-      //aggiungere setvolume
       voice.voice.update(voiceOption);
     } else {
       var id = granular.startVoice(voiceOption)
