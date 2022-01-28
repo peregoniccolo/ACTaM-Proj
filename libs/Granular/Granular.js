@@ -286,7 +286,7 @@ export default class Granular {
             source.start(now, Math.max(0, offset + randomoffset), attack + release); //inizia ora, parte da offset+randomoffset ms all'interno del buffer (0 se offset+randomoffset è negativo)
             // finisce a attack + release
             gain.gain.setValueAtTime(0.0, now);
-            gain.gain.linearRampToValueAtTime(volume, now + attack);
+            gain.gain.linearRampToValueAtTime(volume, now + attack);  
             gain.gain.linearRampToValueAtTime(0, now + (attack + release));
 
             // garbage collection
