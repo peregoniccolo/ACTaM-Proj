@@ -19,15 +19,15 @@
     <div id="knob-bar" style="display: inline-flex;">
 
         <div class="vert">
-            <input id="density-knob" class="knob animated" rel="0.5">
+            <input id="density-knob" class="knob animated" rel="0.5" data-min="0" data-max="1">
             <label>Density</label>
         </div>
         <div class="vert">
-            <input id="spread-knob" class="knob animated" rel="0.5">
+            <input id="spread-knob" class="knob animated" rel="0.5" data-min="0" data-max="1">
             <label>Spread</label>
         </div>
         <div class="vert">
-            <input id="pitch-knob" class="knob animated" rel="0.5">
+            <input id="pitch-knob" class="knob animated" rel="0.5" data-min="0" data-max="1">
             <label>Pitch</label>
         </div>
 
@@ -38,11 +38,11 @@
         <canvas id="envelop-canvas"></canvas>
 
         <div class="vert">
-            <input id="attack-knob" class="knob animated" rel="0.1">
+            <input id="attack-knob" class="knob animated" rel="0.1" data-min="0.01" data-max="1">
             <label>Attack</label>
         </div>
         <div class="vert">
-            <input id="release-knob" class="knob animated" rel="0.5">
+            <input id="release-knob" class="knob animated" rel="0.5" data-min="0.01" data-max="1">
             <label>Release</label>
         </div>
 

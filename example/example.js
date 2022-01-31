@@ -11,8 +11,8 @@ var myEnvelope = {
 }
 
 
-// jquery knobs
-$('.knob').each(function() {
+// jquery knobs setup
+$('.knob').each(function () {
 
     var $this = $(this);
     var myVal = $this.attr("rel");
@@ -20,15 +20,13 @@ $('.knob').each(function() {
 
     $this.knob({
         // onclick
-        'change': function(v) {
+        'change': function (v) {
             updateModelValues(elementId, v);
         },
-        'release': function(v) {
+        'release': function (v) {
             updateModelValues(elementId, v);
         }, // entrambi perchè altrimenti lo scroll non modifica i valori
 
-        'min': 0,
-        'max': 1,
         'step': 0.01,
         'angleArc': 270,
         'angleOffset': -135,
@@ -45,7 +43,7 @@ $('.knob').each(function() {
     }, {
         duration: 1000,
         easing: 'swing',
-        step: function() {
+        step: function () {
             $this.val(this.value).trigger('change');
         }
     })
@@ -67,11 +65,11 @@ function updateModelValues(id, newVal) {
             myPitch = newVal;
             break;
         case 'attack-knob':
-            console.log("attack", newVal);
+            // console.log("attack", newVal);
             myEnvelope.attack = newVal;
             break;
         case 'release-knob':
-            console.log("release", newVal);
+            // console.log("release", newVal);
             myEnvelope.release = newVal;
             break;
         default:
@@ -94,7 +92,7 @@ async function getData(url) { //funzione da modificare in modo da prendere il fi
 
         request.responseType = 'arraybuffer';
 
-        request.onload = function() {
+        request.onload = function () {
             const audioData = request.response;
 
             resolve(audioData);
@@ -163,10 +161,9 @@ async function init() {
         }, 200);
 
         setTimeout(() => {
+
             clearInterval(interval);
-
             updateGranState()
-
             granular.stopVoice(id);
         }, 2000);
     })

@@ -127,106 +127,108 @@ export default class Granular {
      * @param {Object} [options.position] - Optional position (0.0 - 1-0).
      */
     startVoice(options = {}) { //all'interno di startVoice definiamo la classe Voice, creiamo un oggetto voice e lo facciamo suonare,
-            // posso passare position e volume della voice come options
-            if (!this.state.isBufferSet) {
-                return;
+        // posso passare position e volume della voice come options
+        if (!this.state.isBufferSet) {
+            return;
+        }
+
+        // keep reference of the Granular object
+        const self = this;
+
+        class Voice { //classe Voice a come campi (1) posizione nel file audio (2) volume (3) array di grani (4) indice dei grani (5) timeout
+            constructor(position, volume) {
+                this.position = position;
+                this.volume = volume;
+
+                this.grains = [];
+                this.grainsCount = 0;
+
+                this.timeout = null;
             }
 
-            // keep reference of the Granular object
-            const self = this;
-
-            class Voice { //classe Voice a come campi (1) posizione nel file audio (2) volume (3) array di grani (4) indice dei grani (5) timeout
-                constructor(position, volume) {
-                    this.position = position;
-                    this.volume = volume;
-
-                    this.grains = [];
-                    this.grainsCount = 0;
-
-                    this.timeout = null;
+            update(options = {}) {
+                if (options.position) {
+                    this.position = options.position;
                 }
 
-                update(options = {}) {
-                    if (options.position) {
-                        this.position = options.position;
+                if (options.volume) {
+                    this.volume = options.volume;
+                }
+            }
+
+            play() { //creo e suono il grain
+
+                console.log(self.state);
+
+                const _innerPlay = () => {
+                    const grain = self.createGrain(this.position, this.volume);
+
+                    this.grains[this.grainsCount] = grain;
+                    this.grainsCount++;
+
+                    if (this.grainsCount > 20) {
+                        this.grainsCount = 0;
                     }
 
-                    if (options.volume) {
-                        this.volume = options.volume;
-                    }
+                    // next interval
+                    const density = map(self.state.density, 1, 0, 0, 1);
+                    //mappa il valore di density dell'oggetto granular in modo che più sia alto self.state.density più sia bassa
+                    //questa const density, così facendo interval verrà più corto e quindi setTimeout chiamerà più spesso _innerPlay
+                    //In particolare se self.state.density è compreso tra 0 e 1
+                    // mappa self.state.density in 1-self.state.density
+                    const interval = (density * 500) + 70;
+                    //console.log("interval del setTimeout in play()" + interval)
+
+                    this.timeout = setTimeout(_innerPlay, interval); //se interval viene fuori negativo perchè self.state.density è troppo grande allora viene usato un valore minimo
+                    //di default, in tal caso _innerPlay verrà chiamato MOLTO spesso
+
                 }
 
-                play() { //creo e suono il grain
-                    const _innerPlay = () => {
-                        const grain = self.createGrain(this.position, this.volume);
+                _innerPlay();
+            }
 
-                        this.grains[this.grainsCount] = grain;
-                        this.grainsCount++;
+            stop() {
+                clearTimeout(this.timeout);
+            }
+        } //FINE DEFINIZIONE CLASSE VOICE
 
-                        if (this.grainsCount > 20) {
-                            this.grainsCount = 0;
-                        }
+        //o passo position e volume quando chiamo la funzion startVoice oppure vengono usati dei valori di default
+        let {
+            position,
+            volume,
+            id
+        } = options;
 
+        if (!position) {
+            position = 0;
+        }
 
-                        // next interval
-                        const density = map(self.state.density, 1, 0, 0, 1);
-                        //mappa il valore di density dell'oggetto granular in modo che più sia alto self.state.density più sia bassa
-                        //questa const density, così facendo interval verrà più corto e quindi setTimeout chiamerà più spesso _innerPlay
-                        //In particolare se self.state.density è compreso tra 0 e 1
-                        // mappa self.state.density in 1-self.state.density
-                        const interval = (density * 500) + 70;
-                        //console.log("interval del setTimeout in play()" + interval)
+        if (!volume) {
+            volume = 1;
+        }
 
-                        this.timeout = setTimeout(_innerPlay, interval); //se interval viene fuori negativo perchè self.state.density è troppo grande allora viene usato un valore minimo
-                        //di default, in tal caso _innerPlay verrà chiamato MOLTO spesso
+        if (!id) {
+            id = ids.next()
+            console.log("id post next: " + id);
+        }
 
-                    }
+        const voice = new Voice(position, volume);
 
-                    _innerPlay();
-                }
+        voice.play();
 
-                stop() {
-                    clearTimeout(this.timeout);
-                }
-            } //FINE DEFINIZIONE CLASSE VOICE
-
-            //o passo position e volume quando chiamo la funzion startVoice oppure vengono usati dei valori di default
-            let {
+        this.state.voices = [ //aggiunge all'array di voci un nuovo oggetto così fatto: {voce, posizione, volume, id}
+            ...this.state.voices,
+            {
+                voice,
                 position,
                 volume,
                 id
-            } = options;
-
-            if (!position) {
-                position = 0;
             }
+        ];
 
-            if (!volume) {
-                volume = 1;
-            }
+        return id; //returna id della voce così da poterla fermare in futuro
 
-            if (!id) {
-                id = ids.next()
-                console.log("id post next: " + id);
-            }
-
-            const voice = new Voice(position, volume);
-
-            voice.play();
-
-            this.state.voices = [ //aggiunge all'array di voci un nuovo oggetto così fatto: {voce, posizione, volume, id}
-                ...this.state.voices,
-                {
-                    voice,
-                    position,
-                    volume,
-                    id
-                }
-            ];
-
-            return id; //returna id della voce così da poterla fermare in futuro
-
-        } //FINE DEFINIZIONE FUNZIONE startVoice
+    } //FINE DEFINIZIONE FUNZIONE startVoice
 
     updateVoice(id, options) {
         this.state.voices.forEach(voice => {
@@ -251,60 +253,61 @@ export default class Granular {
     }
 
     createGrain(position, volume) { // dentro la funzione _innerplay() viene passata la posizione e il volume della voice che sta suonando.
-            //Creo un grain e lo faccio suonare, lo spread decide il range di randomness 
+        //Creo un grain e lo faccio suonare, lo spread decide il range di randomness 
 
-            const now = this.context.currentTime;
+        const now = this.context.currentTime;
 
-            // source
-            const source = this.context.createBufferSource();
-            source.playbackRate.value = source.playbackRate.value * this.state.pitch; //il pitch dell'intero granular influisce sulla velocità di riproduzione del singolo grain
-            source.buffer = this.buffer;
+        // source
+        const source = this.context.createBufferSource();
+        source.playbackRate.value = source.playbackRate.value * this.state.pitch; //il pitch dell'intero granular influisce sulla velocità di riproduzione del singolo grain
+        source.buffer = this.buffer;
 
-            // gain
-            const gain = this.context.createGain();
-            source.connect(gain);
-            gain.connect(this.gain);
+        // gain
+        const gain = this.context.createGain();
+        source.connect(gain);
+        gain.connect(this.gain);
 
-            // update position and calcuate offset
-            const offset = map(position, 0, 1, 0, this.buffer.duration); //mappa la posizione che viene data da 0 a 1 in una posizione da 0 a durata del buffer audio
+        // update position and calcuate offset
+        const offset = map(position, 0, 1, 0, this.buffer.duration); //mappa la posizione che viene data da 0 a 1 in una posizione da 0 a durata del buffer audio
 
-            // volume
-            volume = clamp(volume, 0, 1); //se volume è minore di 0 lo setta a zero, se valore è maggiore di 1 lo setta a 1
+        // volume
+        volume = clamp(volume, 0, 1); //se volume è minore di 0 lo setta a zero, se valore è maggiore di 1 lo setta a 1
 
-            console.log(this.state.density, this.state.spread, this.state.density);
-            console.log(this.state.envelope.attack, this.state.envelope.release);
-            // parameters
-            const attack = this.state.envelope.attack * 0.4;
-            let release = this.state.envelope.release * 1.5;
+        //console.log(this.state.density, this.state.spread, this.state.pitch);
+        //console.log(this.state.envelope.attack, this.state.envelope.release);
 
-            if (release < 0) {
-                release = 0.1;
-            }
+        // parameters
+        const attack = this.state.envelope.attack * 0.4;
+        let release = this.state.envelope.release * 1.5;
 
-            const randomoffset = (Math.random() * this.state.spread) - (this.state.spread / 2); //va da -spread/2 a +spread/2
+        if (release < 0) {
+            release = 0.1;
+        }
 
-            // envelope
-            source.start(now, Math.max(0, offset + randomoffset), attack + release); //inizia ora, parte da offset+randomoffset ms all'interno del buffer (0 se offset+randomoffset è negativo)
-            // finisce a attack + release
-            gain.gain.setValueAtTime(0.0, now);
-            gain.gain.linearRampToValueAtTime(volume, now + attack);
-            gain.gain.linearRampToValueAtTime(0, now + (attack + release));
+        const randomoffset = (Math.random() * this.state.spread) - (this.state.spread / 2); //va da -spread/2 a +spread/2
 
-            // garbage collection
-            source.stop(now + attack + release + 0.1);
+        // envelope
+        source.start(now, Math.max(0, offset + randomoffset), attack + release); //inizia ora, parte da offset+randomoffset ms all'interno del buffer (0 se offset+randomoffset è negativo)
+        // finisce a attack + release
+        gain.gain.setValueAtTime(0.0, now);
+        gain.gain.linearRampToValueAtTime(volume, now + attack);
+        gain.gain.linearRampToValueAtTime(0, now + (attack + release));
 
-            const disconnectTime = (attack + release) * 1000;
+        // garbage collection
+        source.stop(now + attack + release + 0.1);
 
-            setTimeout(() => {
-                gain.disconnect();
-            }, disconnectTime + 200);
+        const disconnectTime = (attack + release) * 1000;
 
-            this.events.fire('grainCreated', {
-                position,
-                volume,
-                pitch: this.state.pitch
-            });
-        } //FINE CREAZIONE GRAIN
+        setTimeout(() => {
+            gain.disconnect();
+        }, disconnectTime + 200);
+
+        this.events.fire('grainCreated', {
+            position,
+            volume,
+            pitch: this.state.pitch
+        });
+    } //FINE CREAZIONE GRAIN
 
 } // FINE DEFINIZIONE CLASSE GRANULAR
 
