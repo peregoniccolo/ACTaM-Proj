@@ -4,11 +4,12 @@ import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 
 // model
-var density, spread, pitch = 0.5;
-var envelope = {
-    attack: 0,
+var myDensity, mySpread, myPitch = 0.5;
+var myEnvelope = {
+    attack: 0.1,
     release: 0.5
 }
+
 
 // jquery knobs
 $('.knob').each(function() {
@@ -55,23 +56,23 @@ function updateModelValues(id, newVal) {
     switch (id) {
         case 'density-knob':
             //console.log("density", newVal);
-            density = newVal;
+            myDensity = newVal;
             break;
         case 'spread-knob':
             //console.log("spread", newVal);
-            spread = newVal;
+            mySpread = newVal;
             break;
         case 'pitch-knob':
             //console.log("pitch", newVal);
-            pitch = newVal;
+            myPitch = newVal;
             break;
         case 'attack-knob':
             console.log("attack", newVal);
-            envelope.attack = newVal;
+            myEnvelope.attack = newVal;
             break;
         case 'release-knob':
             console.log("release", newVal);
-            envelope.release = newVal;
+            myEnvelope.release = newVal;
             break;
         default:
             break;
@@ -109,12 +110,12 @@ async function init() {
     const granular = new Granular({
         audioContext,
         envelope: {
-            attack: envelope.attack,
-            release: envelope.release
+            attack: myEnvelope.attack,
+            release: myEnvelope.release
         },
-        density: density,
-        spread: spread,
-        pitch: pitch
+        density: myDensity,
+        spread: mySpread,
+        pitch: myPitch
     });
 
     //usa p5.js che è molto simile a WebAudio
@@ -146,9 +147,7 @@ async function init() {
 
     resume.addEventListener('click', () => {
 
-        spread = 1;
-
-        updateGranValues();
+        updateGranState();
 
         const id = granular.startVoice({
             //passo a startVoice una posizione e un volume, lei la passerà a sua volta a una voice che viene creata al suo interno 
@@ -160,32 +159,29 @@ async function init() {
         });
 
         const interval = setInterval(() => {
-            updateGranValues()
+            updateGranState()
         }, 200);
 
         setTimeout(() => {
             clearInterval(interval);
 
-            updateGranValues()
+            updateGranState()
 
             granular.stopVoice(id);
         }, 2000);
     })
 
-    function updateGranValues() {
-        granular.set({
-            density
-        });
-        granular.set({
-            spread
-        });
-        granular.set({
-            pitch
-        });
-        granular.set({
-            envelope
-        });
-
+    function updateGranState() {
+        var state = {
+            envelope: {
+                attack: myEnvelope.attack,
+                release: myEnvelope.release,
+            },
+            density: myDensity,
+            spread: mySpread,
+            pitch: myPitch
+        }
+        granular.set(state);
     }
 }
 

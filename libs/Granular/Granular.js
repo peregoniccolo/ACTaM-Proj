@@ -271,7 +271,7 @@ export default class Granular {
             // volume
             volume = clamp(volume, 0, 1); //se volume è minore di 0 lo setta a zero, se valore è maggiore di 1 lo setta a 1
 
-
+            console.log(this.state.density, this.state.spread, this.state.density);
             console.log(this.state.envelope.attack, this.state.envelope.release);
             // parameters
             const attack = this.state.envelope.attack * 0.4;
@@ -287,7 +287,7 @@ export default class Granular {
             source.start(now, Math.max(0, offset + randomoffset), attack + release); //inizia ora, parte da offset+randomoffset ms all'interno del buffer (0 se offset+randomoffset è negativo)
             // finisce a attack + release
             gain.gain.setValueAtTime(0.0, now);
-            gain.gain.linearRampToValueAtTime(volume, now + attack);  
+            gain.gain.linearRampToValueAtTime(volume, now + attack);
             gain.gain.linearRampToValueAtTime(0, now + (attack + release));
 
             // garbage collection
