@@ -1,7 +1,5 @@
-import { init, stopGrain } from "./modules/granular_module";
-import { setPosition } from "./modules/granular_module";
+import { init, stopGrain, setPosition, playGrain, setVolume } from "./modules/granular_module";
 import { ClickAndHold } from "./modules/ClickAndHold";
-import { playGrain } from "./modules/granular_module";
 
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -91,6 +89,11 @@ function updateCursorPosition(xpos) {
     const timeValue = Math.max(0, (xpos / elementWidth) * duration) + scrollTime;
 
     return timeValue
+}
+
+function normalizeTime(time) {
+    var fileLen = wavesurfer.getDuration();
+    return time / fileLen
 }
 
 
@@ -229,19 +232,6 @@ function loadFile(file) {
 function loadWave(file) {
     url = URL.createObjectURL(file);
     wavesurfer.load(url);
-}
-
-//GESTIONE EVENTO CLICK SULLA WAVEFORM
-
-
-//prende il current time (dove è il cursore), lo normalizza e lo setta come posizione iniziale della voice
-function setGranTime() {
-    setPosition(normalizeTime(wavesurfer.getCurrentTime()))
-}
-
-function normalizeTime(time) {
-    var fileLen = wavesurfer.getDuration();
-    return time / fileLen
 }
 
 
