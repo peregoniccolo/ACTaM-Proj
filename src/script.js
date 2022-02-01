@@ -5,12 +5,12 @@ import { playGrain } from "./modules/granular_module";
 
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-var inputBuffer, currentAudio;  
+var inputBuffer, currentAudio;
 var c = new AudioContext();
 var waveformDiv = document.getElementById('waveform')
 // Classe che gestisce il click and hold della waveform.
 
-//var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 0);
+// var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 0);
 
 // Wave Representation Object
 var wavesurfer = WaveSurfer.create({
@@ -30,20 +30,19 @@ var wavesurfer = WaveSurfer.create({
                 color: '8ca3a3',
                 padding: '2px',
                 'font-size': '8px',
-                'font-family' : 'Sans-Serif'
+                'font-family': 'Sans-Serif'
             },
             hideOnBlur: true,
-            showTime : true,
-            followCursorY : true,
+            showTime: true,
+            followCursorY: true,
         })
     ]
-  
+
 });
 
 c.resume()
 
 var mouseState = false;
-
 
 waveformDiv.addEventListener('mousedown', (e) => {
     mouseState = true;
@@ -53,7 +52,7 @@ waveformDiv.addEventListener('mousedown', (e) => {
     console.log("pos in sec: " + posX)
     //console.log("pos normalizzata: " + normalizeTime(posX));
 
-    if(mouseState){
+    if (mouseState) {
         playGrain(normalizeTime(posX))
     }
     waveformDiv.addEventListener('mousemove', (e) => {
@@ -61,7 +60,7 @@ waveformDiv.addEventListener('mousedown', (e) => {
         x = e.clientX - bnds.left;
         posX = updateCursorPosition(x);
 
-        if(mouseState){
+        if (mouseState) {
             playGrain(normalizeTime(posX));
             console.log("pos in mousemove: " + posX);
         }
@@ -71,36 +70,34 @@ waveformDiv.addEventListener('mousedown', (e) => {
 waveformDiv.addEventListener('mouseup', (e) => {
     mouseState = false;
     stopGrain()
-
 })
 
 waveformDiv.addEventListener('mouseout', (e) => {
     mouseState = false;
     stopGrain()
-
 })
 
 //Da posizione in pixel a posizione in secondi
 function updateCursorPosition(xpos) {
-        const  duration = wavesurfer.getDuration();
-        const elementWidth =
-            wavesurfer.drawer.width /
-            wavesurfer.params.pixelRatio;
-        const scrollWidth = wavesurfer.drawer.getScrollX();
+    const duration = wavesurfer.getDuration();
+    const elementWidth =
+        wavesurfer.drawer.width /
+        wavesurfer.params.pixelRatio;
+    const scrollWidth = wavesurfer.drawer.getScrollX();
 
-        const scrollTime =
-            (duration / wavesurfer.drawer.width) * scrollWidth;
+    const scrollTime =
+        (duration / wavesurfer.drawer.width) * scrollWidth;
 
-        const timeValue = Math.max(0, (xpos / elementWidth) * duration) + scrollTime;
+    const timeValue = Math.max(0, (xpos / elementWidth) * duration) + scrollTime;
 
-        return timeValue
+    return timeValue
 }
 
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
-    const dropZoneElement = inputElement.closest(".drop_zone");
+    const dropZoneElement = inputElement.closest(".drop_zone"); 
 
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
@@ -133,28 +130,47 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if (e.dataTransfer.files.length) {
             // Dropped file is handled here
             var file = e.dataTransfer.files[0];
-            
+
 
             // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
                 init(inputBuffer)
-                loadFile(file);
-          
-                //startProcessing()
-                // updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+
+                // rimuovi dropzone e mostra change button
+                dropZoneElement.classList.toggle("nodisplay");
+                document.getElementById("container_button").classList.toggle("nodisplay");
+
+                // mostra knobs
+                document.querySelectorAll(".bar").forEach(e => {
+                    e.classList.toggle("nodisplay");
+                    e.classList.toggle("display-bar");
+                })
+
+                loadFile(file); // mostra wavesurfer
             });
         }
-        
+
         dropZoneElement.classList.remove('drop_zone--over');
         document.getElementById('waveform').classList.remove('nodisplay')
-
-        //dropZoneElement.classList.add('drop_zone_input');  // La drop zone scompare dopo aver droppato un sample.
-
     });
 });
 
 
+// GESTIONE change button
+const resume = document.getElementById('new_sample_but');
+
+resume.addEventListener('click', () => {
+    // mostra dropzone e rimuovi change button
+    document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
+    document.getElementById("container_button").classList.toggle("nodisplay");
+
+    // mostra knobs
+    document.querySelectorAll(".bar").forEach(e => {
+        e.classList.toggle("nodisplay");
+        e.classList.toggle("display-bar");
+    })
+})
 
 /**
  * 
@@ -225,7 +241,7 @@ function setGranTime() {
 
 function normalizeTime(time) {
     var fileLen = wavesurfer.getDuration();
-    return time/fileLen
+    return time / fileLen
 }
 
 
@@ -234,8 +250,8 @@ function startProcessing() {
     // TODO link to gran js
 
     // play test
-    
-    if (currentAudio != null){
+
+    if (currentAudio != null) {
         // if the context was already playing
         c.close()
         c = new AudioContext()
@@ -244,7 +260,7 @@ function startProcessing() {
     currentAudio = c.createBufferSource();
     currentAudio.buffer = inputBuffer;
     currentAudio.connect(c.destination);
-    currentAudio.start(c.currentTime); 
+    currentAudio.start(c.currentTime);
     draw(normalizeData(filterData(inputBuffer)))
 }
 
