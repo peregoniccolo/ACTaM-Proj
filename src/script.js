@@ -337,9 +337,38 @@ function handleInput(input){
 
 function noteon(note, velocity){
 
+    updateGranState();
+
+    const id = granular.startVoice({
+            position: 0.1,
+            volume: 0.5
+    });
+
+    const interval = setInterval(() => {
+        updateGranState()
+    }, 200);
+
+    setTimeout(() => {
+        clearInterval(interval);
+        updateGranState()
+        granular.stopVoice(id);
+    }, 2000);
+
+    function updateGranState() {
+        var state = {
+            envelope: {
+                attack: myEnvelope.attack,
+                release: myEnvelope.release,
+            },
+            density: myDensity,
+            spread: mySpread,
+            pitch: myPitch
+        }
+        granular.set(state);
+    }
 }
-function noteon(note, velocity){
-    
+function noteoff(note, velocity){
+    granular.stopVoice(id)    
 }
 
 function onMIDIFailure() {
