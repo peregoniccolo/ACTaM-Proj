@@ -1,85 +1,12 @@
-import { init, stopGrain, setPosition, playGrain, setVolume, updateState } from "./modules/granular_module";
+import { init, stopGrain, setPosition, playGrain, setVolume } from "./modules/granular_module";
+
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var ctx = new AudioContext();
 var inputBuffer, currentAudio;
 var waveformDiv = document.getElementById('waveform')
 
-// jquery knobs setup e metodi di update
-$('.knob').each(function () {
 
-    var $this = $(this);
-    var elementId = $this.attr("id");
-
-    $this.knob({
-        // onclick
-        'change': function (v) {
-            updateGranModelValues(elementId, v);
-        },
-        'release': function (v) {
-            updateGranModelValues(elementId, v);
-        }, // entrambi perchè altrimenti lo scroll non modifica i valori
-
-        'step': 0.01,
-        'angleArc': 270,
-        'angleOffset': -135,
-        'lineCap': 'round',
-        'width': '100%',
-        'heigth': '80%',
-        'fgColor': '#222222',
-    });
-
-});
-
-function updateGranModelValues(id, newVal) {
-    // fa l'update dello stato di granular tramite un metodo di granular_module
-    id = id.split("-");
-    if (id[0] == 'e')
-        updateState({
-            "envelope": {
-                [id[1]]: newVal
-            }
-        });
-    else
-        updateState({
-            [id[0]]: newVal
-        });
-}
-
-function animateToDefaultValue() {
-    // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
-    // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
-    $('.knob').each(function () {
-
-        var $this = $(this);
-        var myVal = $this.attr("default");
-
-        $({
-            value: 0,
-        }).animate({
-            value: myVal
-        }, {
-            duration: 1000,
-            easing: 'swing',
-            step: function () {
-                $this.val(this.value).trigger('change');
-            }
-        })
-
-    });
-}
-
-function toggleKnobs() {
-    // compare e scompare gli knobs
-    var bars = document.querySelectorAll(".bar");
-    bars.forEach(e => {
-        e.classList.toggle("nodisplay");
-        e.classList.toggle("display-bar");
-    });
-
-    if (bars[0].classList.contains("display-bar"))
-        animateToDefaultValue();
-}
 
 // Wave Representation Object
 var wavesurfer = WaveSurfer.create({
@@ -174,7 +101,7 @@ function normalizeTime(time) {
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
-    const dropZoneElement = inputElement.closest(".drop_zone");
+    const dropZoneElement = inputElement.closest(".drop_zone"); 
 
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
@@ -240,7 +167,10 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 document.getElementById("container_button").classList.toggle("nodisplay");
 
                 // mostra knobs
-                toggleKnobs();
+                document.querySelectorAll(".bar").forEach(e => {
+                    e.classList.toggle("nodisplay");
+                    e.classList.toggle("display-bar");
+                })
 
                 loadFile(file); // mostra wavesurfer
             });
@@ -251,16 +181,20 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     });
 });
 
-// GESTIONE change button
-const new_sample_button = document.getElementById('new_sample_but');
 
-new_sample_button.addEventListener('click', () => {
+// GESTIONE change button
+const resume = document.getElementById('new_sample_but');
+
+resume.addEventListener('click', () => {
     // mostra dropzone e rimuovi change button
     document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
     document.getElementById("container_button").classList.toggle("nodisplay");
 
     // mostra knobs
-    toggleKnobs()
+    document.querySelectorAll(".bar").forEach(e => {
+        e.classList.toggle("nodisplay");
+        e.classList.toggle("display-bar");
+    })
 })
 
 /**
@@ -306,12 +240,18 @@ function updateThumbnail(dropZoneElement, file) {
 */
 
 
+
+
+
 // CONTROLLER
 
 // Utility: create a new waveform representation based on the audio file passed as an argument.
 function loadFile(file) {
     wavesurfer.loadBlob(file);
+
 }
+
+
 
 /* MIDI PROTOCOL
 

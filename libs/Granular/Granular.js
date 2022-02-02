@@ -69,8 +69,6 @@ export default class Granular {
 
     set(state) { //aggiorna lo state
         this.state = merge(this.state, state);
-
-        console.log(this.state);
     }
 
     /**

@@ -1,62 +1,72 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
     <!-- wavesurfer -->
     <script src="https://unpkg.com/wavesurfer.js/dist/wavesurfer.min.js"></script>
     <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js"></script>
     <!-- jquery & knobs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+
 </head>
 
-<body style="background-color: rgb(241, 238, 238)">
-    <div class="nodisplay waveform" id="waveform"></div>
+<body style='background-color: rgb(241, 238, 238);'>
+
+    <div class="nodisplay waveform" id="waveform">
+
+    </div>
 
     <div class="bar nodisplay" id="knob-bar">
+
         <div class="vert">
-            <input id="density-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
+            <input id="density-knob" class="knob animated" rel="0.5" data-min="0" data-max="1">
             <label>Density</label>
         </div>
         <div class="vert">
-            <input id="spread-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
+            <input id="spread-knob" class="knob animated" rel="0.5" data-min="0" data-max="1">
             <label>Spread</label>
         </div>
         <div class="vert">
-            <input id="pitch-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
+            <input id="pitch-knob" class="knob animated" rel="0.5" data-min="0" data-max="1">
             <label>Pitch</label>
         </div>
+
     </div>
 
     <div class="bar nodisplay" id="envelope-bar">
+
         <canvas id="envelope-canvas"></canvas>
 
         <div class="vert">
-            <input id="e-attack-knob" class="knob animated" default="0.1" data-min="0.01" data-max="1" />
+            <input id="attack-knob" class="knob animated" rel="0.1" data-min="0.01" data-max="1">
             <label>Attack</label>
         </div>
         <div class="vert">
-            <input id="e-release-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
+            <input id="release-knob" class="knob animated" rel="0.5" data-min="0.01" data-max="1">
             <label>Release</label>
         </div>
+
     </div>
 
-    <div class="drop_zone">
-        <span class="drop_zone_prompt">Drag your sample here...</span>
-        <input type="file" id="sample" name="myFile" class="drop_zone_input" />
+    <div class='drop_zone'>
+        <span class='drop_zone_prompt'>Drag your sample here...</span>
+        <input type='file' id='sample' name='myFile' class='drop_zone_input'>
     </div>
 
-    <div id="container_button" class="nodisplay">
-        <div id="new_sample_div">
+    <div id='container_button' class="nodisplay">
+        <div id='new_sample_div'>
             <button id="new_sample_but">Change sample</button>
         </div>
     </div>
 
     <div>
-        <canvas id="audiocanvas"> </canvas>
+        <canvas id="audiocanvas">
+
+        </canvas>
     </div>
 
-    <script src="script.js"></script>
+    <script src='script.js'></script>
 </body>
 
 </html>
