@@ -10,17 +10,6 @@ import 'p5/lib/addons/p5.sound';
 
 const audioContext = p5.prototype.getAudioContext();
 
-var granular = new Granular({
-	audioContext,
-	envelope: {
-		attack: 0.001, //occhio a mettere attack 0 perchè poi verrà impostato random
-		release: 0.1
-	},
-	density: 0.1,
-	spread: 0.01,
-	pitch: 1
-});
-
 
 var grainIds = []
 // FALSE se non è non è presente un'istanza di Voice; questo succede in due situazioni:
@@ -30,6 +19,23 @@ var voiceState = false;
 // Variabile che usiamo per mantenere il riferimento alla voice attiva
 var voiceRef = null;
 
+// defaults
+// var myDensity, mySpread, myPitch = 0.5;
+// var myEnvelope = {
+//     attack: 0.1,
+//     release: 0.5
+// }
+
+var granular = new Granular({
+	audioContext // i default vengono caricati leggento il valore da html, il model è effettivamente contenuto nell'oggetto granular
+	// envelope: {
+	// 	attack: myEnvelope.attack, //occhio a mettere attack 0 perchè poi verrà impostato random
+	// 	release: myEnvelope.release
+	// },
+	// density: myDensity,
+	// spread: mySpread,
+	// pitch: myPitch
+});
 
 var voiceOption = {
 	position: 0.5,
@@ -44,6 +50,9 @@ export function setVolume(vol) {
 	voiceOption.volume = vol;
 }
 
+export function updateState(state) {
+	granular.set(state);
+}
 
 // Metodo chiamato quando si clicca sulla waveform.
 // Aggiorna la posizione utilizzata dalla voice (se esistente), 
@@ -61,8 +70,6 @@ export function playGrain(position = null) {
 			console.log(voiceRef);
 			voiceState = true;
 			grainIds.push(id)
-
-
 		}
 	}
 }
@@ -72,8 +79,6 @@ export function stopGrain() {
 	granular.stopVoice(grainIds[0]);
 	grainIds = [];
 }
-
-
 
 function setGranular() {
 	/*usa p5.js che è molto simile a WebAudio
