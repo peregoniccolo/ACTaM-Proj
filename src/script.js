@@ -5,7 +5,7 @@ var ctx = new AudioContext();
 var inputBuffer, currentAudio;
 var waveformDiv = document.getElementById('waveform')
 
-// jquery knobs setup e metodi di update
+// jquery knobs setup e metodi di update e altro
 $('.knob').each(function () {
 
     var $this = $(this);
