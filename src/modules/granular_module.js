@@ -15,15 +15,22 @@ const audioContext = p5.prototype.getAudioContext();
 var voiceState = false;
 var voice = null;
 
+// defaults
+// var myDensity, mySpread, myPitch = 0.5;
+// var myEnvelope = {
+//     attack: 0.1,
+//     release: 0.5
+// }
+
 var granular = new Granular({
-	audioContext,
-	envelope: {
-		attack: 0.001, //occhio a mettere attack 0 perchè poi verrà impostato random
-		release: 0.1
-	},
-	density: 0.1,
-	spread: 0.01,
-	pitch: 1
+	audioContext // i default vengono caricati leggento il valore da html, il model è effettivamente contenuto nell'oggetto granular
+	// envelope: {
+	// 	attack: myEnvelope.attack, //occhio a mettere attack 0 perchè poi verrà impostato random
+	// 	release: myEnvelope.release
+	// },
+	// density: myDensity,
+	// spread: mySpread,
+	// pitch: myPitch
 });
 
 var voiceOption = {
@@ -39,6 +46,10 @@ export function setVolume(vol) {
 	voiceOption.volume = vol;
 }
 
+export function updateState(state) {
+	granular.set(state);
+}
+
 export function playGrain(position = null) {
 
 	if (position) {
@@ -52,8 +63,6 @@ export function playGrain(position = null) {
 			console.log(voice);
 			voiceState = true;
 			grainIds.push(id)
-
-
 		}
 	}
 	/*
@@ -71,8 +80,6 @@ export function stopGrain() {
 	granular.stopVoice(grainIds[0]);
 	grainIds = [];
 }
-
-
 
 function setGranular() {
 	/*usa p5.js che è molto simile a WebAudio
