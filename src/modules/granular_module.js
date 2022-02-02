@@ -22,13 +22,13 @@ var granular = new Granular({
 });
 
 
-
-
 var grainIds = []
-
-
+// FALSE se non è non è presente un'istanza di Voice; questo succede in due situazioni:
+// 1) Prima di cliccare sulla waveform
+// 2) Dopo aver rilasciato il tasto del mouse (la voice viene fermata e cancellata)
 var voiceState = false;
-var voice = null;
+// Variabile che usiamo per mantenere il riferimento alla voice attiva
+var voiceRef = null;
 
 
 var voiceOption = {
@@ -44,31 +44,27 @@ export function setVolume(vol) {
 	voiceOption.volume = vol;
 }
 
+
+// Metodo chiamato quando si clicca sulla waveform.
+// Aggiorna la posizione utilizzata dalla voice (se esistente), 
+// altrimenti ne crea una e ne salva il riferimento nella variabile voiceRef, e ne salva l'id nell'array push
 export function playGrain(position = null) {
 
 	if (position) {
 		setPosition(position)
 		//aggiungere setvolume
 		if (voiceState) {
-			voice.voice.update(voiceOption);
+			voiceRef.voice.update(voiceOption);
 		} else {
 			var id = granular.startVoice(voiceOption)
-			voice = granular.getVoice(id);
-			console.log(voice);
+			voiceRef = granular.getVoice(id);
+			console.log(voiceRef);
 			voiceState = true;
 			grainIds.push(id)
 
 
 		}
 	}
-	/*
-	if(position) {
-	  setPosition(position)
-	  voic= granular.startVoice(voiceOption)
-	}
-	else {
-	  grainIds.push(id)
-	} */
 }
 
 export function stopGrain() {

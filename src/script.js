@@ -106,13 +106,34 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
         inputElement.click();
-    });
 
-    inputElement.addEventListener('change', e => {
-        if (inputElement.files.length) {
-            updateThumbnail(dropZoneElement, inputElement.files[0]);
+        if (e.dataTransfer.files.length) {
+            // Dropped file is handled here
+            var file = e.dataTransfer.files[0];
+
+
+            // Conversion to data buffer (inputBuffer)
+            file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
+                inputBuffer = decodedAudio
+                init(inputBuffer)
+
+                // rimuovi dropzone e mostra change button
+                dropZoneElement.classList.toggle("nodisplay");
+                document.getElementById("container_button").classList.toggle("nodisplay");
+
+                // mostra knobs
+                document.querySelectorAll(".bar").forEach(e => {
+                    e.classList.toggle("nodisplay");
+                    e.classList.toggle("display-bar");
+                })
+
+                loadFile(file); // mostra wavesurfer
+            });
         }
-    })
+
+        dropZoneElement.classList.remove('drop_zone--over');
+        document.getElementById('waveform').classList.remove('nodisplay')
+    });
 
     // Callback function called when the user drag a file in drop zone. 
     dropZoneElement.addEventListener('dragover', e => {
