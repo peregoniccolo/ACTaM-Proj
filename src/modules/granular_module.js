@@ -8,8 +8,6 @@ import 'p5/lib/addons/p5.sound';
 
 //IN QUESTO CASO: ogni tot ms abasso il pitch dei grain
 
-var grainIds = []
-
 const audioContext = p5.prototype.getAudioContext();
 
 var voiceState = false;
@@ -32,6 +30,8 @@ var granular = new Granular({
 	// spread: mySpread,
 	// pitch: myPitch
 });
+
+var grainIds = []
 
 var voiceOption = {
 	position: 0.5,

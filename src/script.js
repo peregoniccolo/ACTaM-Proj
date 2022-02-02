@@ -1,14 +1,9 @@
 import { init, stopGrain, setPosition, playGrain, setVolume, updateState } from "./modules/granular_module";
-import { ClickAndHold } from "./modules/ClickAndHold";
-
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
+var ctx = new AudioContext();
 var inputBuffer, currentAudio;
-var c = new AudioContext();
 var waveformDiv = document.getElementById('waveform')
-// Classe che gestisce il click and hold della waveform.
-
-// var click_hold_waveformplay = new ClickAndHold(waveformDiv, playGrain, stopGrain, 0);
 
 // jquery knobs setup e metodi di update
 $('.knob').each(function () {
@@ -111,11 +106,13 @@ var wavesurfer = WaveSurfer.create({
             followCursorY: true,
         })
     ]
-
+    
 });
 
-c.resume()
+ctx.resume()
 
+
+// WAVEFORM EVENT LISTENERS
 var mouseState = false;
 
 waveformDiv.addEventListener('mousedown', (e) => {
@@ -173,6 +170,7 @@ function normalizeTime(time) {
 }
 
 
+
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
@@ -212,7 +210,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
 
             // Conversion to data buffer (inputBuffer)
-            file.arrayBuffer().then((arrayBuffer) => c.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
+            file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
                 init(inputBuffer)
 
@@ -293,35 +291,6 @@ function updateThumbnail(dropZoneElement, file) {
 function loadFile(file) {
     wavesurfer.loadBlob(file);
 }
-
-// da cancellare?
-
-function loadWave(file) {
-    url = URL.createObjectURL(file);
-    wavesurfer.load(url);
-}
-
-function startProcessing() {
-    // TODO load new page / modify page
-    // TODO link to gran js
-
-    // play test
-
-    if (currentAudio != null) {
-        // if the context was already playing
-        c.close()
-        c = new AudioContext()
-        c.resume()
-    }
-    currentAudio = c.createBufferSource();
-    currentAudio.buffer = inputBuffer;
-    currentAudio.connect(c.destination);
-    currentAudio.start(c.currentTime);
-    draw(normalizeData(filterData(inputBuffer)))
-}
-
-
-
 
 /* MIDI PROTOCOL
 
