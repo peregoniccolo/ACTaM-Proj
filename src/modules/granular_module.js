@@ -78,6 +78,7 @@ export function stopGrain() {
 
 // In questo metodo vengono settati eventuali effetti.
 function setGranular() {
+	/*
 	//usa p5.js che è molto simile a WebAudio
 
 	// DELAY
@@ -105,6 +106,7 @@ function setGranular() {
 	//granular.on('settingBuffer', () => console.log('setting buffer'));
 	//granular.on('bufferSet', () => console.log('buffer set'));
 	//granular.on('grainCreated', () => console.log('grain created'));
+	*/
 
 }
 
