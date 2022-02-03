@@ -143,9 +143,12 @@ waveformDiv.addEventListener('mouseup', (e) => {
     stopGrain()
 })
 
+
 waveformDiv.addEventListener('mouseout', (e) => {
-    mouseState = false;
-    stopGrain()
+    if(mouseState){
+        mouseState = false;
+        stopGrain()
+    }
 })
 
 //Da posizione in pixel a posizione in secondi
@@ -326,6 +329,7 @@ function dragOverHandler(ev) {
 */
 
 /*
+
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 let ctx;
 const startButton = document.querySelector('button'); // need a button to create the audio context
@@ -333,18 +337,35 @@ startButton.addEventListener('click', () =>{
     ctx = new AudioContext;
 })
 
+*/
+
+
 if(navigator.requestMIDIAccess){
     navigator.requestMIDIAccess().then( onMIDISuccess, onMIDIFailure );
+    console.log('connesso');
 }
+
 
 
 function onMIDISuccess( midiAccess ) {
+
+    console.log(midiAccess)
+    
     midiAccess.addEventListener('statechange', updateDevices)
     const input = midiAccess.inputs;
-    inputs.forEach((input) => {
+    input.forEach((input) => {
         input.addEventListener('midimessage', handleInput);
   })
 }
+
+function onMIDIFailure() {
+    console.log( "Failed to get MIDI access " );
+  }
+
+  function updateDevices (event) {
+    console.log(event);
+}
+
 
 function handleVelocity(velocity){
     return velocity/128
@@ -354,7 +375,9 @@ function handleInput(input){
     const command = input.data[0]
     const note = input.data[1]
     const velocity = handleVelocity(input.data[2])
+    console.log(command+"|"+note+"|"+velocity)
 
+    /*
     switch(command){
         case 144:
         if (velocity > 0){
@@ -368,8 +391,10 @@ function handleInput(input){
         noteoff(note);
         break;
     }
+    */
 }
 
+/*
 function noteon(note, velocity){
 
     updateGranState();
@@ -402,12 +427,10 @@ function noteon(note, velocity){
         granular.set(state);
     }
 }
+
 function noteoff(note, velocity){
     granular.stopVoice(id)    
 }
 
-function onMIDIFailure() {
-  console.log( "Failed to get MIDI access " );
-}
-*/
 
+*/
