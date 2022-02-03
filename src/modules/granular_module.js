@@ -10,8 +10,9 @@ import 'p5/lib/addons/p5.sound';
 
 const audioContext = p5.prototype.getAudioContext();
 
+var grainIds = []
 var voiceState = false;
-var voice = null;
+var voiceRef = null;
 
 // defaults
 // var myDensity, mySpread, myPitch = 0.5;
@@ -31,7 +32,6 @@ var granular = new Granular({
 	// pitch: myPitch
 });
 
-var grainIds = []
 
 var voiceOption = {
 	position: 0.5,
@@ -56,23 +56,15 @@ export function playGrain(position = null) {
 		setPosition(position)
 		//aggiungere setvolume
 		if (voiceState) {
-			voice.voice.update(voiceOption);
+			voiceRef.voice.update(voiceOption);
 		} else {
 			var id = granular.startVoice(voiceOption)
-			voice = granular.getVoice(id);
-			console.log(voice);
+			voiceRef = granular.getVoice(id);
+			console.log(voiceRef);
 			voiceState = true;
 			grainIds.push(id)
 		}
 	}
-	/*
-	if(position) {
-	  setPosition(position)
-	  voic= granular.startVoice(voiceOption)
-	}
-	else {
-	  grainIds.push(id)
-	} */
 }
 
 export function stopGrain() {
@@ -81,28 +73,37 @@ export function stopGrain() {
 	grainIds = [];
 }
 
-function setGranular() {
-	/*usa p5.js che è molto simile a WebAudio
-	const delay = new p5.Delay();
 
+// In questo metodo vengono settati eventuali effetti.
+function setGranular() {
+	//usa p5.js che è molto simile a WebAudio
+
+	// DELAY
+	const delay = new p5.Delay();
 	delay.process(granular, 0.1, 0.5, 3000); // source, delayTime, feedback, filter frequency
 
-	const reverb = new p5.Reverb();
 
+	// REVERB
+	const reverb = new p5.Reverb();
   // due to a bug setting parameters will throw error
   // https://github.com/processing/p5.js/issues/3090
 	reverb.process(delay); // source, reverbTime, decayRate in %, reverse
 
 	reverb.amp(3);
 
+	// COMPRESSOR
 	const compressor = new p5.Compressor();
 
 	compressor.process(reverb, 0.005, 6, 10, -24, 0.05); // [attack], [knee], [ratio], [threshold], [release]
 
+	// LOWPASS FILTER
+	const lowpass = new p5.Filter(['lowpass']);
+	lowpass.freq(2000);
+	lowpass.res(0);
 	//granular.on('settingBuffer', () => console.log('setting buffer'));
 	//granular.on('bufferSet', () => console.log('buffer set'));
 	//granular.on('grainCreated', () => console.log('grain created'));
-	*/
+
 }
 
 export async function init(file) {
