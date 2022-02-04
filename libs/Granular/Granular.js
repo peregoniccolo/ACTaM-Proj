@@ -70,7 +70,7 @@ export default class Granular {
     set(state) { //aggiorna lo state
         this.state = merge(this.state, state);
 
-        console.log(this.state);
+     //   console.log(this.state);
     }
 
     /**
@@ -160,7 +160,6 @@ export default class Granular {
 
             play() { //creo e suono il grain
 
-                console.log(self.state);
 
                 const _innerPlay = () => {
                     const grain = self.createGrain(this.position, this.volume);
@@ -211,7 +210,6 @@ export default class Granular {
 
         if (!id) {
             id = ids.next()
-            console.log("id post next: " + id);
         }
 
         const voice = new Voice(position, volume);

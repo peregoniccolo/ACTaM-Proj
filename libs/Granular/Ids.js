@@ -7,7 +7,6 @@ export default class Ids {
 
   next() {
     var id = `${ this.prefix }_${ this.id++ }`;
-    console.log("id in next: " + id);
     return id
   }
 }

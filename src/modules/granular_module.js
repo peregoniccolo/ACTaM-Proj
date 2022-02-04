@@ -14,8 +14,6 @@ var grainIds = []
 var voiceState = false;
 var voiceRef = null;
 
-
-
 // defaults
 // var myDensity, mySpread, myPitch = 0.5;
 // var myEnvelope = {
@@ -40,6 +38,47 @@ var voiceOption = {
 	volume: 0.5
 };
 
+// Effects
+
+var delay = new p5.Delay();
+var reverb = new p5.Reverb();
+var compressor = new p5.Compressor();
+var lowpass = new p5.Filter(['lowpass']);
+
+export function delayOn(){
+	// Parametri di default
+	delay.process(granular, 0.1, 0.5, 3000); // source, delayTime, feedback, filter frequency
+}
+
+export function delayOff(){
+	delay.disconnect();
+}
+
+export function reverbOn(){
+	reverb.process(granular,2,1);
+}
+
+export function reverbOff(){
+	reverb.disconnect();
+}
+
+export function compressorOn(){
+	compressor.process(granular, 0.005, 6, 10, -24, 0.05); // [attack], [knee], [ratio], [threshold], [release]
+}
+
+export function compressorOff(){
+	compressor.disconnect();
+}
+
+export function filterOn(){
+	lowpass.process(granular, 3000, 0.3);
+}
+
+export function filterOff(){
+	lowpass.disconnect();
+}
+
+
 export function setPosition(pos) {
 	voiceOption.position = pos;
 }
@@ -52,20 +91,23 @@ export function updateState(state) {
 	granular.set(state);
 }
 
-export function playGrain(position = null) {
+export function playGrain(position = null, volume = null) {
 
 	if (position) {
 		setPosition(position)
-		//aggiungere setvolume
-		if (voiceState) {
-			voiceRef.voice.update(voiceOption);
-		} else {
-			var id = granular.startVoice(voiceOption)
-			voiceRef = granular.getVoice(id);
-			console.log(voiceRef);
-			voiceState = true;
-			grainIds.push(id)
-		}
+	}
+
+	if (volume) {
+		setVolume(volume)
+	}
+
+	if (voiceState) {
+		voiceRef.voice.update(voiceOption);
+	} else {
+		var id = granular.startVoice(voiceOption)
+		voiceRef = granular.getVoice(id);
+		voiceState = true;
+		grainIds.push(id)
 	}
 }
 
