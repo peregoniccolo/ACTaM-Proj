@@ -62,7 +62,6 @@ $(".env-knob").each(function () {
 
 function updateGranParValues(id, newVal) {
     // fa l'update dello stato di granular tramite un metodo di granular_module
-    console.log(id, newVal);
     updateState({
         [id]: newVal
     });
@@ -70,11 +69,12 @@ function updateGranParValues(id, newVal) {
 
 function updateGranEnvValues(id, newVal) {
     // fa l'update dello stato di granular tramite un metodo di granular_module
-    console.log({ id, newVal });
     updateState({
         "envelope": { [id]: newVal }
     });
 }
+
+// il log per controllare i valori è in Granular.set()
 
 function animateToDefaultValue() {
     // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
