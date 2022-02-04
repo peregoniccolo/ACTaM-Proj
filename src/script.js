@@ -429,9 +429,9 @@ function handleInput(input){
 
 function noteon(note, velocity){
 
-    var frequency = Math.pow(2,(note-48)/12); // non funziona
-    //console.log(frequency);
-    playGrain(null,velocity);
+    var frequency = Math.pow(2,(note-48)/12); 
+    console.log("freq: " + frequency)
+    playGrain(null,velocity,frequency);
     
 }
 

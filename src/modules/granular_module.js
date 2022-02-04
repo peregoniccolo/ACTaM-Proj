@@ -38,6 +38,8 @@ var reverb = new p5.Reverb();
 var compressor = new p5.Compressor();
 var lowpass = new p5.Filter(['lowpass']);
 
+export var freq;
+
 export function delayOn(){
 	// Parametri di default
 	delay.process(granular, 0.1, 0.5, 3000); // source, delayTime, feedback, filter frequency
@@ -84,7 +86,7 @@ export function updateState(state) {
 	granular.set(state);
 }
 
-export function playGrain(position = null, volume = null) {
+export function playGrain(position = null, volume = null, frequency = null) {
 
 	if (position) {
 		setPosition(position)
@@ -92,6 +94,12 @@ export function playGrain(position = null, volume = null) {
 
 	if (volume) {
 		setVolume(volume)
+	}
+
+	if(frequency){
+		freq = granular.state.pitch * frequency
+	} else {
+		freq = 1
 	}
 
 	if (voiceState) {
@@ -109,6 +117,7 @@ export function stopGrain() {
 	granular.stopVoice(grainIds[0]);
 	grainIds = [];
 }
+
 
 
 // In questo metodo vengono settati eventuali effetti.

@@ -6,6 +6,10 @@ import {
 import Events from './Events';
 import Ids from './Ids';
 
+import { freq } from "../../src/modules/granular_module";
+
+
+
 const ids = new Ids();
 
 export default class Granular {
@@ -261,7 +265,7 @@ export default class Granular {
 
         // source
         const source = this.context.createBufferSource();
-        source.playbackRate.value = source.playbackRate.value * this.state.pitch; //il pitch dell'intero granular influisce sulla velocità di riproduzione del singolo grain
+        source.playbackRate.value = source.playbackRate.value * this.state.pitch * freq; //il pitch dell'intero granular influisce sulla velocità di riproduzione del singolo grain
         source.buffer = this.buffer;
 
         // gain
