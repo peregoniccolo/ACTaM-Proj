@@ -6,30 +6,23 @@ import 'p5/lib/addons/p5.sound';
 // a cui passo un buffer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
 // questa funzione crea e fa suonare delle Voice (che a loro volta creano e fanno suonare dei grain).
 
-//IN QUESTO CASO: ogni tot ms abasso il pitch dei grain
-
 const audioContext = p5.prototype.getAudioContext();
 
 var grainIds = []
 var voiceState = false;
 var voiceRef = null;
 
-// defaults
-// var myDensity, mySpread, myPitch = 0.5;
-// var myEnvelope = {
-//     attack: 0.1,
-//     release: 0.5
-// }
-
 var granular = new Granular({
-	audioContext // i default vengono caricati leggento il valore da html, il model è effettivamente contenuto nell'oggetto granular
+	audioContext 
+	// i default values per il granular state vengono caricati leggendo il valore da html
+	// l'oggetto granular è parte del model
 	// envelope: {
-	// 	attack: myEnvelope.attack, //occhio a mettere attack 0 perchè poi verrà impostato random
-	// 	release: myEnvelope.release
+	// 	attack: , //occhio a mettere attack 0 perchè poi verrà impostato random, ma ho messo il minimo a 0.01
+	// 	release: 
 	// },
-	// density: myDensity,
-	// spread: mySpread,
-	// pitch: myPitch
+	// density: ,
+	// spread ,
+	// pitch: 
 });
 
 
@@ -153,7 +146,6 @@ function setGranular() {
 }
 
 export async function init(file) {
-
 	setGranular();
 	const data = file;
 	//await getDataFromFile(file);
@@ -161,7 +153,7 @@ export async function init(file) {
 	await granular.setBuffer(data);
 }
 
-export async function getDataURL(url) { //funzione da modificare in modo da prendere il file drag & droppato dall'utente
+export async function getDataURL(url) { 
 	return new Promise((resolve) => {
 		const request = new XMLHttpRequest();
 
@@ -174,7 +166,6 @@ export async function getDataURL(url) { //funzione da modificare in modo da pren
 
 			resolve(audioData);
 		}
-
 		request.send();
 	});
 }

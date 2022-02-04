@@ -3,23 +3,14 @@ import { init, stopGrain, setPosition, playGrain, setVolume, updateState } from 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var ctx = new AudioContext();
 var inputBuffer, currentAudio;
-var waveformDiv = document.getElementById('waveform')
+var waveformDiv = document.getElementById('waveform');
 
 // jquery knobs setup e metodi di update e altro
 $('.knob').each(function () {
 
     var $this = $(this);
-    var elementId = $this.attr("id");
 
     $this.knob({
-        // onclick
-        'change': function (v) {
-            updateGranModelValues(elementId, v);
-        },
-        'release': function (v) {
-            updateGranModelValues(elementId, v);
-        }, // entrambi perchè altrimenti lo scroll non modifica i valori
-
         'step': 0.01,
         'angleArc': 270,
         'angleOffset': -135,
@@ -31,28 +22,70 @@ $('.knob').each(function () {
 
 });
 
-function updateGranModelValues(id, newVal) {
+$(".par-knob").each(function () {
+
+    var $this = $(this);
+    var elementId = $this.attr("id").split("-")[0];
+
+    $this.trigger(
+        'configure',
+        {
+            'change': function (v) {
+                updateGranParValues(elementId, v);
+            },
+            'release': function (v) {
+                updateGranParValues(elementId, v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
+$(".env-knob").each(function () {
+
+    var $this = $(this);
+    var elementId = $this.attr("id").split("-")[0];
+
+    $this.trigger(
+        'configure',
+        {
+            'change': function (v) {
+                updateGranEnvValues(elementId, v);
+            },
+            'release': function (v) {
+                updateGranEnvValues(elementId, v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
+function updateGranParValues(id, newVal) {
     // fa l'update dello stato di granular tramite un metodo di granular_module
-    id = id.split("-");
-    if (id[0] == 'e')
-        updateState({
-            "envelope": {
-                [id[1]]: newVal
-            }
-        });
-    else
-        updateState({
-            [id[0]]: newVal
-        });
+    updateState({
+        [id]: newVal
+    });
 }
+
+function updateGranEnvValues(id, newVal) {
+    // fa l'update dello stato di granular tramite un metodo di granular_module
+    updateState({
+        "envelope": { [id]: newVal }
+    });
+}
+
+// il log per controllare i valori è in Granular.set()
 
 function animateToDefaultValue() {
     // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
     // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
+
     $('.knob').each(function () {
 
         var $this = $(this);
         var myVal = $this.attr("default");
+
+        //console.log($this, myVal);
 
         $({
             value: 0,
@@ -106,7 +139,7 @@ var wavesurfer = WaveSurfer.create({
             followCursorY: true,
         })
     ]
-    
+
 });
 
 ctx.resume()
