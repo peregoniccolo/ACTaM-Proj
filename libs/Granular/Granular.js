@@ -247,11 +247,13 @@ export default class Granular {
             }
         });
 
-        const voices = this.state.voices.filter(v => v.id !== id); //filter crea un nuovo array con gli elementi che hanno passato il test
+        this.state.voices = this.state.voices.filter(v => v.id !== id); //filter crea un nuovo array con gli elementi che hanno passato il test
 
+        /*
         this.set({
-            voices
+            voices: [1, 2, 3, 4, 5]
         });
+        */
     }
 
     createGrain(position, volume) { // dentro la funzione _innerplay() viene passata la posizione e il volume della voice che sta suonando.
