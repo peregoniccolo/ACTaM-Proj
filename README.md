@@ -43,4 +43,4 @@ Eventualmente grosso visualizzatore psichedelico.
 ## Trello
 https://trello.com/b/IWccLP6l/lezzosteps
 
-### Gargiulo - Orsatti - Morena - Perego
+### Gargiulo - Morena - Orsatti - Perego

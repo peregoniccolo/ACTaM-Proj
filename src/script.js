@@ -15,7 +15,6 @@ $('.knob').each(function () {
         'angleArc': 270,
         'angleOffset': -135,
         'lineCap': 'round',
-        'width': '100%',
         'heigth': '80%',
         'fgColor': '#222222',
     });
@@ -178,7 +177,7 @@ waveformDiv.addEventListener('mouseup', (e) => {
 
 
 waveformDiv.addEventListener('mouseout', (e) => {
-    if(mouseState){
+    if (mouseState) {
         mouseState = false;
         stopGrain()
     }
@@ -373,70 +372,70 @@ startButton.addEventListener('click', () =>{
 */
 
 
-if(navigator.requestMIDIAccess){
-    navigator.requestMIDIAccess().then( onMIDISuccess, onMIDIFailure );
+if (navigator.requestMIDIAccess) {
+    navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
     console.log('connesso');
 }
 
 
 
-function onMIDISuccess( midiAccess ) {
+function onMIDISuccess(midiAccess) {
 
     console.log(midiAccess)
-    
+
     midiAccess.addEventListener('statechange', updateDevices)
     const input = midiAccess.inputs;
     input.forEach((input) => {
         input.addEventListener('midimessage', handleInput);
-  })
+    })
 }
 
 function onMIDIFailure() {
-    console.log( "Failed to get MIDI access " );
-  }
+    console.log("Failed to get MIDI access ");
+}
 
-  function updateDevices (event) {
+function updateDevices(event) {
     console.log(event);
 }
 
 
-function handleVelocity(velocity){
-    return velocity/128
+function handleVelocity(velocity) {
+    return velocity / 128
 }
 
-function handleInput(input){
+function handleInput(input) {
     const command = input.data[0]
     const note = input.data[1]
     const velocity = handleVelocity(input.data[2])
-    console.log(command+"|"+note+"|"+velocity)
+    console.log(command + "|" + note + "|" + velocity)
 
-    switch(command){
+    switch (command) {
         case 144:
-        if (velocity > 0){
-        noteon(note, velocity);
-        } 
-        else{
-        noteoff(note);
-        }
-        break;
+            if (velocity > 0) {
+                noteon(note, velocity);
+            }
+            else {
+                noteoff(note);
+            }
+            break;
         case 128:
-        noteoff(note);
-        break;
+            noteoff(note);
+            break;
     }
 
 }
 
 
-function noteon(note, velocity){
+function noteon(note, velocity) {
 
-    var frequency = Math.pow(2,(note-48)/12); 
+    var frequency = Math.pow(2, (note - 48) / 12);
     console.log("freq: " + frequency)
-    playGrain(null,velocity,frequency);
-    
+    playGrain(null, velocity, frequency);
+
 }
 
-function noteoff(note, velocity){
-    stopGrain();   
+function noteoff(note, velocity) {
+    stopGrain();
 }
 
 

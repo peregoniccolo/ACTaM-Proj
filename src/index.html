@@ -1,6 +1,9 @@
 <html>
 
 <head>
+
+    <title>GranSynth</title>
+
     <link rel="stylesheet" href="style.css" />
     <!-- wavesurfer -->
     <script src="https://unpkg.com/wavesurfer.js/dist/wavesurfer.min.js"></script>
@@ -8,40 +11,54 @@
     <!-- jquery & knobs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body style="background-color: rgb(241, 238, 238)">
+
+    <h1 class="font">Granular Synthetizer</h1>
+
     <div class="nodisplay waveform" id="waveform"></div>
 
     <div class="bar nodisplay" id="knob-bar">
+        <!-- granular parameter bar -->
         <div class="vert">
             <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-            <label>Density</label>
+            <label class="font">Density</label>
         </div>
         <div class="vert">
             <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-            <label>Spread</label>
+            <label class="font">Spread</label>
         </div>
         <div class="vert">
             <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-            <label>Pitch</label>
+            <label class="font">Pitch</label>
         </div>
-    </div>
-
-    <div class="bar nodisplay" id="envelope-bar">
-        <canvas id="envelope-canvas"></canvas>
-
         <div class="vert">
             <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1" />
-            <label>Attack</label>
+            <label class="font">Attack</label>
         </div>
         <div class="vert">
             <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1" />
-            <label>Release</label>
+            <label class="font">Release</label>
         </div>
     </div>
 
-    <div class="drop_zone">
+    <div class="bar nodisplay" id="effect-bar">
+        <div class="vert placeholder">
+            this is a placeholder
+        </div>
+        <div class="vert placeholder">
+            this is a placeholder
+        </div>
+        <div class="vert placeholder">
+            this is a placeholder
+        </div>
+    </div>
+
+    <div class="drop_zone font">
         <span class="drop_zone_prompt">Drag your sample here...</span>
         <input type="file" id="sample" name="myFile" class="drop_zone_input" />
     </div>
@@ -52,9 +69,10 @@
         </div>
     </div>
 
-    <div>
-        <canvas id="audiocanvas"> </canvas>
-    </div>
+    <footer>
+        <p class="font"><a href="https://github.com/peregoniccolo/ACTaM-Proj">ACTaM Project</a> - Developed by Gargiulo,
+            Morena, Orsatti, Perego</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
