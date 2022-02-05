@@ -25,6 +25,8 @@ var granular = new Granular({
 	// pitch: 
 });
 
+granular.setMaster(1);
+
 
 var voiceOption = {
 	position: 0.5,
