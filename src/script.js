@@ -154,6 +154,7 @@ waveformDiv.addEventListener('mousedown', (e) => {
     var posX = updateCursorPosition(x);
     //console.log("pos in sec: " + posX)
     //console.log("pos normalizzata: " + normalizeTime(posX));
+    wavesurfer.drawer.progress(normalizeTime(posX));
 
     if (mouseState) {
         playGrain(normalizeTime(posX))
@@ -165,6 +166,8 @@ waveformDiv.addEventListener('mousedown', (e) => {
 
         if (mouseState) {
             playGrain(normalizeTime(posX));
+            wavesurfer.drawer.progress(normalizeTime(posX));
+
             //console.log("pos in mousemove: " + posX);
         }
     })
@@ -214,11 +217,32 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
         inputElement.click();
+        
     });
 
     inputElement.addEventListener('change', e => {
+        console.log(inputElement.files)
         if (inputElement.files.length) {
-            updateThumbnail(dropZoneElement, inputElement.files[0]);
+            var file = inputElement.files[0]
+
+            // Conversion to data buffer (inputBuffer)
+            file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
+                inputBuffer = decodedAudio
+                init(inputBuffer)
+
+                // rimuovi dropzone e mostra change button
+                dropZoneElement.classList.toggle("nodisplay");
+                document.getElementById("container_button").classList.toggle("nodisplay");
+
+                // mostra knobs
+                toggleKnobs();
+
+                loadFile(file); // mostra wavesurfer
+            });
+
+            dropZoneElement.classList.remove('drop_zone--over');
+            document.getElementById('waveform').classList.remove('nodisplay')
+
         }
     })
 
