@@ -6,6 +6,14 @@ h1 {
     text-align: center;
 }
 
+.rounded {
+    border-top: 8px solid #bbb;
+    border-radius: 5px;
+    border-color:#6f7449;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
 .font {
     font-family: 'Helvetica Neue', sans-serif;
 }
@@ -71,6 +79,7 @@ h1 {
 #container_button {
     height: fit-content;
     position: relative;
+    margin-top: 30px;
 }
 
 #new_sample_div {
@@ -108,6 +117,27 @@ h1 {
 }
 
 /* knobs */
+#knob-bar {
+    border-radius: 10% ;
+    border-style: double;
+    border-color: #6f7449;
+    border-width: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: bisque;
+    margin-bottom: 15px;
+}
+
+#effect-bar {
+    padding-bottom: 10px;
+    border-radius: 5% ;
+    border-style: double;
+    border-color: #6f7449;
+    border-width: 10px;
+    background-color: bisque;
+    margin-bottom: 15px;
+}
+
 .bar {
     margin-left: 10%;
     margin-right: 10%;
@@ -127,6 +157,7 @@ h1 {
     padding: 1%;
     justify-content: center;
     text-align: center;
+    vertical-align: middle;
 }
 
 label {
