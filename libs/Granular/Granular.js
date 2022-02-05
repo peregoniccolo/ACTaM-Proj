@@ -51,8 +51,13 @@ export default class Granular {
         this.gain = this.context.createGain();
         this.gain.gain.value = 1;
 
+        
         // connect to destination by default
         this.gain.connect(this.context.destination);
+    }
+
+    setMaster(gain){
+        this.gain.gain.value = gain;
     }
 
     connect(audioNode) {
