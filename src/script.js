@@ -1,3 +1,4 @@
+//import "../libs/jquery-knobs/jquery.knob";
 import { init, stopGrain, setPosition, playGrain, setVolume, updateState } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
@@ -51,14 +52,16 @@ presetSelect.addEventListener("change", e => {
     var chosenEnv = chosenPreset["envelope"];
     if (chosenEnv != null)
         Object.keys(chosenEnv).forEach(key => {
-            updateGranEnvValue(key, chosenEnv[key]);
+            //updateGranEnvValue(key, chosenEnv[key]);
+            animateToValue(key, chosenEnv[key]);
         })
 
     // parameters
     Object.keys(chosenPreset).filter(function ($key) {
         return $key != "envelope";
     }).forEach(key => {
-        updateGranParValue(key, chosenPreset[key]);
+        //updateGranParValue(key, chosenPreset[key]);
+        animateToValue(key, chosenPreset[key]);
     });
 
 })
@@ -147,8 +150,6 @@ function animateToDefaultValue() {
         var $this = $(this);
         var myVal = $this.attr("default");
 
-        //console.log($this, myVal);
-
         $({
             value: 0,
         }).animate({
@@ -164,30 +165,45 @@ function animateToDefaultValue() {
     });
 }
 
-function animateToValue() {
+function animateToValue(id, newValue) {
     // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
     // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
 
-    $('.knob').each(function (newState) {
+    // $('.knob').each(function (newState) {
 
-        var $this = $(this);
-        var myVal = $this.attr("default");
+    //     var $this = $(this);
+    //     var myVal = $this.attr("default");
 
-        //console.log($this, myVal);
+    //     //console.log($this, myVal);
 
-        $({
-            value: 0,
-        }).animate({
-            value: myVal
-        }, {
-            duration: 1000,
-            easing: 'swing',
-            step: function () {
-                $this.val(this.value).trigger('change');
-            }
-        })
+    //     $({
+    //         value: 0,
+    //     }).animate({
+    //         value: myVal
+    //     }, {
+    //         duration: 1000,
+    //         easing: 'swing',
+    //         step: function () {
+    //             $this.val(this.value).trigger('change');
+    //         }
+    //     })
 
-    });
+    // });
+
+    id = "#" + id + "-knob";
+
+    var $this = $(id);
+
+    $this.animate({
+        value: newValue
+    },{
+        duration: 1000,
+        easing: 'swing',
+        step: function() {
+            $this.val(this.value).trigger('change');
+        }
+    })
+
 }
 
 function toggleKnobs() {
