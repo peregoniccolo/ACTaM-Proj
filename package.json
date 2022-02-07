@@ -25,9 +25,10 @@
   },
   "homepage": "https://github.com/peregoniccolo/ACTaM-Proj#readme",
   "dependencies": {
+    "deasync": "^0.1.24",
+    "firebase": "^9.4.1",
     "granular-js": "^0.6.0",
-    "parcel-bundler": "^1.12.5",
     "p5": "^0.7.2",
-    "deasync": "^0.1.24"
+    "parcel-bundler": "^1.12.5"
   }
 }

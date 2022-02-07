@@ -1,4 +1,67 @@
 import { init, stopGrain, setPosition, playGrain, setVolume, updateState } from "./modules/granular_module";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+// firebase configuration and initialization
+const firebaseConfig = {
+    apiKey: "AIzaSyAEldmbWYo9NJi_oQ_Hd4wwH5YFcqamZdg",
+    authDomain: "actam-proj.firebaseapp.com",
+    projectId: "actam-proj",
+    storageBucket: "actam-proj.appspot.com",
+    messagingSenderId: "281307123752",
+    appId: "1:281307123752:web:c69bde0572ae3e7141251d"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const dbRef = getFirestore();
+
+// preset list population
+const presetSelect = document.getElementById("preset-select");
+const preset_collection = collection(dbRef, "presets");
+var presetMap = {};
+
+async function populatePresetList() {
+    const querySnapshot = await getDocs(preset_collection);
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        presetMap[doc.id] = doc.data();
+        var newOption = document.createElement('option');
+        newOption.value = doc.id;
+        newOption.innerHTML = doc.id;
+        presetSelect.appendChild(newOption);
+    });
+    // console.log(presetMap);
+
+}
+
+populatePresetList();
+
+// bind onchange listener
+
+presetSelect.addEventListener("change", e => {
+
+    if(presetSelect.value == "default"){
+        animateToDefaultValue();
+        return;
+    }
+
+    var chosenPreset = presetMap[presetSelect.value];
+
+    // envelope
+    var chosenEnv = chosenPreset["envelope"];
+    if (chosenEnv != null)
+        Object.keys(chosenEnv).forEach(key => {
+            updateGranEnvValue(key, chosenEnv[key]);
+        })
+
+    // parameters
+    Object.keys(chosenPreset).filter(function ($key) {
+        return $key != "envelope";
+    }).forEach(key => {
+        updateGranParValue(key, chosenPreset[key]);
+    });
+
+})
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var ctx = new AudioContext();
@@ -30,10 +93,10 @@ $(".par-knob").each(function () {
         'configure',
         {
             'change': function (v) {
-                updateGranParValues(elementId, v);
+                updateGranParValue(elementId, v);
             },
             'release': function (v) {
-                updateGranParValues(elementId, v);
+                updateGranParValue(elementId, v);
             }, // entrambi perchè altrimenti lo scroll non modifica i valori
         }
     );
@@ -49,24 +112,24 @@ $(".env-knob").each(function () {
         'configure',
         {
             'change': function (v) {
-                updateGranEnvValues(elementId, v);
+                updateGranEnvValue(elementId, v);
             },
             'release': function (v) {
-                updateGranEnvValues(elementId, v);
+                updateGranEnvValue(elementId, v);
             }, // entrambi perchè altrimenti lo scroll non modifica i valori
         }
     );
 
 });
 
-function updateGranParValues(id, newVal) {
+function updateGranParValue(id, newVal) {
     // fa l'update dello stato di granular tramite un metodo di granular_module
     updateState({
         [id]: newVal
     });
 }
 
-function updateGranEnvValues(id, newVal) {
+function updateGranEnvValue(id, newVal) {
     // fa l'update dello stato di granular tramite un metodo di granular_module
     updateState({
         "envelope": { [id]: newVal }
@@ -101,15 +164,41 @@ function animateToDefaultValue() {
     });
 }
 
+function animateToValue() {
+    // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
+    // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
+
+    $('.knob').each(function (newState) {
+
+        var $this = $(this);
+        var myVal = $this.attr("default");
+
+        //console.log($this, myVal);
+
+        $({
+            value: 0,
+        }).animate({
+            value: myVal
+        }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function () {
+                $this.val(this.value).trigger('change');
+            }
+        })
+
+    });
+}
+
 function toggleKnobs() {
     // compare e scompare gli knobs
     var bars = document.querySelectorAll(".bar");
     bars.forEach(e => {
         e.classList.toggle("nodisplay");
-        e.classList.toggle("display-bar");
+        e.classList.toggle("display-flex");
     });
 
-    if (bars[0].classList.contains("display-bar"))
+    if (bars[0].classList.contains("display-flex"))
         animateToDefaultValue();
 }
 
@@ -217,7 +306,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
         inputElement.click();
-        
+
     });
 
     inputElement.addEventListener('change', e => {
@@ -233,6 +322,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 // rimuovi dropzone e mostra change button
                 dropZoneElement.classList.toggle("nodisplay");
                 document.getElementById("container_button").classList.toggle("nodisplay");
+                document.getElementById("container_button").classList.toggle("display-flex");
 
                 // mostra knobs
                 toggleKnobs();
@@ -275,6 +365,8 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
                 // rimuovi dropzone e mostra change button
                 dropZoneElement.classList.toggle("nodisplay");
+
+                document.getElementById("container_button").classList.toggle("display-flex");
                 document.getElementById("container_button").classList.toggle("nodisplay");
 
                 // mostra knobs
@@ -295,6 +387,8 @@ const new_sample_button = document.getElementById('new_sample_but');
 new_sample_button.addEventListener('click', () => {
     // mostra dropzone e rimuovi change button
     document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
+
+    document.getElementById("container_button").classList.toggle("display-flex");
     document.getElementById("container_button").classList.toggle("nodisplay");
 
     // mostra knobs

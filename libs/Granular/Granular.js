@@ -51,12 +51,12 @@ export default class Granular {
         this.gain = this.context.createGain();
         this.gain.gain.value = 1;
 
-        
+
         // connect to destination by default
         this.gain.connect(this.context.destination);
     }
 
-    setMaster(gain){
+    setMaster(gain) {
         this.gain.gain.value = gain;
     }
 
@@ -78,8 +78,7 @@ export default class Granular {
 
     set(state) { //aggiorna lo state
         this.state = merge(this.state, state);
-
-     //   console.log(this.state);
+        console.log(this.state);
     }
 
     /**
