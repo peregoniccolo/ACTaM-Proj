@@ -4,7 +4,7 @@ export default class Effects{
     constructor(source){
         this.reverb = new p5.Reverb();
         this.delay = new p5.Delay();
-        this.filter = new p5.Filter(['lowpass']);
+        this.filter = new p5.LowPass();
         this.distortion = new p5.Distortion();
         this.source = source
     }
@@ -27,7 +27,11 @@ export default class Effects{
     }
     
     filterOn(){
-	    this.filter.process(this.source, 3000, 0.3);
+	    this.filter.process(this.source);
+    }
+
+    setCutoff(freq){
+        this.filter.freq(freq);
     }
 
     filterOff(){
@@ -35,7 +39,17 @@ export default class Effects{
     }
 
     distortionOn(){
-        this.distortion.process(this.source, 0.20);
+        this.distortion.process(this.source, 0.10);
+    }
+
+    distortionOff(){
+        this.distortion.disconnect();
+    }
+
+    chainEffects(){
+        this.distortion.chain(this.delay);
+        this.delay.chain(this.reverb);
+        this.reverb.chain(this.filter);
     }
     
 }

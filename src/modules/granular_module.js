@@ -36,13 +36,16 @@ var voiceOption = {
 	volume: 0.5
 };
 
+export var freq;
+
 // Effects
 
 var effects = new Effects(granular);
-effects.distortionOn();
-effects.delayOn();
+effects.chainEffects();
+//effects.delayOn();
+//effects.reverbOn();
+effects.filterOn()
 
-export var freq;
 
 
 
