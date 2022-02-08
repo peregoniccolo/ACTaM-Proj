@@ -347,7 +347,8 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
             });
 
             dropZoneElement.classList.remove('drop_zone--over');
-            document.getElementById('waveform').classList.remove('nodisplay')
+            document.getElementById('wave_container').classList.remove('nodisplay');
+            document.getElementById('waveform').classList.remove('nodisplay');
 
         }
     })

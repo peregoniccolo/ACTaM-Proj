@@ -168,15 +168,28 @@ label {
 }
 
 footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     margin: 0 auto;
+    margin-top: 5%;
     text-align: center;
+
 }
 
 .placeholder {
     border: 2px border solid;
     height: 100%;
     width: 30%;
+
+}
+
+.waveform-container{
+    border: 5px solid #3c4041;
+    border-radius: 5px;
+    background: repeating-linear-gradient(#096a79 58px,#0ccfed 60px);
+    filter: blur(0.6px);
+    overflow: hidden;
+    margin-bottom: 5%;
+
 }

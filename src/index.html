@@ -20,34 +20,37 @@
 
     <h1 class="font">Granular Synthetizer</h1>
 
-    <hr class="rounded">
 
-    <div class="nodisplay waveform" id="waveform"></div>
+    <div class='nodisplay container waveform-container' id="wave_container">
+        <div class="nodisplay waveform" id="waveform"></div>
+    </div>
 
-    <hr class="rounded">
 
-    <div class="bar nodisplay" id="knob-bar">
-        <!-- granular parameter bar -->
-        <div class="vert">
-            <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-            <label class="font">Density</label>
+    <div class = 'container'>
+        <div class="bar nodisplay" id="knob-bar">
+            <!-- granular parameter bar -->
+            <div class="vert">
+                <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
+                <label class="font">Density</label>
+            </div>
+            <div class="vert">
+                <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
+                <label class="font">Spread</label>
+            </div>
+            <div class="vert">
+                <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
+                <label class="font">Pitch</label>
+            </div>
+            <div class="vert">
+                <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1" />
+                <label class="font">Attack</label>
+            </div>
+            <div class="vert">
+                <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1" />
+                <label class="font">Release</label>
+            </div>
         </div>
-        <div class="vert">
-            <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-            <label class="font">Spread</label>
-        </div>
-        <div class="vert">
-            <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-            <label class="font">Pitch</label>
-        </div>
-        <div class="vert">
-            <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1" />
-            <label class="font">Attack</label>
-        </div>
-        <div class="vert">
-            <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1" />
-            <label class="font">Release</label>
-        </div>
+
     </div>
 
     <div class="bar nodisplay" id="effect-bar">
@@ -60,6 +63,20 @@
         <div class="vert placeholder">
             this is a placeholder
         </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+              FILTER
+            </div>
+            <div class="col-sm">
+              DELAY
+            </div>
+            <div class="col-sm">
+              REVERB
+            </div>
+          </div>
     </div>
 
     <div class="drop_zone font">
