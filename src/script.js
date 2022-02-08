@@ -394,6 +394,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
                 document.getElementById("container_button").classList.toggle("display-flex");
                 document.getElementById("container_button").classList.toggle("nodisplay");
+                document.getElementById('wave_container').classList.toggle('nodisplay');
 
                 // mostra knobs
                 toggleKnobs();
