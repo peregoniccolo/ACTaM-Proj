@@ -1,6 +1,9 @@
 import Granular from '../../libs/Granular/Granular';
-import p5 from 'p5';
+import p5, { Effect } from 'p5';
 import 'p5/lib/addons/p5.sound';
+import Effects from './Effects';
+
+
 
 //PROCESSO GENERALE: creo un oggetto granular con vari parametri,
 // a cui passo un buffer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
@@ -35,45 +38,12 @@ var voiceOption = {
 
 // Effects
 
-var delay = new p5.Delay();
-var reverb = new p5.Reverb();
-var compressor = new p5.Compressor();
-var lowpass = new p5.Filter(['lowpass']);
+var effects = new Effects(granular);
+effects.distortionOn();
+effects.delayOn();
 
 export var freq;
 
-export function delayOn(){
-	// Parametri di default
-	delay.process(granular, 0.1, 0.5, 3000); // source, delayTime, feedback, filter frequency
-}
-
-export function delayOff(){
-	delay.disconnect();
-}
-
-export function reverbOn(){
-	reverb.process(granular,2,1);
-}
-
-export function reverbOff(){
-	reverb.disconnect();
-}
-
-export function compressorOn(){
-	compressor.process(granular, 0.005, 6, 10, -24, 0.05); // [attack], [knee], [ratio], [threshold], [release]
-}
-
-export function compressorOff(){
-	compressor.disconnect();
-}
-
-export function filterOn(){
-	lowpass.process(granular, 3000, 0.3);
-}
-
-export function filterOff(){
-	lowpass.disconnect();
-}
 
 
 export function setPosition(pos) {
