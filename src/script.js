@@ -218,6 +218,11 @@ function toggleKnobs() {
         animateToDefaultValue();
 }
 
+
+
+
+
+
 // Wave Representation Object
 var wavesurfer = WaveSurfer.create({
     container: document.querySelector('#waveform'),
@@ -314,6 +319,11 @@ function normalizeTime(time) {
 
 
 
+
+
+
+
+
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
@@ -347,8 +357,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
             });
 
             dropZoneElement.classList.remove('drop_zone--over');
-            document.getElementById('wave_container').classList.remove('nodisplay');
-            document.getElementById('waveform').classList.remove('nodisplay');
+            document.getElementById('wave_container').classList.toggle('nodisplay');
 
         }
     })
@@ -407,6 +416,7 @@ new_sample_button.addEventListener('click', () => {
 
     document.getElementById("container_button").classList.toggle("display-flex");
     document.getElementById("container_button").classList.toggle("nodisplay");
+    document.getElementById('wave_container').classList.toggle('nodisplay');
 
     // mostra knobs
     toggleKnobs()
