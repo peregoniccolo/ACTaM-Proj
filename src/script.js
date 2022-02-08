@@ -1,5 +1,5 @@
 //import "../libs/jquery-knobs/jquery.knob";
-import { init, stopGrain, setPosition, playGrain, setVolume, updateState } from "./modules/granular_module";
+import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
@@ -219,7 +219,15 @@ function toggleKnobs() {
 }
 
 
+//TEST filtro
+var sweep = document.getElementById('sweep');
+sweep.addEventListener('input', updatefreq);
 
+function updatefreq(e){
+    var freq = parseInt(e.target.value);
+    effects.setFilterCutoff(freq);
+    //console.log(effects.filter.freq)
+}
 
 
 

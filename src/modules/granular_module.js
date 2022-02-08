@@ -40,9 +40,8 @@ export var freq;
 
 // Effects
 
-var effects = new Effects(granular);
+export var effects = new Effects(granular);
 effects.chainEffects();
-//effects.delayOn();
 //effects.reverbOn();
 effects.filterOn()
 

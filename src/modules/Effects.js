@@ -4,7 +4,7 @@ export default class Effects{
     constructor(source){
         this.reverb = new p5.Reverb();
         this.delay = new p5.Delay();
-        this.filter = new p5.LowPass();
+        this.filter = new p5.Filter();
         this.distortion = new p5.Distortion();
         this.source = source
     }
@@ -27,7 +27,7 @@ export default class Effects{
     }
     
     filterOn(){
-	    this.filter.process(this.source);
+        this.filter.process(this.source,5000);
     }
 
     filterOff(){
