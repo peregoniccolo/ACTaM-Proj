@@ -30,10 +30,6 @@ export default class Effects{
 	    this.filter.process(this.source);
     }
 
-    setCutoff(freq){
-        this.filter.freq(freq);
-    }
-
     filterOff(){
 	    this.filter.disconnect();
     }
@@ -50,6 +46,32 @@ export default class Effects{
         this.distortion.chain(this.delay);
         this.delay.chain(this.reverb);
         this.reverb.chain(this.filter);
+    }
+
+    //Exporting parameters
+
+    setDelayTime(time) { //from 0 to 1
+        this.delay.delayTime(time);
+    }
+
+    setDelayFeedback(feedback) { //from 0 to 1
+        this.delay.feedback(feedback);
+    }
+
+    setReverbDecayTime(time){ //from 0 to 10
+        this.reverb.set(time)
+    }
+
+    setDistrotionAmount(amount){ //from 0 to 0.15
+        this.distortion.set(amount);
+    }
+
+    setFilterCutoff(freq){ //from 10 to 22000
+        this.filter.freq(freq);
+    }
+
+    setFilterResonance(resonance){ //from 0.001 to 100
+        this.filter.res(resonance);
     }
     
 }
