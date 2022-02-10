@@ -41,7 +41,7 @@ populatePresetList();
 
 presetSelect.addEventListener("change", e => {
 
-    if(presetSelect.value == "default"){
+    if (presetSelect.value == "default") {
         animateToDefaultValue();
         return;
     }
@@ -81,7 +81,7 @@ $('.knob').each(function () {
         'angleArc': 270,
         'angleOffset': -135,
         'lineCap': 'round',
-        'heigth': '80%',
+        'heigth': '90%',
         'fgColor': '#222222',
     });
 
@@ -169,52 +169,27 @@ function animateToValue(id, newValue) {
     // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
     // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
 
-    // $('.knob').each(function (newState) {
-
-    //     var $this = $(this);
-    //     var myVal = $this.attr("default");
-
-    //     //console.log($this, myVal);
-
-    //     $({
-    //         value: 0,
-    //     }).animate({
-    //         value: myVal
-    //     }, {
-    //         duration: 1000,
-    //         easing: 'swing',
-    //         step: function () {
-    //             $this.val(this.value).trigger('change');
-    //         }
-    //     })
-
-    // });
-
     id = "#" + id + "-knob";
 
     var $this = $(id);
 
     $this.animate({
         value: newValue
-    },{
+    }, {
         duration: 1000,
         easing: 'swing',
-        step: function() {
+        step: function () {
             $this.val(this.value).trigger('change');
         }
     })
 
 }
 
-function toggleKnobs() {
+function toggleBarContainer() {
     // compare e scompare gli knobs
-    var bars = document.querySelectorAll(".bar");
-    bars.forEach(e => {
-        e.classList.toggle("nodisplay");
-        e.classList.toggle("display-flex");
-    });
+    var barContainer = document.querySelector("#bar-container");
 
-    if (bars[0].classList.contains("display-flex"))
+    if (!barContainer.classList.contains("nodisplay"))
         animateToDefaultValue();
 }
 
@@ -223,7 +198,7 @@ function toggleKnobs() {
 var sweep = document.getElementById('sweep');
 sweep.addEventListener('input', updatefreq);
 
-function updatefreq(e){
+function updatefreq(e) {
     var freq = parseInt(e.target.value);
     effects.setFilterCutoff(freq);
     //console.log(effects.filter.freq)
@@ -359,13 +334,14 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 document.getElementById("container_button").classList.toggle("display-flex");
 
                 // mostra knobs
-                toggleKnobs();
+                toggleBarContainer();
 
                 loadFile(file); // mostra wavesurfer
             });
 
             dropZoneElement.classList.remove('drop_zone--over');
-            document.getElementById('wave_container').classList.toggle('nodisplay');
+            document.getElementById('wave-container').classList.toggle('nodisplay');
+            document.getElementById('bar-container').classList.toggle('nodisplay');
 
         }
     })
@@ -402,10 +378,11 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
                 document.getElementById("container_button").classList.toggle("display-flex");
                 document.getElementById("container_button").classList.toggle("nodisplay");
-                document.getElementById('wave_container').classList.toggle('nodisplay');
+                document.getElementById('wave-container').classList.toggle('nodisplay');
+                document.getElementById('bar-container').classList.toggle('nodisplay');
 
                 // mostra knobs
-                toggleKnobs();
+                toggleBarContainer();
 
                 loadFile(file); // mostra wavesurfer
             });
@@ -425,10 +402,11 @@ new_sample_button.addEventListener('click', () => {
 
     document.getElementById("container_button").classList.toggle("display-flex");
     document.getElementById("container_button").classList.toggle("nodisplay");
-    document.getElementById('wave_container').classList.toggle('nodisplay');
+    document.getElementById('wave-container').classList.toggle('nodisplay');
+    document.getElementById('bar-container').classList.toggle('nodisplay');
 
     // mostra knobs
-    toggleKnobs()
+    toggleBarContainer()
 })
 
 /**

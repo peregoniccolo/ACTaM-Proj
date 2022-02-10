@@ -21,63 +21,49 @@
     <h1 class="font">Granular Synthetizer</h1>
 
 
-    <div class='nodisplay container waveform-container' id="wave_container">
+    <div class='nodisplay container waveform-container rounded' id="wave-container">
         <div class="waveform" id="waveform"></div>
     </div>
 
 
-    <div class = 'container'>
-        <div class="bar nodisplay" id="knob-bar">
+    <div class='container nodisplay' id="bar-container">
+        <div class="bar row rounded font" id="knob-bar">
             <!-- granular parameter bar -->
-            <div class="vert">
+            <div class="col">
                 <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Density</label>
             </div>
-            <div class="vert">
+            <div class="col">
                 <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Spread</label>
             </div>
-            <div class="vert">
+            <div class="col">
                 <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Pitch</label>
             </div>
-            <div class="vert">
+            <div class="col">
                 <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1" />
                 <label class="font">Attack</label>
             </div>
-            <div class="vert">
+            <div class="col">
                 <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1" />
                 <label class="font">Release</label>
             </div>
         </div>
 
-    </div>
-
-    <div class="bar nodisplay" id="effect-bar">
-        <div class="vert placeholder">
-            this is a placeholder
-        </div>
-        <div class="vert placeholder">
-            this is a placeholder
-        </div>
-        <div class="vert placeholder">
-            this is a placeholder
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
+        <div class="row bar" id="effect-bar">
             <div class="col-sm">
                 TEST FILTRO
                 <input type="number" id='sweep'>
             </div>
             <div class="col-sm">
-              DELAY
+                DELAY
             </div>
             <div class="col-sm">
-              REVERB
+                REVERB
             </div>
-          </div>
+        </div>
+
     </div>
 
     <div class="drop_zone font">
