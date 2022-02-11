@@ -81,7 +81,8 @@ $('.knob').each(function () {
         'angleArc': 270,
         'angleOffset': -135,
         'lineCap': 'round',
-        'heigth': '90%',
+        'height': '90%',
+        'width': '90%',
         'fgColor': '#222222',
     });
 
@@ -119,6 +120,24 @@ $(".env-knob").each(function () {
             },
             'release': function (v) {
                 updateGranEnvValue(elementId, v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
+$("#volume-knob").each(function () {
+
+    var $this = $(this);
+
+    $this.trigger(
+        'configure',
+        {
+            'change': function (v) {
+                setVolume(v);
+            },
+            'release': function (v) {
+                setVolume(v);
             }, // entrambi perchè altrimenti lo scroll non modifica i valori
         }
     );
@@ -188,9 +207,13 @@ function animateToValue(id, newValue) {
 function toggleBarContainer() {
     // compare e scompare gli knobs
     var barContainer = document.querySelector("#bar-container");
+    barContainer.classList.toggle("nodisplay");
+
+    $(barContainer).trigger('resize');
 
     if (!barContainer.classList.contains("nodisplay"))
         animateToDefaultValue();
+
 }
 
 
@@ -330,18 +353,16 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
                 // rimuovi dropzone e mostra change button
                 dropZoneElement.classList.toggle("nodisplay");
-                document.getElementById("container_button").classList.toggle("nodisplay");
-                document.getElementById("container_button").classList.toggle("display-flex");
-
-                // mostra knobs
-                toggleBarContainer();
+                document.getElementById("button-container").classList.toggle("nodisplay");
 
                 loadFile(file); // mostra wavesurfer
             });
 
             dropZoneElement.classList.remove('drop_zone--over');
             document.getElementById('wave-container').classList.toggle('nodisplay');
-            document.getElementById('bar-container').classList.toggle('nodisplay');
+
+            // mostra bar-container
+            toggleBarContainer();
 
         }
     })
@@ -376,10 +397,8 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 // rimuovi dropzone e mostra change button
                 dropZoneElement.classList.toggle("nodisplay");
 
-                document.getElementById("container_button").classList.toggle("display-flex");
-                document.getElementById("container_button").classList.toggle("nodisplay");
+                document.getElementById("button-container").classList.toggle("nodisplay");
                 document.getElementById('wave-container').classList.toggle('nodisplay');
-                document.getElementById('bar-container').classList.toggle('nodisplay');
 
                 // mostra knobs
                 toggleBarContainer();
@@ -389,7 +408,6 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         }
 
         dropZoneElement.classList.remove('drop_zone--over');
-        document.getElementById('waveform').classList.remove('nodisplay')
     });
 });
 
@@ -400,10 +418,8 @@ new_sample_button.addEventListener('click', () => {
     // mostra dropzone e rimuovi change button
     document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
 
-    document.getElementById("container_button").classList.toggle("display-flex");
-    document.getElementById("container_button").classList.toggle("nodisplay");
+    document.getElementById("button-container").classList.toggle("nodisplay");
     document.getElementById('wave-container').classList.toggle('nodisplay');
-    document.getElementById('bar-container').classList.toggle('nodisplay');
 
     // mostra knobs
     toggleBarContainer()

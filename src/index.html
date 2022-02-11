@@ -52,25 +52,29 @@
     <div class='container nodisplay' id="bar-container">
         <div class="bar row rounded font" id="knob-bar">
             <!-- granular parameter bar -->
-            <div class="col">
+            <div class="col-2 knob-col">
                 <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Density</label>
             </div>
-            <div class="col">
+            <div class="col-2 knob-col">
                 <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Spread</label>
             </div>
-            <div class="col">
+            <div class="col-2 knob-col">
                 <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Pitch</label>
             </div>
-            <div class="col">
+            <div class="col-2 knob-col">
                 <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1" />
                 <label class="font">Attack</label>
             </div>
-            <div class="col">
+            <div class="col-2 knob-col">
                 <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1" />
                 <label class="font">Release</label>
+            </div>
+            <div class="col-2 knob-col">
+                <input id="volume-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
+                <label class="font">Volume</label>
             </div>
         </div>
 
@@ -94,15 +98,11 @@
         <input type="file" id="sample" name="myFile" class="drop_zone_input" />
     </div>
 
-    <div id="container_button" class="nodisplay">
-        <div id="new_sample_div">
-            <button id="new_sample_but">Change sample</button>
-        </div>
-        <div>
-            <select id="preset-select" class="form-select">
-                <!-- populated in js -->
-            </select>
-        </div>
+    <div class="container nodisplay" id="button-container">
+        <button id="new_sample_but" class="btn col-2">Change sample</button>
+        <select id="preset-select" class="col-2 form-select">
+            <!-- populated in js -->
+        </select>
     </div>
 
     <footer>
