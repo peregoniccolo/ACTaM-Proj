@@ -16,7 +16,7 @@ var voiceState = false;
 var voiceRef = null;
 
 var granular = new Granular({
-	audioContext 
+	audioContext
 	// i default values per il granular state vengono caricati leggendo il valore da html
 	// l'oggetto granular è parte del model
 	// envelope: {
@@ -29,7 +29,6 @@ var granular = new Granular({
 });
 
 granular.setMaster(1);
-
 
 var voiceOption = {
 	position: 0.5,
@@ -44,9 +43,6 @@ export var effects = new Effects(granular);
 effects.chainEffects();
 //effects.reverbOn();
 effects.filterOn()
-
-
-
 
 export function setPosition(pos) {
 	voiceOption.position = pos;
@@ -70,7 +66,7 @@ export function playGrain(position = null, volume = null, frequency = null) {
 		setVolume(volume)
 	}
 
-	if(frequency){
+	if (frequency) {
 		freq = granular.state.pitch * frequency
 	} else {
 		freq = 1
@@ -92,51 +88,15 @@ export function stopGrain() {
 	grainIds = [];
 }
 
-
-
-// In questo metodo vengono settati eventuali effetti.
-function setGranular() {
-	/*
-	//usa p5.js che è molto simile a WebAudio
-
-	// DELAY
-	const delay = new p5.Delay();
-	delay.process(granular, 0.1, 0.5, 3000); // source, delayTime, feedback, filter frequency
-
-
-	// REVERB
-	const reverb = new p5.Reverb();
-  // due to a bug setting parameters will throw error
-  // https://github.com/processing/p5.js/issues/3090
-	reverb.process(delay); // source, reverbTime, decayRate in %, reverse
-
-	reverb.amp(3);
-
-	// COMPRESSOR
-	const compressor = new p5.Compressor();
-
-	compressor.process(reverb, 0.005, 6, 10, -24, 0.05); // [attack], [knee], [ratio], [threshold], [release]
-
-	// LOWPASS FILTER
-	const lowpass = new p5.Filter(['lowpass']);
-	lowpass.freq(2000);
-	lowpass.res(0);
-	//granular.on('settingBuffer', () => console.log('setting buffer'));
-	//granular.on('bufferSet', () => console.log('buffer set'));
-	//granular.on('grainCreated', () => console.log('grain created'));
-	*/
-
-}
-
 export async function init(file) {
-	setGranular();
+	// setGranular();
 	const data = file;
 	//await getDataFromFile(file);
 	//console.log(data)
 	await granular.setBuffer(data);
 }
 
-export async function getDataURL(url) { 
+export async function getDataURL(url) {
 	return new Promise((resolve) => {
 		const request = new XMLHttpRequest();
 

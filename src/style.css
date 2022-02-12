@@ -20,7 +20,7 @@ h1 {
 .drop_zone {
 	border: 4px dashed rgb(145, 121, 77);
 	border-radius: 10px;
-	max-width: 300px;
+	max-width: 300px !important;
 	height: 300px;
 	padding: 25px;
 	display: flex;
@@ -108,15 +108,19 @@ h1 {
 	background-color: bisque;
 }
 
-.col-2 {
+.knob-col {
 	margin-top: 5px !important;
 	margin-bottom: 5px;
+	min-width: 150px;
+	min-height: 190px;
 	text-align: center;
 }
 
-.knob-col {
+.knob-col-small {
+	margin-top: 5px !important;
 	min-width: 150px;
-	min-height: 150px;
+	min-height: 190px;
+	text-align: center;
 }
 
 .knob {
@@ -151,6 +155,17 @@ footer {
 
 .font {
 	font-family: 'Helvetica Neue', sans-serif;
+}
+
+.effect-box {
+	border: 2px solid black;
+	min-height: 100px;
+}
+
+.vertical-btn {
+    -ms-transform: rotate(270deg); /* IE 9 */
+    -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+    transform: rotate(270deg);
 }
 
 .words {

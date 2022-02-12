@@ -28,7 +28,7 @@ async function populatePresetList() {
         presetMap[doc.id] = doc.data();
         var newOption = document.createElement('option');
         newOption.value = doc.id;
-        newOption.innerHTML = doc.id;
+        newOption.innerHTML = doc.data().name;
         presetSelect.appendChild(newOption);
     });
     // console.log(presetMap);
@@ -216,18 +216,15 @@ function toggleBarContainer() {
 
 }
 
+// //TEST filtro
+// var sweep = document.getElementById('sweep');
+// sweep.addEventListener('input', updatefreq);
 
-//TEST filtro
-var sweep = document.getElementById('sweep');
-sweep.addEventListener('input', updatefreq);
-
-function updatefreq(e) {
-    var freq = parseInt(e.target.value);
-    effects.setFilterCutoff(freq);
-    //console.log(effects.filter.freq)
-}
-
-
+// function updatefreq(e) {
+//     var freq = parseInt(e.target.value);
+//     effects.setFilterCutoff(freq);
+//     //console.log(effects.filter.freq)
+// }
 
 // Wave Representation Object
 var wavesurfer = WaveSurfer.create({
@@ -268,8 +265,6 @@ waveformDiv.addEventListener('mousedown', (e) => {
     var bnds = e.target.getBoundingClientRect();
     var x = e.clientX - bnds.left;
     var posX = updateCursorPosition(x);
-    //console.log("pos in sec: " + posX)
-    //console.log("pos normalizzata: " + normalizeTime(posX));
     wavesurfer.drawer.progress(normalizeTime(posX));
 
     if (mouseState) {
@@ -324,12 +319,6 @@ function normalizeTime(time) {
 }
 
 
-
-
-
-
-
-
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
@@ -338,11 +327,10 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
         inputElement.click();
-
     });
 
     inputElement.addEventListener('change', e => {
-        console.log(inputElement.files)
+        // console.log(inputElement.files)
         if (inputElement.files.length) {
             var file = inputElement.files[0]
 
@@ -363,7 +351,6 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
             // mostra bar-container
             toggleBarContainer();
-
         }
     })
 
@@ -423,52 +410,10 @@ new_sample_button.addEventListener('click', () => {
 
     // mostra knobs
     toggleBarContainer()
+
+    $("#preset-select").val("default");
 })
 
-/**
- * 
- * @param {HTMLElement} dropZoneElement 
- * @param {File} file 
- */
-
-/*
-function updateThumbnail(dropZoneElement, file) {
-
-    let thumbnailElement = dropZoneElement.querySelector('.drop_zone_thumb');
-
-    // First time: remove the prompt.
-    if (dropZoneElement.querySelector('.drop_zone_prompt')) {
-        dropZoneElement.querySelector('.drop_zone_prompt').remove();
-    }
-
-    // If the thumbnail do not exists, we create it
-    if (!thumbnailElement) {
-        thumbnailElement = document.createElement('div');
-        thumbnailElement.classList.add('drop_zone_thumb');
-        dropZoneElement.appendChild(thumbnailElement);
-    }
-
-    thumbnailElement.dataset.label = file.name;
-
-    if (file.type.startsWith("audio/")) {
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-
-            // TODO handle audio tumbnail
-
-        }
-
-    } else {
-        thumbnailElement.style.backgroundImage = null;
-    }
-
-}
-*/
-
-
-// CONTROLLER
 
 // Utility: create a new waveform representation based on the audio file passed as an argument.
 function loadFile(file) {
@@ -525,8 +470,6 @@ if (navigator.requestMIDIAccess) {
     console.log('connesso');
 }
 
-
-
 function onMIDISuccess(midiAccess) {
 
     console.log(midiAccess)
@@ -575,11 +518,9 @@ function handleInput(input) {
 
 
 function noteon(note, velocity) {
-
     var frequency = Math.pow(2, (note - 48) / 12);
     console.log("freq: " + frequency)
     playGrain(null, velocity, frequency);
-
 }
 
 function noteoff(note, velocity) {
