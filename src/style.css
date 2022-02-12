@@ -86,16 +86,22 @@ h1 {
 	border: none;
 	border-radius: 15px;
 	box-shadow: 0 9px rgb(151, 145, 145);
+	margin-left: 40%;
+	padding: 20px;
 }
 
 #new_sample_but:hover {
 	background-color: #618685;
+	margin-left: 40%;
+	padding: 20px;
 }
 
 #new_sample_but:active {
 	background-color: #5a7544;
 	box-shadow: 0 5px #666;
-	transform: translateY(4px);
+	
+	margin-left: 40%;
+	padding: 20px;
 }
 
 /* bars */
