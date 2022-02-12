@@ -86,22 +86,18 @@ h1 {
 	border: none;
 	border-radius: 15px;
 	box-shadow: 0 9px rgb(151, 145, 145);
+	margin-top: 10px;
 	margin-left: 40%;
 	padding: 20px;
 }
 
 #new_sample_but:hover {
 	background-color: #618685;
-	margin-left: 40%;
-	padding: 20px;
 }
 
 #new_sample_but:active {
 	background-color: #5a7544;
 	box-shadow: 0 5px #666;
-	
-	margin-left: 40%;
-	padding: 20px;
 }
 
 /* bars */
@@ -172,6 +168,11 @@ footer {
     -ms-transform: rotate(270deg); /* IE 9 */
     -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
     transform: rotate(270deg);
+}
+
+#preset-select {
+	margin-top: 10px;
+	text-align: center;
 }
 
 .words {
