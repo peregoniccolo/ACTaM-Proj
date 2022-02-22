@@ -374,13 +374,11 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if (e.dataTransfer.files.length) {
             // Dropped file is handled here
             var file = e.dataTransfer.files[0];
-
-
+            
             // Conversion to data buffer (inputBuffer)
             file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
-                inputBuffer = decodedAudio
+                inputBuffer = decodedAudio;
                 init(inputBuffer)
-
                 // rimuovi dropzone e mostra change button
                 dropZoneElement.classList.toggle("nodisplay");
 
@@ -393,7 +391,6 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 loadFile(file); // mostra wavesurfer
             });
         }
-
         dropZoneElement.classList.remove('drop_zone--over');
     });
 });
@@ -413,6 +410,18 @@ new_sample_button.addEventListener('click', () => {
 
     $("#preset-select").val("default");
 })
+
+// Default samples buttons
+
+const sample1 = document.getElementById('sample1');
+const sample2 = document.getElementById('sample2');
+
+sample1.addEventListener('click', () => {
+
+    
+});
+
+
 
 
 // Utility: create a new waveform representation based on the audio file passed as an argument.
