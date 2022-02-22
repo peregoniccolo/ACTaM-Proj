@@ -18,7 +18,7 @@ h1 {
 
 /* dropzone */
 .drop_zone {
-	border: 4px dashed rgb(145, 121, 77);
+	border: 4px dashed rgb(19, 50, 58);
 	border-radius: 10px;
 	max-width: 300px !important;
 	height: 300px;
@@ -66,6 +66,14 @@ h1 {
 /* waveform */
 .nodisplay {
 	display: none;
+}
+
+.waveform-container {
+	border: 5px solid #3c4041;
+	background: repeating-linear-gradient(#096a79 58px, #5edcf0d7 60px);
+	filter: blur(0.6px);
+	overflow: hidden;
+	margin-bottom: 15px;
 }
 
 /* new sample button */
@@ -147,13 +155,40 @@ footer {
 	margin-top: 40px;
 }
 
-.waveform-container {
-	border: 5px solid #3c4041;
-	background: repeating-linear-gradient(#096a79 58px, #5edcf0d7 60px);
-	filter: blur(0.6px);
-	overflow: hidden;
-	margin-bottom: 15px;
+/* bottone scelta samples */
+.sample{
+	display:inline-block;
+	padding:0.35em 1.2em;
+	border:0.1em solid #009ea3;
+	margin:0 0.3em 0.3em 0;
+	border-radius:0.12em;
+	box-sizing: border-box;
+	text-decoration:none;
+	font-family:'Roboto',sans-serif;
+	font-weight:300;
+	color:#ffffff;
+	text-align:center;
+	transition: all 0.2s;
 }
+
+.sample:hover{
+	color:#000000;
+	background-color:#55b4bb;
+}
+
+@media all and (max-width:30em){
+.sample{
+	display:block;
+	margin:0.4em auto;
+	}
+}
+
+.naboli{
+	width: 10px;
+	height: 10px;
+}
+
+/* end sample button */
 
 .font {
 	font-family: 'Helvetica Neue', sans-serif;
