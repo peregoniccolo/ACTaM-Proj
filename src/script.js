@@ -415,10 +415,18 @@ new_sample_button.addEventListener('click', () => {
 
 const sample1 = document.getElementById('sample1');
 const sample2 = document.getElementById('sample2');
+let audio1;
 
+// funziona fuori dal progetto. qui no. 
 sample1.addEventListener('click', () => {
+    fetch('../media/PatitucciBass.mp3')
+    .then(response => response.arrayBuffer())
+    .then(buffer => ctx.decodeAudioData(buffer))
+    .then(decodedAudio => {
+        audio1 = decodedAudio;
+        init(audio1);
+    });
 
-    
 });
 
 
