@@ -6,6 +6,7 @@ html {
 body {
 	margin-bottom: 40px;
 	background-color: #7ab2bb;
+
 }
 
 h1 {
@@ -90,12 +91,11 @@ h1 {
 	text-decoration: none;
 	outline: none;
 	color: #fff;
-	background-color: #6f7449;
+	background-color: #316468;
 	border: none;
 	border-radius: 15px;
-	box-shadow: 0 9px rgb(151, 145, 145);
+	box-shadow: 0 9px rgb(100, 152, 168);
 	margin-top: 10px;
-	margin-left: 40%;
 	padding: 20px;
 }
 
@@ -113,9 +113,9 @@ h1 {
 	padding: 15px;
 	justify-content: center;
 	border-style: double;
-	border-color: #6f7449;
+	border-color: #1d798a;
 	border-width: 5px;
-	background-color: bisque;
+	background-color: rgb(113, 217, 243);
 }
 
 .knob-col {
