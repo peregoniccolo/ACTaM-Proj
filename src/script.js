@@ -1,5 +1,5 @@
 //import "../libs/jquery-knobs/jquery.knob";
-import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects } from "./modules/granular_module";
+import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
@@ -326,31 +326,41 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
     // Manual upload by clicking the drop-zone
     dropZoneElement.addEventListener('click', e => {
-        inputElement.click();
+
+        inputElement.click()
+        
+        // Usato per gestire il caso in cui venga caricato lo stesso file 2 volte:
+        // https://stackoverflow.com/questions/3144419/how-do-i-remove-a-file-from-the-filelist
+        // "resetta" la FileList
+        if(inputElement.files.length) {
+            inputElement.value = '';
+        }
     });
 
     inputElement.addEventListener('change', e => {
-        // console.log(inputElement.files)
         if (inputElement.files.length) {
             var file = inputElement.files[0]
-
-            // Conversion to data buffer (inputBuffer)
-            file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
+            if(fileValidation(file)) {
+                 // Conversion to data buffer (inputBuffer)
+                file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                 inputBuffer = decodedAudio
-                init(inputBuffer)
+
+                init(inputBuffer) // inizializza granular
 
                 // rimuovi dropzone e mostra change button
                 dropZoneElement.classList.toggle("nodisplay");
                 document.getElementById("button-container").classList.toggle("nodisplay");
 
                 loadFile(file); // mostra wavesurfer
-            });
+                });
 
-            dropZoneElement.classList.remove('drop_zone--over');
-            document.getElementById('wave-container').classList.toggle('nodisplay');
+                dropZoneElement.classList.remove('drop_zone--over');
+                document.getElementById('wave-container').classList.toggle('nodisplay');
 
-            // mostra bar-container
-            toggleBarContainer();
+                // mostra bar-container
+                toggleBarContainer();
+            }
+           
         }
     })
 
@@ -374,24 +384,26 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if (e.dataTransfer.files.length) {
             // Dropped file is handled here
             var file = e.dataTransfer.files[0];
+            if (fileValidation(file)){
+                // Conversion to data buffer (inputBuffer)
+                file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
+                    inputBuffer = decodedAudio;
+                    init(inputBuffer)
+                    // rimuovi dropzone e mostra change button
+                    dropZoneElement.classList.toggle("nodisplay");
+    
+                    document.getElementById("button-container").classList.toggle("nodisplay");
+                    document.getElementById('wave-container').classList.toggle('nodisplay');
+    
+                    // mostra knobs
+                    toggleBarContainer();
+    
+                    loadFile(file); // mostra wavesurfer
+                });
+            }
             
-            // Conversion to data buffer (inputBuffer)
-            file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
-                inputBuffer = decodedAudio;
-                init(inputBuffer)
-                // rimuovi dropzone e mostra change button
-                dropZoneElement.classList.toggle("nodisplay");
-
-                document.getElementById("button-container").classList.toggle("nodisplay");
-                document.getElementById('wave-container').classList.toggle('nodisplay');
-
-                // mostra knobs
-                toggleBarContainer();
-
-                loadFile(file); // mostra wavesurfer
-            });
+            dropZoneElement.classList.remove('drop_zone--over');
         }
-        dropZoneElement.classList.remove('drop_zone--over');
     });
 });
 
@@ -404,6 +416,8 @@ new_sample_button.addEventListener('click', () => {
 
     document.getElementById("button-container").classList.toggle("nodisplay");
     document.getElementById('wave-container').classList.toggle('nodisplay');
+
+    
 
     // mostra knobs
     toggleBarContainer()
@@ -427,15 +441,32 @@ sample1.addEventListener('click', () => {
         init(audio1);
     });
 
+
 });
-
-
 
 
 // Utility: create a new waveform representation based on the audio file passed as an argument.
 function loadFile(file) {
     wavesurfer.loadBlob(file);
 }
+
+function fileValidation(file) {
+    var fileInput = file;
+      
+    var filePath = fileInput.name;
+  
+    // Allowing file type
+    var allowedExtensions = 
+            /(\.mp3|\.wav|\.ogg|\.aac)$/i;
+      
+    if (!allowedExtensions.exec(filePath)) {
+        alert('Invalid file type: pleas upload only audio file with extension .mp3, .wav, .ogg, .aac');
+        fileInput.value = '';
+        return false;
+    } else {
+        return true;
+    }
+} 
 
 /* MIDI PROTOCOL
 
