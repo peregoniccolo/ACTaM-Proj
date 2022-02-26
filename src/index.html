@@ -49,7 +49,6 @@
     </div>
 
    
-
     <div class='container nodisplay' id="bar-container">
         <div class="bar row rounded font" id="knob-bar">
             <!-- granular parameter bar -->
@@ -79,12 +78,12 @@
             </div>
         </div>
 
-        <!-- <div class="bar row rounded" id="effect-bar">
+        <div class="bar row rounded" id="effect-bar">
             <div class="row">
                 <div class="col-6 effect-box rounded" id="delay">
                     <div class="row">
-                        <div class="col-4">
-                            <button class="btn vertical-btn">Delay</button>
+                        <div class="col-4 text-center align-items-center">
+                            <button class="btn btn-lg btn-outline-primary">Delay</button>
                         </div>
                         <div class="col-4 knob-col-small">
                             <input id="feedback-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
@@ -96,10 +95,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 effect-box rounded">
+                <div class="col-6 effect-box rounded" id="reverb">
+                    <div class="row">
+                        <div class="col-4 text-center align-items-center">
+                            <button class="btn btn-lg btn-outline-primary">Reverb</button>
+                        </div>
+                        <div class="col-8 knob-col-small">
+                            <input id="Decay-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
+                            <label class="font">Decay time</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div> -->
+        </div> 
 
     </div>
 
@@ -110,12 +118,16 @@
 
     <div class="container">
         <div class="row justify-content-center mt-3  ">
-            <div id='sample1' class="col-3  sample">
+            <div id='sample1' class="col-2  sample">
                 Sample 1
             </div>
-            <div id='sample2' class="col-3  sample">
+            <div id='sample2' class="col-2  sample">
                 Sample 2
             </div>
+            <div id='Reverse' class="col-4  sample">
+                Reverse sample
+            </div>
+
         </div>
     </div>
 

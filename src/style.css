@@ -224,7 +224,7 @@ footer {
 
 @keyframes move {
 	0% {
-		transform: translate(-5%, 0);
+		transform: translate(-2%, 0);
 	}
 
 	50% {
@@ -232,7 +232,7 @@ footer {
 	}
 
 	100% {
-		transform: translate(5%, 0);
+		transform: translate(2%, 0);
 	}
 }
 
