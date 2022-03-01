@@ -11,7 +11,7 @@ export default class Effects{
 
     delayOn(){
         // Parametri di default
-        this.delay.process(this.source, 0.1, 0.5, 3000); // source, delayTime, feedback, filter frequency
+        this.delay.process(this.source, 0.4, 0.5, 3000); // source, delayTime, feedback, filter frequency
     }
 
     delayOff(){

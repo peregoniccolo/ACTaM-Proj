@@ -2,6 +2,7 @@
 import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import Granular from "granular-js";
 
 // firebase configuration and initialization
 const firebaseConfig = {
@@ -450,7 +451,6 @@ let audio2;
 sample1.addEventListener('click', () => {
 
     if(!sampleLoaded1) {
-        console.log('sample 1')
 
         // fetch the audio file
         fetch(audioUrl1)
@@ -518,6 +518,34 @@ sample2.addEventListener('click', () => {
     }
 
 });
+
+// EFFECT RACK BUTTONS AND KNOBS
+var delay = false;
+var delayButton = document.getElementById('delay-toggle');
+delayButton.addEventListener('click', () => {
+    if (delay){
+        effects.delayOff()
+        delay = false;
+    } else{
+        console.log('sku')
+        effects.delayOn()
+        delay = true;
+    }
+});
+
+var reverb = false;
+var reverbButton = document.getElementById('reverb-toggle');
+reverbButton.addEventListener('click', () => {
+    if (delay){
+        effects.reverbOff()
+        reverb = false;
+    } else{
+        effects.reverbOn()
+        reverb = true;
+    }
+});
+
+
 
 
 // Utility: create a new waveform representation based on the audio file passed as an argument.
