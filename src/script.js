@@ -321,6 +321,7 @@ function normalizeTime(time) {
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
+var fileLoaded = false;
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     const dropZoneElement = inputElement.closest(".drop_zone");
 
@@ -335,6 +336,9 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if(inputElement.files.length) {
             inputElement.value = '';
         }
+        fileLoaded = true;
+        sampleLoaded1 = false;
+        sampleLoaded2 = false;
     });
 
     inputElement.addEventListener('change', e => {
@@ -357,6 +361,9 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 dropZoneElement.classList.remove('drop_zone--over');
                 document.getElementById('wave-container').classList.toggle('nodisplay');
 
+                fileLoaded = true;
+                sampleLoaded1 = false;
+                sampleLoaded2 = false;
                 // mostra bar-container
                 toggleBarContainer();
             }
@@ -391,7 +398,9 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                     init(inputBuffer)
                     // rimuovi dropzone e mostra change button
                     dropZoneElement.classList.toggle("nodisplay");
-    
+                    fileLoaded=true;
+                    sampleLoaded1 = false;
+                    sampleLoaded2 = false;
                     document.getElementById("button-container").classList.toggle("nodisplay");
                     document.getElementById('wave-container').classList.toggle('nodisplay');
     
@@ -429,18 +438,84 @@ new_sample_button.addEventListener('click', () => {
 
 const sample1 = document.getElementById('sample1');
 const sample2 = document.getElementById('sample2');
-let audio1;
+const audioUrl1 = require('../media/PatitucciBass.mp3');
+const audioUrl2 = require('../media/pipa.wav');
+var sampleLoaded1 = false;
+var sampleLoaded2 = false;
+let audio;
+let audio2;
 
-// funziona fuori dal progetto. qui no. 
+// To fetch a file parcel needs you to build the url with 'require'
+// https://github.com/parcel-bundler/parcel/issues/1911
 sample1.addEventListener('click', () => {
-    fetch('../media/PatitucciBass.mp3')
-    .then(response => response.arrayBuffer())
-    .then(buffer => ctx.decodeAudioData(buffer))
-    .then(decodedAudio => {
-        audio1 = decodedAudio;
-        init(audio1);
-    });
 
+    if(!sampleLoaded1) {
+        console.log('sample 1')
+
+        // fetch the audio file
+        fetch(audioUrl1)
+        .then(data => data.arrayBuffer())
+        .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
+        .then(decodedAudio => {
+            audio = decodedAudio
+            init(audio); // create granular object
+            wavesurfer.load(audioUrl1) // load wavesurfer object
+            
+            
+            if(!fileLoaded && !sampleLoaded2){
+                // rimuovi dropzone e mostra change button
+                document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
+               document.getElementById("button-container").classList.toggle("nodisplay");
+               document.getElementById('wave-container').classList.toggle('nodisplay');
+               toggleBarContainer();
+            }
+
+            fileLoaded = false;
+            sampleLoaded1 = true;
+            sampleLoaded2 = false;
+
+        });
+        
+        // mostra bar-container
+     
+    } 
+});
+
+sample2.addEventListener('click', () => {
+    
+  
+    if(!sampleLoaded2) {
+
+        // fetch the audio file
+        fetch(audioUrl2)
+        .then(data => data.arrayBuffer())
+        .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
+        .then(decodedAudio => {
+            audio2 = decodedAudio
+            init(audio2); // create granular object
+            wavesurfer.load(audioUrl2) // load wavesurfer object
+            
+           
+
+            // se il sample1 non è stato già caricato
+            if(!fileLoaded && !sampleLoaded1){
+                // rimuovi dropzone e mostra change button
+                document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
+                
+                document.getElementById("button-container").classList.toggle("nodisplay");
+                document.getElementById('wave-container').classList.toggle('nodisplay');
+                toggleBarContainer();
+            }
+
+            
+            fileLoaded = false;
+            sampleLoaded1 = false;
+            sampleLoaded2 = true;
+        });
+        
+      
+    
+    }
 
 });
 
