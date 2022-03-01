@@ -1,7 +1,8 @@
 import p5 from "p5";
 
-export default class Effects{
-    constructor(source){
+export default class Effects {
+
+    constructor(source) {
         this.reverb = new p5.Reverb();
         this.delay = new p5.Delay();
         this.filter = new p5.Filter();
@@ -9,40 +10,67 @@ export default class Effects{
         this.source = source
     }
 
-    delayOn(){
-        // Parametri di default
+    #createNewDelay() {
+        this.delay = new p5.Delay();
+    }
+
+    delayOn() {
+        if (this.delay == null)
+            this.#createNewDelay();
         this.delay.process(this.source, 0.4, 0.5, 3000); // source, delayTime, feedback, filter frequency
     }
 
-    delayOff(){
+    delayOff() {
         this.delay.disconnect();
+        this.delay = null;
     }
 
-    reverbOn(){
-        this.reverb.process(this.source,2,1);
+    #createNewReverb() {
+        this.reverb = new p5.Reverb();
     }
-    
-    reverbOff(){
+
+    reverbOn() {
+        if (this.reverb == null)
+            this.#createNewReverb();
+        this.reverb.process(this.source, 2, 1);
+    }
+
+    reverbOff() {
         this.reverb.disconnect();
-    }
-    
-    filterOn(){
-        this.filter.process(this.source,5000);
+        this.reverb = null;
     }
 
-    filterOff(){
-	    this.filter.disconnect();
+    #createNewFilter() {
+        this.filter = new p5.Filter();
     }
 
-    distortionOn(){
+    filterOn() {
+        if (this.filter == null)
+            this.#createNewFilter();
+        this.filter.process(this.source, 5000);
+    }
+
+    filterOff() {
+        this.filter.disconnect();
+        this.filter = null;
+    }
+
+    #createNewDistrortion() {
+        this.distortion = new p5.Distortion();
+    }
+
+    distortionOn() {
+        if (this.distortion == null)
+            this.#createNewDistrortion();
         this.distortion.process(this.source, 0.10);
     }
 
-    distortionOff(){
+    distortionOff() {
         this.distortion.disconnect();
+        this.distortion = null;
     }
 
-    chainEffects(){
+    chainEffects() {
         this.distortion.chain(this.delay);
         this.delay.chain(this.reverb);
         this.reverb.chain(this.filter);
@@ -58,21 +86,21 @@ export default class Effects{
         this.delay.feedback(feedback);
     }
 
-    setReverbDecayTime(time){ //from 0 to 10
+    setReverbDecayTime(time) { //from 0 to 10
         this.reverb.set(time)
     }
 
-    setDistrotionAmount(amount){ //from 0 to 0.15
+    setDistrotionAmount(amount) { //from 0 to 0.15
         this.distortion.set(amount);
     }
 
-    setFilterCutoff(freq){ //from 10 to 22000
+    setFilterCutoff(freq) { //from 10 to 22000
         this.filter.freq(freq);
     }
 
-    setFilterResonance(resonance){ //from 0.001 to 100
+    setFilterResonance(resonance) { //from 0.001 to 100
         this.filter.res(resonance);
     }
-    
+
 }
 

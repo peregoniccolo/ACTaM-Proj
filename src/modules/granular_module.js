@@ -2,9 +2,7 @@ import Granular from '../../libs/Granular/Granular';
 import p5, { Effect } from 'p5';
 import 'p5/lib/addons/p5.sound';
 import Effects from './Effects';
-import { async } from '@firebase/util';
-
-
+// import { async } from '@firebase/util';
 
 // PROCESSO GENERALE: creo un oggetto granular con vari parametri,
 // a cui passo un buffer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)

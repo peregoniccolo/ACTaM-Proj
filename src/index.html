@@ -48,7 +48,7 @@
         <div class="waveform" id="waveform"></div>
     </div>
 
-   
+
     <div class='container nodisplay' id="bar-container">
         <div class="bar row rounded font" id="knob-bar">
             <!-- granular parameter bar -->
@@ -79,6 +79,7 @@
         </div>
 
         <div class="bar row rounded" id="effect-bar">
+            <!-- first row: delay and reverb -->
             <div class="row">
                 <div class="col-6 effect-box rounded" id="delay">
                     <div class="row">
@@ -86,11 +87,11 @@
                             <button id='delay-toggle' class="btn btn-lg btn-outline-primary">Delay</button>
                         </div>
                         <div class="col-4 knob-col-small">
-                            <input id="feedback-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
+                            <input id="feedback-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
                             <label class="font">Feedback</label>
                         </div>
                         <div class="col-4 knob-col-small">
-                            <input id="time-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
+                            <input id="time-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
                             <label class="font">Time</label>
                         </div>
                     </div>
@@ -98,17 +99,47 @@
                 <div class="col-6 effect-box rounded" id="reverb">
                     <div class="row">
                         <div class="col-4 text-center align-items-center">
-                            <button id = 'reverb-toggle' class="btn btn-lg btn-outline-primary">Reverb</button>
+                            <button id='reverb-toggle' class="btn btn-lg btn-outline-primary">Reverb</button>
                         </div>
                         <div class="col-8 knob-col-small">
-                            <input id="Decay-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
+                            <input id="decay-knob" class="knob animated" default="0.5" data-min="0" data-max="10" />
                             <label class="font">Decay time</label>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
 
+            <!-- second row: distortion and Lpf -->
+            <div class="row">
+                <div class="col-6 effect-box rounded" id="distortion">
+                    <div class="row">
+                        <div class="col-4 text-center align-items-center">
+                            <button id='distortion-toggle' class="btn btn-lg btn-outline-primary">Distortion</button>
+                        </div>
+                        <div class="col-8 knob-col-small">
+                            <input id="amount-knob" class="knob animated" default="0.05" data-min="0" data-max="0.15" />
+                            <label class="font">Amount</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 effect-box rounded" id="reverb">
+                    <div class="row">
+                        <div class="col-4 text-center align-items-center">
+                            <button id='lpf-toggle' class="btn btn-lg btn-outline-primary">LPF</button>
+                        </div>
+                        <div class="col-4 knob-col-small">
+                            <input id="freq-knob" class="knob animated" default="440" data-min="10" data-max="9999" />
+                            <label class="font">Cut off</label>
+                        </div>
+                        <div class="col-4 knob-col-small">
+                            <input id="resonance-knob" class="knob animated" default="10" data-min="0.01"
+                                data-max="100" />
+                            <label class="font">Resonance</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container drop_zone font">
@@ -145,10 +176,10 @@
     </div>
 
     <footer>
-            <p class="font"><a href="https://github.com/peregoniccolo/ACTaM-Proj">ACTaM Project</a> - Developed by Gargiulo,
-             Morena, Orsatti, Perego</p>
-                
-            <img class='naboli' src="../media/SSCN.png">
+        <p class="font"><a href="https://github.com/peregoniccolo/ACTaM-Proj">ACTaM Project</a> - Developed by Gargiulo,
+            Morena, Orsatti, Perego</p>
+
+        <img class='naboli' src="../media/SSCN.png">
     </footer>
 
     <script src="script.js"></script>
