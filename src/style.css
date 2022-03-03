@@ -128,8 +128,10 @@ h1 {
 
 .knob-col-small {
 	margin-top: 5px !important;
+	margin-bottom: 5px;
 	min-width: 150px;
-	min-height: 190px;
+	max-width: 250px !important;
+	min-height: 180px;
 	text-align: center;
 }
 
@@ -156,34 +158,34 @@ footer {
 }
 
 /* bottone scelta samples */
-.sample{
-	display:inline-block;
-	padding:0.35em 1.2em;
-	border:0.1em solid #009ea3;
-	margin:0 0.3em 0.3em 0;
-	border-radius:0.12em;
+.sample {
+	display: inline-block;
+	padding: 0.35em 1.2em;
+	border: 0.1em solid #009ea3;
+	margin: 0 0.3em 0.3em 0;
+	border-radius: 0.12em;
 	box-sizing: border-box;
-	text-decoration:none;
-	font-family:'Roboto',sans-serif;
-	font-weight:300;
-	color:#ffffff;
-	text-align:center;
+	text-decoration: none;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	color: #ffffff;
+	text-align: center;
 	transition: all 0.2s;
 }
 
-.sample:hover{
-	color:#000000;
-	background-color:#55b4bb;
+.sample:hover {
+	color: #000000;
+	background-color: #55b4bb;
 }
 
-@media all and (max-width:30em){
-.sample{
-	display:block;
-	margin:0.4em auto;
+@media all and (max-width:30em) {
+	.sample {
+		display: block;
+		margin: 0.4em auto;
 	}
 }
 
-.naboli{
+.naboli {
 	width: 5px;
 	height: 5px;
 }
@@ -197,12 +199,6 @@ footer {
 .effect-box {
 	border: 2px solid black;
 	min-height: 100px;
-}
-
-.vertical-btn {
-    -ms-transform: rotate(270deg); /* IE 9 */
-    -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
-    transform: rotate(270deg);
 }
 
 #preset-select {

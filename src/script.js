@@ -79,6 +79,7 @@ $('.knob').each(function () {
     var $this = $(this);
 
     $this.knob({
+        'step': 0.01,
         'angleArc': 270,
         'angleOffset': -135,
         'lineCap': 'round',
@@ -97,7 +98,6 @@ $(".par-knob").each(function () {
     $this.trigger(
         'configure',
         {
-            'step': 0.01,
             'change': function (v) {
                 updateGranParValue(elementId, v);
             },
@@ -117,7 +117,6 @@ $(".env-knob").each(function () {
     $this.trigger(
         'configure',
         {
-            'step': 0.01,
             'change': function (v) {
                 updateGranEnvValue(elementId, v);
             },
@@ -136,7 +135,6 @@ $("#volume-knob").each(function () {
     $this.trigger(
         'configure',
         {
-            'step': 0.01,
             'change': function (v) {
                 setVolume(v);
             },
@@ -170,7 +168,6 @@ $("#feedback-knob").each(function () {
     $this.trigger(
         'configure',
         {
-            'step': 0.01,
             'change': function (v) {
                 effects.setDelayFeedback(v);
             },
@@ -189,7 +186,6 @@ $("#delay-knob").each(function () {
     $this.trigger(
         'configure',
         {
-            'step': 0.01,
             'change': function (v) {
                 effects.setDelayTime(v)
             },
@@ -201,7 +197,6 @@ $("#delay-knob").each(function () {
 
 });
 
-
 // reverb
 var isSetReverb = false;
 var reverbButton = document.getElementById('reverb-toggle');
@@ -211,6 +206,24 @@ reverbButton.addEventListener('click', () => {
     else
         effects.reverbOn();
     isSetReverb = !isSetReverb;
+});
+
+$("#decay-knob").each(function () {
+
+    var $this = $(this);
+
+    $this.trigger(
+        'configure',
+        {
+            'change': function (v) {
+                effects.setReverbDecayTime(v)
+            },
+            'release': function (v) {
+                effects.setReverbDecayTime(v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
 });
 
 // distortion
@@ -224,6 +237,63 @@ distortionButton.addEventListener('click', () => {
     isSetDistortion = !isSetDistortion;
 });
 
+$("#amount-knob").each(function () {
+
+    var $this = $(this);
+
+    $this.trigger(
+        'configure',
+        {
+            'change': function (v) {
+                effects.setDistrotionAmount(v)
+            },
+            'release': function (v) {
+                effects.setDistrotionAmount(v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
+$("#freq-knob").each(function () {
+
+    var $this = $(this);
+
+    $this.trigger(
+        'configure',
+        {
+            'step': 1,
+            'change': function (v) {
+                effects.setFilterCutoff(v)
+            },
+            'release': function (v) {
+                effects.setFilterCutoff(v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
+$("#resonance-knob").each(function () {
+
+    var $this = $(this);
+
+    $this.trigger(
+        'configure',
+        {
+            'step': 1,
+            'change': function (v) {
+                effects.setFilterResonance(v)
+            },
+            'release': function (v) {
+                effects.setFilterResonance(v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
+
 // lpf
 var isSetLPF = false;
 var lpfButton = document.getElementById('lpf-toggle');
@@ -234,6 +304,8 @@ lpfButton.addEventListener('click', () => {
         effects.filterOn();
     isSetLPF = !isSetLPF;
 });
+
+
 
 function updateGranParValue(id, newVal) {
     // fa l'update dello stato di granular tramite un metodo di granular_module

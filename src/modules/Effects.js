@@ -7,18 +7,18 @@ export default class Effects {
 
     constructor(source) {
         this.currentState = {
-            // loading defaults
+            // defaults are loaded 
             // delay
-            delay: 0.5,
-            feedback: 0.5,
-            filterFreq: 3000,
+            // delay: 0.5,
+            // feedback: 0.5,
+            // filterFreq: 3000,
             // reverb
-            decay: 0.5,
+            // decay: 5,
             // distortion
-            amount: 0.05,
+            // amount: 0.05,
             // lpf
-            freq: 3000,
-            resonance: 10
+            // freq: 3000,
+            // resonance: 10
         };
 
         this.#createNewDelay();
@@ -60,6 +60,8 @@ export default class Effects {
     reverbOff() {
         this.reverb.disconnect();
         this.reverb = null;
+
+        console.log(this.currentState);
     }
 
     #createNewFilter() {
@@ -75,6 +77,8 @@ export default class Effects {
     filterOff() {
         this.filter.disconnect();
         this.filter = null;
+
+        console.log(this.currentState);
     }
 
     #createNewDistrortion() {
@@ -90,6 +94,8 @@ export default class Effects {
     distortionOff() {
         this.distortion.disconnect();
         this.distortion = null;
+
+        console.log(this.currentState);
     }
 
     #chainEffects() {
@@ -111,19 +117,27 @@ export default class Effects {
     }
 
     setReverbDecayTime(time) {      //from 0 to 10
-        this.reverb.set(time)
+        this.#updateCurrentState({ decay: time });
+        if (this.reverb != null)
+            this.reverb.set(time);
     }
 
     setDistrotionAmount(amount) {   //from 0 to 0.15
-        this.distortion.set(amount);
+        this.#updateCurrentState({ amount: amount })
+        if (this.distortion != null)
+            this.distortion.set(amount);
     }
 
-    setFilterCutoff(freq) {         //from 10 to 22000
-        this.filter.freq(freq);
+    setFilterCutoff(freq) {         //from 10 to 9999
+        this.#updateCurrentState({ freq: freq });
+        if (this.filter != null)
+            this.filter.freq(freq);
     }
 
-    setFilterResonance(resonance) { //from 0.001 to 100
-        this.filter.res(resonance);
+    setFilterResonance(resonance) { //from 0.01 to 100
+        this.#updateCurrentState({ resonance })
+        if (this.filter != null)
+            this.filter.res(resonance);
     }
 
     #updateCurrentState(state) {
