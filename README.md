@@ -1,28 +1,36 @@
-# ACTam-CMRM Project
+# ACTaM Project: Granular Synthetizer
 
-## Per runnare GranJS example (funziona con parcel)
-* nella cartella del progetto: npm i
-* nella cartella example: npm i
-* nella cartella example: npm start 
-* nel caso ci sia questo warning dopo start:
+## Run with Parcel!
+* Download the project
+* In the project folder:
+```console
+npm i
+npm start
+```
+* In case this error occurs:
 ```console
 Browserslist: caniuse-lite is outdated. Please run next command `npm update caniuse-lite browserslist`
 Browserslist: caniuse-lite is outdated. Please run next command `npm update caniuse-lite browserslist`
 ```
 
-* Risolvi con questo:
+* Solve with:
     
 ```
-macdonald@MacBook-Pro example % npm update caniuse-lite browserslist
+npm update caniuse-lite browserslist
 ```
 
-## Idee per il progetto
-* Granular synth
-* Visualization 
-* Harmonizer
-* Scales & Chords analyzer
-* Tonal & Rhythmic JND detection
+## Functionalities
+* Granular synthetizer with modifiable parameters
+* Re-usable presets
 * MIDI controls
+
+## Used libs
+* Granular
+* Wavesurfer
+* Firebase
+* P5
+* JQuery & JQuery-Knob
+* Bootstrap
 
 ## Domande
 * Come sfruttare le idee?
@@ -43,4 +51,5 @@ Eventualmente grosso visualizzatore psichedelico.
 ## Trello
 https://trello.com/b/IWccLP6l/lezzosteps
 
+## Authors
 ### Gargiulo - Morena - Orsatti - Perego
