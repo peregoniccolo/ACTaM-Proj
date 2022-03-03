@@ -104,18 +104,22 @@ h1 {
 }
 
 #new_sample_but:active {
-	background-color: #5a7544;
-	box-shadow: 0 5px #666;
+	background-color: #456d80;
+	box-shadow: 0 5px rgb(143, 192, 207);
 }
 
 /* bars */
 .bar {
 	padding: 15px;
 	justify-content: center;
-	border-style: double;
-	border-color: #1d798a;
+	border-style: solid;
+	border-color: #517075;
 	border-width: 5px;
-	background-color: rgb(113, 217, 243);
+	background-color: rgb(127, 168, 179);
+}
+
+#knob-bar{
+	margin-bottom: 2%;
 }
 
 .knob-col {
@@ -155,6 +159,19 @@ footer {
 	width: 100%;
 	height: 40px;
 	margin-top: 40px;
+}
+
+/* effect bar */
+
+#delay {
+	border: solid 5px #475152 ;
+	margin-left: 4%;
+	margin-right: 3%;
+}
+
+#reverb {
+	border: solid 5px #475152 ;
+	margin-left: 5%;
 }
 
 /* bottone scelta samples */

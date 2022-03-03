@@ -588,7 +588,7 @@ new_sample_button.addEventListener('click', () => {
 
 const sample1 = document.getElementById('sample1');
 const sample2 = document.getElementById('sample2');
-const audioUrl1 = require('../media/PatitucciBass.mp3');
+const audioUrl1 = require('../media/ElectricMelodic.wav');
 const audioUrl2 = require('../media/pipa.wav');
 var sampleLoaded1 = false;
 var sampleLoaded2 = false;
