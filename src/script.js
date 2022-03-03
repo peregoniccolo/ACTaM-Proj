@@ -1,5 +1,5 @@
 //import "../libs/jquery-knobs/jquery.knob";
-import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular } from "./modules/granular_module";
+import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular, getBuffer, setRawFile, getRawFile } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Effects from "./modules/Effects";
@@ -491,6 +491,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     inputElement.addEventListener('change', e => {
         if (inputElement.files.length) {
             var file = inputElement.files[0]
+            setRawFile(file); // fotl
             if (fileValidation(file)) {
                 // Conversion to data buffer (inputBuffer)
                 file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
@@ -538,6 +539,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if (e.dataTransfer.files.length) {
             // Dropped file is handled here
             var file = e.dataTransfer.files[0];
+            setRawFile(file);
             if (fileValidation(file)) {
                 // Conversion to data buffer (inputBuffer)
                 file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
@@ -602,7 +604,10 @@ sample1.addEventListener('click', () => {
 
         // fetch the audio file
         fetch(audioUrl1)
-            .then(data => data.arrayBuffer())
+            .then(data => {
+                setRawFile(data)
+                return data.arrayBuffer()
+            })
             .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
             .then(decodedAudio => {
                 audio = decodedAudio
@@ -629,7 +634,10 @@ sample2.addEventListener('click', () => {
 
         // fetch the audio file
         fetch(audioUrl2)
-            .then(data => data.arrayBuffer())
+            .then(data => {
+                setRawFile(data)
+                return data.arrayBuffer()
+            })
             .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
             .then(decodedAudio => {
                 audio2 = decodedAudio
@@ -641,13 +649,9 @@ sample2.addEventListener('click', () => {
                 document.getElementById('wave-container').classList.toggle('nodisplay');
                 document.getElementById('samples').classList.toggle('nodisplay');
                 toggleBarContainer();
-
-
-
+                
             });
-
-
-
+            
     }
 
 });
@@ -655,12 +659,28 @@ sample2.addEventListener('click', () => {
 // Gestione click toggle effetti
 
 document.querySelectorAll('.toggle').forEach(inputElement => {
-    console.log(inputElement)
     inputElement.addEventListener('click', ()=> {
-        console.log('ktm')
         inputElement.classList.toggle('toggle-active');
     });
 });
+
+// Reverse sample
+document.getElementById('Reverse').addEventListener('click', ()=> {
+
+
+    if(getBuffer()!=null){
+
+        var buffer = getBuffer();
+        Array.prototype.reverse.call( buffer.getChannelData(0) );
+        Array.prototype.reverse.call( buffer.getChannelData(1) );
+
+        init(buffer);
+
+        wavesurfer.loadDecodedBuffer(buffer);
+    }
+
+})
+
 
 
 // Utility: create a new waveform representation based on the audio file passed as an argument.

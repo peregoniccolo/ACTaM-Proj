@@ -13,6 +13,7 @@ const audioContext = p5.prototype.getAudioContext();
 var grainIds = []
 var voiceState = false;
 var voiceRef = null;
+var rawFile = null;
 
 var granular = new Granular({
 	audioContext
@@ -82,6 +83,19 @@ export function stopGrain() {
 	voiceState = false;
 	granular.stopVoice(grainIds[0]);
 	grainIds = [];
+}
+
+//used for displaying the waveform
+export function setRawFile(file){
+	rawFile = file;
+}
+
+export function getRawFile(){
+	return rawFile;
+}
+
+export function getBuffer() {
+	return granular.buffer;
 }
 
 export async function init(file) {
