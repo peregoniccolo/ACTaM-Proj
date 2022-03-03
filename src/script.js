@@ -2,6 +2,7 @@
 import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import Effects from "./modules/Effects";
 // import Granular from "granular-js";
 
 // firebase configuration and initialization
@@ -78,7 +79,6 @@ $('.knob').each(function () {
     var $this = $(this);
 
     $this.knob({
-        'step': 0.01,
         'angleArc': 270,
         'angleOffset': -135,
         'lineCap': 'round',
@@ -97,6 +97,7 @@ $(".par-knob").each(function () {
     $this.trigger(
         'configure',
         {
+            'step': 0.01,
             'change': function (v) {
                 updateGranParValue(elementId, v);
             },
@@ -116,6 +117,7 @@ $(".env-knob").each(function () {
     $this.trigger(
         'configure',
         {
+            'step': 0.01,
             'change': function (v) {
                 updateGranEnvValue(elementId, v);
             },
@@ -134,6 +136,7 @@ $("#volume-knob").each(function () {
     $this.trigger(
         'configure',
         {
+            'step': 0.01,
             'change': function (v) {
                 setVolume(v);
             },
@@ -157,6 +160,47 @@ delayButton.addEventListener('click', () => {
         effects.delayOn();
     isSetDelay = !isSetDelay;
 });
+
+// feedback & delay time
+
+$("#feedback-knob").each(function () {
+
+    var $this = $(this);
+
+    $this.trigger(
+        'configure',
+        {
+            'step': 0.01,
+            'change': function (v) {
+                effects.setDelayFeedback(v);
+            },
+            'release': function (v) {
+                effects.setDelayFeedback(v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
+$("#delay-knob").each(function () {
+
+    var $this = $(this);
+
+    $this.trigger(
+        'configure',
+        {
+            'step': 0.01,
+            'change': function (v) {
+                effects.setDelayTime(v)
+            },
+            'release': function (v) {
+                effects.setDelayTime(v);
+            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+        }
+    );
+
+});
+
 
 // reverb
 var isSetReverb = false;

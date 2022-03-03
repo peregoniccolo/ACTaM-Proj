@@ -39,7 +39,6 @@ export var freq;
 // Effects
 
 export var effects = new Effects(granular);
-effects.chainEffects();
 
 export function setPosition(pos) {
 	voiceOption.position = pos;

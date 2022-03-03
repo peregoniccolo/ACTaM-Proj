@@ -1,13 +1,33 @@
 import p5 from "p5";
+import {
+    merge
+} from 'lodash';
 
 export default class Effects {
 
     constructor(source) {
-        this.reverb = new p5.Reverb();
-        this.delay = new p5.Delay();
-        this.filter = new p5.Filter();
-        this.distortion = new p5.Distortion();
-        this.source = source
+        this.currentState = {
+            // loading defaults
+            // delay
+            delay: 0.5,
+            feedback: 0.5,
+            filterFreq: 3000,
+            // reverb
+            decay: 0.5,
+            // distortion
+            amount: 0.05,
+            // lpf
+            freq: 3000,
+            resonance: 10
+        };
+
+        this.#createNewDelay();
+        this.#createNewReverb();
+        this.#createNewDistrortion();
+        this.#createNewFilter();
+        this.source = source;
+
+        this.#chainEffects();
     }
 
     #createNewDelay() {
@@ -17,12 +37,14 @@ export default class Effects {
     delayOn() {
         if (this.delay == null)
             this.#createNewDelay();
-        this.delay.process(this.source, 0.4, 0.5, 3000); // source, delayTime, feedback, filter frequency
+        this.delay.process(this.source, this.currentState.delay, this.currentState.feedback, this.currentState.filterFreq); // source, delayTime, feedback, filter frequency
     }
 
     delayOff() {
         this.delay.disconnect();
         this.delay = null;
+
+        console.log(this.currentState);
     }
 
     #createNewReverb() {
@@ -70,36 +92,42 @@ export default class Effects {
         this.distortion = null;
     }
 
-    chainEffects() {
+    #chainEffects() {
         this.distortion.chain(this.delay);
         this.delay.chain(this.reverb);
         this.reverb.chain(this.filter);
     }
 
-    //Exporting parameters
-
-    setDelayTime(time) { //from 0 to 1
-        this.delay.delayTime(time);
+    setDelayTime(time) {            //from 0 to 1
+        this.#updateCurrentState({ delay: time });
+        if (this.delay != null)
+            this.delay.delayTime(time); // se è null setto solo il current, che verrà ripreso quando ricreo l'oggetto
     }
 
-    setDelayFeedback(feedback) { //from 0 to 1
-        this.delay.feedback(feedback);
+    setDelayFeedback(feedback) {    //from 0 to 0.75
+        this.#updateCurrentState({ feedback: feedback });
+        if (this.delay != null)
+            this.delay.feedback(feedback);
     }
 
-    setReverbDecayTime(time) { //from 0 to 10
+    setReverbDecayTime(time) {      //from 0 to 10
         this.reverb.set(time)
     }
 
-    setDistrotionAmount(amount) { //from 0 to 0.15
+    setDistrotionAmount(amount) {   //from 0 to 0.15
         this.distortion.set(amount);
     }
 
-    setFilterCutoff(freq) { //from 10 to 22000
+    setFilterCutoff(freq) {         //from 10 to 22000
         this.filter.freq(freq);
     }
 
     setFilterResonance(resonance) { //from 0.001 to 100
         this.filter.res(resonance);
+    }
+
+    #updateCurrentState(state) {
+        this.currentState = merge(this.currentState, state);
     }
 
 }
