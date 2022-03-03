@@ -1,10 +1,11 @@
 {
-  "name": "GranularSynth",
+  "name": "granularsynth",
   "version": "1.0.0",
-  "description": "* Granular synth\r * Visualization \r * Harmonizer\r * Scales & Chords analyzer\r * Tonal & Rhythmic JND detection\r * MIDI controls",
+  "description": "Granular Synthetizer with effects",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
     "last 1 edge version"
   ],
   "keywords": [],
-  "author": "",
+  "author": "Gargiulo - Morena - Orsatti - Perego",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/peregoniccolo/ACTaM-Proj/issues"
