@@ -163,15 +163,39 @@ footer {
 
 /* effect bar */
 
+
+
 #delay {
 	border: solid 5px #475152 ;
-	margin-left: 4%;
-	margin-right: 3%;
 }
 
 #reverb {
 	border: solid 5px #475152 ;
-	margin-left: 5%;
+}
+
+#distortion {
+	border: solid 5px #475152 ;
+}
+
+#lpf {
+	border: solid 5px #475152 ;
+}
+
+.toggle{
+	width: 20px;
+	height: 20px;
+	border-color: #3a3a3a;
+	border-radius: 100px;
+	outline: none;
+	background: #637277;
+	color: white; 
+	cursor: pointer;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); ;
+
+}
+
+.toggle-active{
+	background-color: #5ebe1e ;
 }
 
 /* bottone scelta samples */

@@ -80,27 +80,33 @@
 
         <div class="bar row rounded" id="effect-bar">
             <!-- first row: delay and reverb -->
-            <div class="row">
-                <div class="col-5 mb-2  effect-box rounded" id="delay">
+            <div class="row justify-content-around">
+                <div class="col-5 pl-2 mb-3  effect-box rounded" id="delay">
                     <div class="row">
-                        <div class="col-2 text-center align-items-center">
-                            <button id='delay-toggle' class="btn btn-lg btn-outline-primary">Delay</button>
+                        <div class="col-2 mt-1 ">
+                            <button id='delay-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-5 knob-col-small">
+                        <div class="col-2 text-center align-items-center">
+                            Delay
+                        </div>
+                        <div class="col-4 knob-col-small">
                             <input id="feedback-knob" class="knob animated" default="0.4" data-min="0"
                                 data-max="0.75" />
                             <label class="font">Feedback</label>
                         </div>
-                        <div class="col-5 knob-col-small">
+                        <div class="col-4 knob-col-small">
                             <input id="delay-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
                             <label class="font">Time</label>
                         </div>
                     </div>
                 </div>
-                <div class="col-5 mb-2 effect-box rounded" id="reverb">
+                <div class="col-5 ml-auto mb-3 effect-box rounded" id="reverb">
                     <div class="row">
-                        <div class="col-3  text-center align-items-center">
-                            <button id='reverb-toggle' class="btn btn-lg btn-outline-primary">Reverb</button>
+                        <div class="col-2 mt-1">
+                            <button id='reverb-toggle' class="toggle"></button>
+                        </div>
+                        <div class="col-2 text-center align-items-center">
+                            Reverb
                         </div>
                         <div class="col-9 knob-col-small">
                             <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10" />
@@ -111,8 +117,8 @@
             </div>
 
             <!-- second row: distortion and lpf -->
-            <div class="row">
-                <div class="col-6 effect-box rounded" id="distortion">
+            <div class="row justify-content-around">
+                <div class="col-5 effect-box rounded" id="distortion">
                     <div class="row">
                         <div class="col-3 text-center align-items-center">
                             <button id='distortion-toggle' class="btn btn-lg btn-outline-primary">Distortion</button>
@@ -123,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 effect-box rounded" id="reverb">
+                <div class="col-5 effect-box rounded" id="lpf">
                     <div class="row">
                         <div class="col-2 text-center align-items-center">
                             <button id='lpf-toggle' class="btn btn-lg btn-outline-primary">LPF</button>
@@ -147,7 +153,7 @@
         <input type="file" accept="audio/*" id="sample" name="myFile" class="drop_zone_input" />
     </div>
 
-    <div class="container">
+    <div id ='samples' class="container">
         <div class="row justify-content-center mt-3  ">
             <div id='sample1' class="col-2  sample">
                 Sample 1

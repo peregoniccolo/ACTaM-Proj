@@ -471,7 +471,6 @@ function normalizeTime(time) {
 
 // VIEW
 // The methods below handle the interaction of the user with the drag & drop upload zone.
-var fileLoaded = false;
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     const dropZoneElement = inputElement.closest(".drop_zone");
 
@@ -486,9 +485,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if (inputElement.files.length) {
             inputElement.value = '';
         }
-        fileLoaded = true;
-        sampleLoaded1 = false;
-        sampleLoaded2 = false;
+       
     });
 
     inputElement.addEventListener('change', e => {
@@ -510,10 +507,10 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
                 dropZoneElement.classList.remove('drop_zone--over');
                 document.getElementById('wave-container').classList.toggle('nodisplay');
+                document.getElementById('samples').classList.toggle('nodisplay');
 
-                fileLoaded = true;
-                sampleLoaded1 = false;
-                sampleLoaded2 = false;
+
+      
                 // mostra bar-container
                 toggleBarContainer();
             }
@@ -548,11 +545,11 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                     init(inputBuffer)
                     // rimuovi dropzone e mostra change button
                     dropZoneElement.classList.toggle("nodisplay");
-                    fileLoaded = true;
-                    sampleLoaded1 = false;
-                    sampleLoaded2 = false;
+               
                     document.getElementById("button-container").classList.toggle("nodisplay");
                     document.getElementById('wave-container').classList.toggle('nodisplay');
+                    document.getElementById('samples').classList.toggle('nodisplay');
+
 
                     // mostra knobs
                     toggleBarContainer();
@@ -575,6 +572,8 @@ new_sample_button.addEventListener('click', () => {
 
     document.getElementById("button-container").classList.toggle("nodisplay");
     document.getElementById('wave-container').classList.toggle('nodisplay');
+    document.getElementById('samples').classList.toggle('nodisplay');
+
 
 
 
@@ -609,19 +608,12 @@ sample1.addEventListener('click', () => {
                 audio = decodedAudio
                 init(audio); // create granular object
                 wavesurfer.load(audioUrl1) // load wavesurfer object
-
-
-                if (!fileLoaded && !sampleLoaded2) {
-                    // rimuovi dropzone e mostra change button
-                    document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
-                    document.getElementById("button-container").classList.toggle("nodisplay");
-                    document.getElementById('wave-container').classList.toggle('nodisplay');
-                    toggleBarContainer();
-                }
-
-                fileLoaded = false;
-                sampleLoaded1 = true;
-                sampleLoaded2 = false;
+           
+                document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
+                document.getElementById("button-container").classList.toggle("nodisplay");
+                document.getElementById('wave-container').classList.toggle('nodisplay');
+                document.getElementById('samples').classList.toggle('nodisplay');
+                toggleBarContainer();
 
             });
 
@@ -644,28 +636,30 @@ sample2.addEventListener('click', () => {
                 init(audio2); // create granular object
                 wavesurfer.load(audioUrl2) // load wavesurfer object
 
+                document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
+                document.getElementById("button-container").classList.toggle("nodisplay");
+                document.getElementById('wave-container').classList.toggle('nodisplay');
+                document.getElementById('samples').classList.toggle('nodisplay');
+                toggleBarContainer();
 
 
-                // se il sample1 non è stato già caricato
-                if (!fileLoaded && !sampleLoaded1) {
-                    // rimuovi dropzone e mostra change button
-                    document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
 
-                    document.getElementById("button-container").classList.toggle("nodisplay");
-                    document.getElementById('wave-container').classList.toggle('nodisplay');
-                    toggleBarContainer();
-                }
-
-
-                fileLoaded = false;
-                sampleLoaded1 = false;
-                sampleLoaded2 = true;
             });
 
 
 
     }
 
+});
+
+// Gestione click toggle effetti
+
+document.querySelectorAll('.toggle').forEach(inputElement => {
+    console.log(inputElement)
+    inputElement.addEventListener('click', ()=> {
+        console.log('ktm')
+        inputElement.classList.toggle('toggle-active');
+    });
 });
 
 
