@@ -82,13 +82,16 @@
             <!-- first row: delay and reverb -->
             <div class="row justify-content-around">
                 <div class="col-5 pl-2 mb-3  effect-box rounded" id="delay">
-                    <div class="row">
-                        <div class="col-2 mt-1 ">
+                    <div class='row title-effect'>
+                        <div class="col-2 ">
                             <button id='delay-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-2 text-center align-items-center">
+                        <div class="col-2  eff-name">
                             Delay
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-4 knob-col-small">
                             <input id="feedback-knob" class="knob animated" default="0.4" data-min="0"
                                 data-max="0.75" />
@@ -101,13 +104,15 @@
                     </div>
                 </div>
                 <div class="col-5 ml-auto mb-3 effect-box rounded" id="reverb">
-                    <div class="row">
-                        <div class="col-2 mt-1">
+                    <div class='row title-effect'>
+                        <div class="col-2 ">
                             <button id='reverb-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-2 text-center align-items-center">
+                        <div class="col-2  eff-name">
                             Reverb
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-9 knob-col-small">
                             <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10" />
                             <label class="font">Decay time</label>
@@ -119,26 +124,36 @@
             <!-- second row: distortion and lpf -->
             <div class="row justify-content-around">
                 <div class="col-5 effect-box rounded" id="distortion">
-                    <div class="row">
-                        <div class="col-3 text-center align-items-center">
-                            <button id='distortion-toggle' class="btn btn-lg btn-outline-primary">Distortion</button>
+                    <div class='row title-effect'>
+                        <div class="col-2 ">
+                            <button id='distortion-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-9 knob-col-small">
+                        <div class="col-2  eff-name">
+                            Distortion
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1 knob-col-small">
                             <input id="amount-knob" class="knob animated" default="0.05" data-min="0" data-max="0.15" />
                             <label class="font">Amount</label>
                         </div>
                     </div>
                 </div>
                 <div class="col-5 effect-box rounded" id="lpf">
-                    <div class="row">
-                        <div class="col-2 text-center align-items-center">
-                            <button id='lpf-toggle' class="btn btn-lg btn-outline-primary">LPF</button>
+                    <div class='row title-effect'>
+                        <div class="col-2 ">
+                            <button id='lpf-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-5 knob-col-small">
+                        <div class="col-2  eff-name">
+                            LPF
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 knob-col-small">
                             <input id="freq-knob" class="knob animated" default="3000" data-min="10" data-max="9999" />
                             <label class="font">Cut off</label>
                         </div>
-                        <div class="col-5 knob-col-small">
+                        <div class="col-4 knob-col-small">
                             <input id="resonance-knob" class="knob animated" default="10" data-min="1" data-max="100" />
                             <label class="font">Resonance</label>
                         </div>

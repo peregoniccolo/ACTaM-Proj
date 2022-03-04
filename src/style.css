@@ -191,11 +191,23 @@ footer {
 	color: white; 
 	cursor: pointer;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); ;
+	margin-top: 6%;
 
 }
 
 .toggle-active{
 	background-color: #5ebe1e ;
+}
+
+
+
+.title-effect {
+	background-color: #333333;
+}
+
+.eff-name{
+	color: white;
+	padding-bottom: 1% ;
 }
 
 /* bottone scelta samples */
