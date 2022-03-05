@@ -107,37 +107,37 @@ export default class Effects {
     setDelayTime(time) {            //from 0 to 1
         this.#updateCurrentState({ delay: time });
         if (this.delay != null)
-            this.delay.delayTime(time); // se è null setto solo il current, che verrà ripreso quando ricreo l'oggetto
+            this.delay.delayTime(this.currentState.delay); // se è null setto solo il current, che verrà ripreso quando ricreo l'oggetto
     }
 
     setDelayFeedback(feedback) {    //from 0 to 0.75
         this.#updateCurrentState({ feedback: feedback });
         if (this.delay != null)
-            this.delay.feedback(feedback);
+            this.delay.feedback(this.currentState.feedback);
     }
 
     setReverbDecayTime(time) {      //from 0 to 10
         this.#updateCurrentState({ decay: time });
         if (this.reverb != null)
-            this.reverb.set(time);
+            this.reverb.set(this.currentState.decay);
     }
 
     setDistrotionAmount(amount) {   //from 0 to 0.15
-        this.#updateCurrentState({ amount: amount })
+        this.#updateCurrentState({ amount: amount*0.3 })
         if (this.distortion != null)
-            this.distortion.set(amount);
+            this.distortion.set(this.currentState.amount);
     }
 
     setFilterCutoff(freq) {         //from 10 to 9999
         this.#updateCurrentState({ freq: freq });
         if (this.filter != null)
-            this.filter.freq(freq);
+            this.filter.freq(this.currentState.freq);
     }
 
     setFilterResonance(resonance) { //from 0.01 to 100
         this.#updateCurrentState({ resonance })
         if (this.filter != null)
-            this.filter.res(resonance);
+            this.filter.res(this.currentState.resonance);
     }
 
     #updateCurrentState(state) {

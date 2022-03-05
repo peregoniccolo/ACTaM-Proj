@@ -33,8 +33,6 @@ async function populatePresetList() {
         newOption.innerHTML = doc.data().name;
         presetSelect.appendChild(newOption);
     });
-    // console.log(presetMap);
-
 }
 
 populatePresetList();
@@ -44,7 +42,7 @@ populatePresetList();
 presetSelect.addEventListener("change", e => {
 
     if (presetSelect.value == "default") {
-        animateToDefaultValue();
+        animateToDefaultValue(true); // reset only par & env knobs
         return;
     }
 
@@ -321,13 +319,21 @@ function updateGranEnvValue(id, newVal) {
     });
 }
 
-function animateToDefaultValue() {
+function animateToDefaultValue(isPresets = false) {
     // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
     // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
 
-    $('.knob').each(function () {
+    var knobs;
+
+    if (isPresets)
+        knobs = $(".par-knob, .env-knob"); // only the main parameters are defaulted
+    else
+        knobs = $(".knob");
+
+    knobs.each(function () {
 
         var $this = $(this);
+
         var myVal = $this.attr("default");
 
         $({
@@ -485,7 +491,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
         if (inputElement.files.length) {
             inputElement.value = '';
         }
-       
+
     });
 
     inputElement.addEventListener('change', e => {
@@ -511,7 +517,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 document.getElementById('samples').classList.toggle('nodisplay');
 
 
-      
+
                 // mostra bar-container
                 toggleBarContainer();
             }
@@ -547,7 +553,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                     init(inputBuffer)
                     // rimuovi dropzone e mostra change button
                     dropZoneElement.classList.toggle("nodisplay");
-               
+
                     document.getElementById("button-container").classList.toggle("nodisplay");
                     document.getElementById('wave-container').classList.toggle('nodisplay');
                     document.getElementById('samples').classList.toggle('nodisplay');
@@ -613,7 +619,7 @@ sample1.addEventListener('click', () => {
                 audio = decodedAudio
                 init(audio); // create granular object
                 wavesurfer.load(audioUrl1) // load wavesurfer object
-           
+
                 document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
                 document.getElementById("button-container").classList.toggle("nodisplay");
                 document.getElementById('wave-container').classList.toggle('nodisplay');
@@ -649,9 +655,9 @@ sample2.addEventListener('click', () => {
                 document.getElementById('wave-container').classList.toggle('nodisplay');
                 document.getElementById('samples').classList.toggle('nodisplay');
                 toggleBarContainer();
-                
+
             });
-            
+
     }
 
 });
@@ -659,20 +665,19 @@ sample2.addEventListener('click', () => {
 // Gestione click toggle effetti
 
 document.querySelectorAll('.toggle').forEach(inputElement => {
-    inputElement.addEventListener('click', ()=> {
+    inputElement.addEventListener('click', () => {
         inputElement.classList.toggle('toggle-active');
     });
 });
 
-// Reverse sample
-document.getElementById('Reverse').addEventListener('click', ()=> {
+// reverse sample
+document.getElementById('reverse').addEventListener('click', () => {
 
-
-    if(getBuffer()!=null){
+    if (getBuffer() != null) {
 
         var buffer = getBuffer();
-        Array.prototype.reverse.call( buffer.getChannelData(0) );
-        Array.prototype.reverse.call( buffer.getChannelData(1) );
+        Array.prototype.reverse.call(buffer.getChannelData(0));
+        Array.prototype.reverse.call(buffer.getChannelData(1));
 
         init(buffer);
 

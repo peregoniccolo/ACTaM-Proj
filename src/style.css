@@ -110,37 +110,38 @@ h1 {
 
 /* bars */
 .bar {
-	padding: 15px;
 	justify-content: center;
 	border-style: solid;
 	border-color: #517075;
 	border-width: 5px;
 	background-color: rgb(127, 168, 179);
+	margin-bottom: 2%;
 }
 
-#knob-bar{
-	margin-bottom: 2%;
+#knob-bar {
+	padding: 15px 15px 0px 15px;
+}
+
+#effect-bar {
+	padding: 15px;
 }
 
 .knob-col {
 	margin-top: 5px !important;
-	margin-bottom: 5px;
 	min-width: 150px;
-	min-height: 190px;
+	min-height: 200px;
 	text-align: center;
 }
 
 .knob-col-small {
 	margin-top: 5px !important;
-	margin-bottom: 5px;
 	min-width: 150px;
-	max-width: 250px !important;
-	min-height: 180px;
+	height: 170px;
 	text-align: center;
 }
 
 .knob {
-	font-size: 2.5vw !important;
+	font-size: 2vw !important;
 	font-weight: bold !important;
 }
 
@@ -163,76 +164,63 @@ footer {
 
 /* effect bar */
 
-
-
-#delay {
-	border: solid 5px #475152 ;
-}
-
-#reverb {
-	border: solid 5px #475152 ;
-}
-
-#distortion {
-	border: solid 5px #475152 ;
-}
-
-#lpf {
-	border: solid 5px #475152 ;
-}
-
-.toggle{
+.toggle {
 	width: 20px;
 	height: 20px;
 	border-color: #3a3a3a;
 	border-radius: 100px;
 	outline: none;
 	background: #637277;
-	color: white; 
+	color: white;
 	cursor: pointer;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15); ;
-	margin-top: 6%;
-
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+	;
+	margin-top: 15%;
 }
 
-.toggle-active{
-	background-color: #5ebe1e ;
+.toggle-active {
+	background-color: #5ebe1e;
 }
-
-
 
 .title-effect {
 	background-color: #333333;
+	margin-bottom: 10px;
 }
 
-.eff-name{
+.eff-name {
 	color: white;
-	padding-bottom: 1% ;
+	font-size: large;
+	padding: 1% 0% 1% 0%;
+}
+
+.effect-box {
+	padding-bottom: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	border: solid 5px #475152;
+	min-height: 100px;
 }
 
 /* bottone scelta samples */
-.sample {
+.dft-sample {
 	display: inline-block;
 	padding: 0.35em 1.2em;
 	border: 0.1em solid #009ea3;
 	margin: 0 0.3em 0.3em 0;
 	border-radius: 0.12em;
 	box-sizing: border-box;
-	text-decoration: none;
-	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
-	color: #ffffff;
 	text-align: center;
-	transition: all 0.2s;
+	/* transition: all 0.2s; */
 }
 
-.sample:hover {
+.dft-sample:hover {
 	color: #000000;
 	background-color: #55b4bb;
 }
 
 @media all and (max-width:30em) {
-	.sample {
+	.dft-sample {
 		display: block;
 		margin: 0.4em auto;
 	}
@@ -243,15 +231,8 @@ footer {
 	height: 5px;
 }
 
-/* end sample button */
-
 .font {
 	font-family: 'Helvetica Neue', sans-serif;
-}
-
-.effect-box {
-	border: 2px solid black;
-	min-height: 100px;
 }
 
 #preset-select {

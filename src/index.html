@@ -83,21 +83,21 @@
             <div class="row justify-content-around">
                 <div class="col-5  mb-3  effect-box rounded" id="delay">
                     <div class='row title-effect'>
-                        <div class="col-2 ">
+                        <div class="col-2">
                             <button id='delay-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-2  eff-name">
+                        <div class="col-10 eff-name">
                             Delay
                         </div>
                     </div>
 
                     <div class="row justify-content-around">
-                        <div class="col-3 knob-col-small">
+                        <div class="col-5 knob-col-small">
                             <input id="feedback-knob" class="knob animated" default="0.4" data-min="0"
                                 data-max="0.75" />
                             <label class="font">Feedback</label>
                         </div>
-                        <div class="col-3 knob-col-small">
+                        <div class="col-5 knob-col-small">
                             <input id="delay-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
                             <label class="font">Time</label>
                         </div>
@@ -105,15 +105,15 @@
                 </div>
                 <div class="col-5 ml-auto mb-3 effect-box rounded" id="reverb">
                     <div class='row title-effect'>
-                        <div class="col-2 ju ">
+                        <div class="col-2">
                             <button id='reverb-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-2  eff-name">
+                        <div class="col-10  eff-name">
                             Reverb
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-4 knob-col-small">
+                        <div class="col-12 knob-col-small">
                             <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10" />
                             <label class="font">Decay</label>
                         </div>
@@ -128,12 +128,12 @@
                         <div class="col-2 ">
                             <button id='distortion-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-2  eff-name">
+                        <div class="col-10  eff-name">
                             Distortion
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-4 mt-1 knob-col-small">
+                        <div class="col-12 knob-col-small">
                             <input id="amount-knob" class="knob animated" default="0.05" data-min="0" data-max="0.15" />
                             <label class="font">Amount</label>
                         </div>
@@ -141,19 +141,19 @@
                 </div>
                 <div class="col-5 effect-box rounded" id="lpf">
                     <div class='row title-effect'>
-                        <div class="col-2 ">
+                        <div class="col-2">
                             <button id='lpf-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-2  eff-name">
+                        <div class="col-2 eff-name">
                             LPF
                         </div>
                     </div>
                     <div class="row justify-content-around">
-                        <div class="col-4 knob-col-small">
+                        <div class="col-5 knob-col-small">
                             <input id="freq-knob" class="knob animated" default="3000" data-min="10" data-max="9999" />
                             <label class="font">Cut off</label>
                         </div>
-                        <div class="col-4 knob-col-small">
+                        <div class="col-5 knob-col-small">
                             <input id="resonance-knob" class="knob animated" default="10" data-min="1" data-max="100" />
                             <label class="font">Resonance</label>
                         </div>
@@ -165,33 +165,36 @@
 
     <div class="container drop_zone font">
         <span class="drop_zone_prompt">Drag your sample here...</span>
-        <input type="file" accept="audio/*" id="sample" name="myFile" class="drop_zone_input" />
+        <input type="file" accept="audio/*" id="dft-sample" name="myFile" class="drop_zone_input" />
     </div>
 
     <div id="samples" class="container">
         <div class="row justify-content-center mt-3">
-            <div id='sample1' class="col-2  sample">
+            <div id='sample1' class="col-2  dft-sample">
                 Sample 1
             </div>
-            <div id='sample2' class="col-2  sample">
+            <div id='sample2' class="col-2  dft-sample">
                 Sample 2
             </div>
         </div>
     </div>
 
-    <div class='row justify-content-center mt-3'> 
-        <div id='Reverse' class="col-3  sample">
-            Reverse sample
-        </div>
-    </div>
-    
-    
     <div class="container nodisplay" id="button-container">
-        <div class="row justify-content-center mt-3  ">
-            <select id="preset-select" class="w-25 h-5 col-2 form-select">
-                <!-- populated in js -->
-            </select>
+
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <select id="preset-select" class="form-select">
+                    <!-- populated in js -->
+                </select>
+            </div>
+            <div id='reverse' class="col-5 dft-sample font">
+                Reverse sample
+            </div>
         </div>
+        <!-- <div class="row justify-content-center mt-3  ">
+            <select id="preset-select" class="w-25 h-5 col-2 form-select">
+            </select>
+        </div> -->
 
         <div class="row justify-content-center mt-3  ">
             <button id="new_sample_but" class="w-25 h-5 btn col-2">Change sample</button>

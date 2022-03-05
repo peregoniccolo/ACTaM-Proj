@@ -21,6 +21,7 @@ npm update caniuse-lite browserslist
 
 ## Functionalities
 * Granular synthetizer with modifiable parameters
+* Cool effects
 * Re-usable presets
 * MIDI controls
 
