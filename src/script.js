@@ -767,6 +767,7 @@ function onMIDISuccess(midiAccess) {
 
     midiAccess.addEventListener('statechange', updateDevices)
     const input = midiAccess.inputs;
+    
     input.forEach((input) => {
         input.addEventListener('midimessage', handleInput);
     })
@@ -803,6 +804,13 @@ function handleInput(input) {
         case 128:
             noteoff(note);
             break;
+
+        case 176: //controllo da parte di un knob/slider
+            if (input.data[1] == 7) {
+                var den = input.data[2]/127;
+                updateState({density: den});
+            }
+
     }
 
 }
