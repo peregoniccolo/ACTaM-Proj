@@ -755,6 +755,7 @@ startButton.addEventListener('click', () =>{
 
 */
 
+var controllerArray = [0, 0, 0];
 
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
@@ -792,24 +793,56 @@ function handleInput(input) {
     const velocity = handleVelocity(input.data[2])
     console.log(command + "|" + note + "|" + velocity)
 
-    switch (command) {
-        case 144:
-            if (velocity > 0) {
-                noteon(note, velocity);
-            }
-            else {
-                noteoff(note);
-            }
-            break;
-        case 128:
-            noteoff(note);
-            break;
+    if (contr1enabled){ //sto settando parametro 1
+        controllerArray[0] = note;
+        contr1.value = note;
+        console.log("CONTRARRAY " + controllerArray)
+    }
 
-        case 176: //controllo da parte di un knob/slider
-            if (input.data[1] == 7) {
-                var den = input.data[2]/127;
-                updateState({density: den});
-            }
+    else if (contr2enabled) { //sto settando parametro 2
+        controllerArray[1] = note;
+        contr2.value = note;
+        console.log("CONTRARRAY " + controllerArray)
+    }
+
+    else if (contr3enabled) { //sto settando parametro 3
+        controllerArray[2] = note;
+        contr3.value = note;
+        console.log("CONTRARRAY " + controllerArray)
+    }
+
+    else{
+
+        switch (command) {
+            case 144:
+                if (velocity > 0) {
+                    noteon(note, velocity);
+                }
+                else {
+                    noteoff(note);
+                }
+                break;
+            case 128:
+                noteoff(note);
+                break;
+    
+            case 176: //controllo da parte di un knob/slider
+                if (input.data[1] == controllerArray[0]) { //parametro 1: density
+                    var den = input.data[2]/127;
+                    updateState({density: den});
+                }
+
+                if (input.data[1] == controllerArray[1]) { //parametro 2: pitch
+                    var pch = input.data[2]/127;
+                    updateState({pitch: pch});
+                }
+
+                if (input.data[1] == controllerArray[2]) { //parametro 3: spread
+                    var sprd = input.data[2]/127;
+                    updateState({spread: sprd});
+                }
+    
+        }
 
     }
 
@@ -826,4 +859,72 @@ function noteoff(note, velocity) {
     stopGrain();
 }
 
+
+//gestione popup
+
+const popupB = document.getElementById('popupButton');
+const contrSet = document.getElementById('controllerset');
+const contr1 = document.getElementById('controller1');
+const contr2 = document.getElementById('controller2');
+const contr3 = document.getElementById('controller3');
+var contr1enabled = false;
+var contr2enabled = false;
+var contr3enabled = false;
+
+//mostra popup
+popupB.addEventListener('click', () => {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
+);
+
+contrSet.addEventListener('click', () => {
+    contr1enabled = false;
+    contr2enabled = false;
+    contr3enabled = false;
+
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+
+  }
+);
+
+//resetta primo parametro e permette il suo settaggio
+contr1.addEventListener('click', () => {
+    console.log("1")
+
+    controllerArray[0] = 0;
+    contr1.value = "";
+
+    contr1enabled = true;
+    contr2enabled = false;
+    contr3enabled = false;
+  }
+);
+
+//resetta secondo parametro e permette il suo settaggio
+contr2.addEventListener('click', () => {
+    console.log("2")
+
+    controllerArray[1] = 0;
+    contr2.value = "";
+
+    contr2enabled = true;
+    contr1enabled = false;
+    contr3enabled = false;
+  }
+);
+
+//resetta terzo parametro e permette il suo settaggio
+contr3.addEventListener('click', () => {
+    console.log("3")
+
+    controllerArray[2] = 0;
+    contr3.value = "";
+
+    contr3enabled = true;
+    contr2enabled = false;
+    contr1enabled = false;
+  }
+);
 

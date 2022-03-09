@@ -337,3 +337,46 @@ footer {
 .words span:nth-child(19) {
 	animation-delay: 3s;
 }
+
+
+
+
+/* Popup container */
+.popup {
+position: relative;
+display: inline-block;
+cursor: pointer;
+}
+  
+/* The actual popup (appears on top) */
+.popup .popuptext {
+visibility: hidden;
+background-color: #555;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 8px 0;
+z-index: 1;
+bottom: 50%;
+left: 50%;
+margin-left: -80px;
+}
+
+  
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+visibility: visible;
+-webkit-animation: fadeIn 0.25s;
+animation: fadeIn 0.25s;
+}
+  
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+from {opacity: 0;}
+to {opacity: 1;}
+}
+  
+@keyframes fadeIn {
+from {opacity: 0;}
+to {opacity:1 ;}
+} 
