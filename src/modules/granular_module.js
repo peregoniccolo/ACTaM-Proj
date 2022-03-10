@@ -64,9 +64,9 @@ export function playGrain(position = null, volume = null, frequency = null) {
 	}
 
 	if (frequency) {
-		freq = granular.state.pitch * frequency
+		freq =  frequency;
 	} else {
-		freq = 1
+		freq = 1;
 	}
 
 	if (voiceState) {

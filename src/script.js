@@ -756,6 +756,7 @@ startButton.addEventListener('click', () =>{
 */
 
 var controllerArray = [0, 0, 0];
+var numnotes = 0;
 
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
@@ -815,6 +816,7 @@ function handleInput(input) {
 
         switch (command) {
             case 144:
+                numnotes += 1;
                 if (velocity > 0) {
                     noteon(note, velocity);
                 }
@@ -822,8 +824,12 @@ function handleInput(input) {
                     noteoff(note);
                 }
                 break;
+
             case 128:
-                noteoff(note);
+                numnotes -= 1;
+                if(numnotes < 1) {
+                    noteoff(note);
+                }
                 break;
     
             case 176: //controllo da parte di un knob/slider
