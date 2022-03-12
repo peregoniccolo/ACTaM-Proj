@@ -46,21 +46,21 @@ export function setPosition(pos) {
 }
 
 export function setVolume(vol) {
-	voiceOption.volume = vol;
+	voiceOption.volume = Math.max(vol,0.00001);
+}
+
+export function getVolume(){
+	return voiceOption.volume;
 }
 
 export function updateState(state) {
 	granular.set(state);
 }
 
-export function playGrain(position = null, volume = null, frequency = null) {
+export function playGrain(position = null, velocity = 1, frequency = null) {
 
 	if (position) {
 		setPosition(position)
-	}
-
-	if (volume) {
-		setVolume(volume)
 	}
 
 	if (frequency) {
@@ -72,7 +72,7 @@ export function playGrain(position = null, volume = null, frequency = null) {
 	if (voiceState) {
 		voiceRef.voice.update(voiceOption);
 	} else {
-		var id = granular.startVoice(voiceOption)
+		var id = granular.startVoice(voiceOption, velocity)
 		voiceRef = granular.getVoice(id);
 		voiceState = true;
 		grainIds.push(id)

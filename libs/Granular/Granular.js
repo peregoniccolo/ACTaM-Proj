@@ -135,7 +135,7 @@ export default class Granular {
      * @param {Object} [options.volume] - Optional volume (0.0 - 1.0).
      * @param {Object} [options.position] - Optional position (0.0 - 1-0).
      */
-    startVoice(options = {}) { //all'interno di startVoice definiamo la classe Voice, creiamo un oggetto voice e lo facciamo suonare,
+    startVoice(options = {}, velocity = 1) { //all'interno di startVoice definiamo la classe Voice, creiamo un oggetto voice e lo facciamo suonare,
         // posso passare position e volume della voice come options
         if (!this.state.isBufferSet) {
             return;
@@ -169,7 +169,7 @@ export default class Granular {
 
 
                 const _innerPlay = () => {
-                    const grain = self.createGrain(this.position, this.volume);
+                    const grain = self.createGrain(this.position, this.volume * velocity);
 
                     this.grains[this.grainsCount] = grain;
                     this.grainsCount++;

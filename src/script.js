@@ -1,5 +1,5 @@
 //import "../libs/jquery-knobs/jquery.knob";
-import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular, getBuffer, setRawFile, getRawFile } from "./modules/granular_module";
+import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular, getBuffer, setRawFile, getRawFile, getVolume } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Effects from "./modules/Effects";
@@ -61,6 +61,7 @@ presetSelect.addEventListener("change", e => {
         return $key != "envelope";
     }).forEach(key => {
         //updateGranParValue(key, chosenPreset[key]);
+        console.log(key);
         animateToValue(key, chosenPreset[key]);
     });
 
@@ -351,7 +352,7 @@ function animateToDefaultValue(isPresets = false) {
     });
 }
 
-function animateToValue(id, newValue) {
+function animateToValue(id, newValue, duration = 1000) {
     // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
     // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
 
@@ -362,7 +363,7 @@ function animateToValue(id, newValue) {
     $this.animate({
         value: newValue
     }, {
-        duration: 1000,
+        duration: duration,
         easing: 'swing',
         step: function () {
             $this.val(this.value).trigger('change');
@@ -595,7 +596,7 @@ new_sample_button.addEventListener('click', () => {
 
 const sample1 = document.getElementById('sample1');
 const sample2 = document.getElementById('sample2');
-const audioUrl1 = require('../media/ElectricMelodic.wav');
+const audioUrl1 = require('../media/Distort.wav');
 const audioUrl2 = require('../media/pipa.wav');
 var sampleLoaded1 = false;
 var sampleLoaded2 = false;
@@ -789,27 +790,27 @@ function handleVelocity(velocity) {
 }
 
 function handleInput(input) {
-    const command = input.data[0]
-    const note = input.data[1]
-    const velocity = handleVelocity(input.data[2])
+    var command = input.data[0]
+    var note = input.data[1]
+    var velocity = handleVelocity(input.data[2])
     console.log(command + "|" + note + "|" + velocity)
 
-    if (contr1enabled){ //sto settando parametro 1
-        controllerArray[0] = note;
+    if (contr1enabled && command == 176){ //sto settando parametro 1
+        controllerArray[0] = {[note]: select1.value};
         contr1.value = note;
-        console.log("CONTRARRAY " + controllerArray)
+        console.log("CONTRARRAY[0] ", controllerArray[0])
     }
 
-    else if (contr2enabled) { //sto settando parametro 2
-        controllerArray[1] = note;
+    else if (contr2enabled && command == 176) { //sto settando parametro 2
+        controllerArray[1] = {[note]: select2.value};
         contr2.value = note;
-        console.log("CONTRARRAY " + controllerArray)
+        console.log("CONTRARRAY[1] ", controllerArray[1])
     }
 
-    else if (contr3enabled) { //sto settando parametro 3
-        controllerArray[2] = note;
+    else if (contr3enabled && command == 176) { //sto settando parametro 3
+        controllerArray[2] = {[note]: select3.value};
         contr3.value = note;
-        console.log("CONTRARRAY " + controllerArray)
+        console.log("CONTRARRAY[2] ", controllerArray[2])
     }
 
     else{
@@ -833,21 +834,38 @@ function handleInput(input) {
                 break;
     
             case 176: //controllo da parte di un knob/slider
-                if (input.data[1] == controllerArray[0]) { //parametro 1: density
-                    var den = input.data[2]/127;
-                    updateState({density: den});
+
+
+                if(controllerArray[0]){
+
+                    var scale = 1;
+
+                    var knobname = controllerArray[0][input.data[1]];
+                    var paramvalue = input.data[2]/127 * scale ;
+                    $("#" + knobname).val(paramvalue).trigger("change");
+
                 }
 
-                if (input.data[1] == controllerArray[1]) { //parametro 2: pitch
-                    var pch = input.data[2]/127;
-                    updateState({pitch: pch});
+                if(controllerArray[1]){
+
+                    var scale = 1;
+
+                    var knobname = controllerArray[1][input.data[1]];
+                    var paramvalue = input.data[2]/127 * scale ;
+                    $("#" + knobname).val(paramvalue).trigger("change");
+
                 }
 
-                if (input.data[1] == controllerArray[2]) { //parametro 3: spread
-                    var sprd = input.data[2]/127;
-                    updateState({spread: sprd});
+                if(controllerArray[2]){
+
+                    var scale = 1;
+
+                    var knobname = controllerArray[2][input.data[1]];
+                    var paramvalue = input.data[2]/127 * scale ;
+                    $("#" + knobname).val(paramvalue).trigger("change");
+
                 }
-    
+ 
         }
 
     }
@@ -873,6 +891,9 @@ const contrSet = document.getElementById('controllerset');
 const contr1 = document.getElementById('controller1');
 const contr2 = document.getElementById('controller2');
 const contr3 = document.getElementById('controller3');
+const select1 = document.getElementById('select1');
+const select2 = document.getElementById('select2');
+const select3 = document.getElementById('select3');  
 var contr1enabled = false;
 var contr2enabled = false;
 var contr3enabled = false;
@@ -931,6 +952,25 @@ contr3.addEventListener('click', () => {
     contr3enabled = true;
     contr2enabled = false;
     contr1enabled = false;
+  }
+);
+
+
+select1.addEventListener('change', () => {
+    controllerArray[0] = 0;
+    contr1.value = "";
+  }
+);
+
+select2.addEventListener('change', () => {
+    controllerArray[1] = 0;
+    contr2.value = "";
+  }
+);
+
+select3.addEventListener('change', () => {
+    controllerArray[2] = 0;
+    contr3.value = "";
   }
 );
 

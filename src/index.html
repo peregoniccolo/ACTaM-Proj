@@ -73,7 +73,7 @@
                 <label class="font">Release</label>
             </div>
             <div class="col-2 knob-col">
-                <input id="volume-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1" />
+                <input id="volume-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Volume</label>
             </div>
         </div>
@@ -134,7 +134,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-12 knob-col-small">
-                            <input id="amount-knob" class="knob animated" default="0.05" data-min="0" data-max="0.15" />
+                            <input id="amount-knob" class="knob animated" default="0.01" data-min="0" data-max="0.03" />
                             <label class="font">Amount</label>
                         </div>
                     </div>
@@ -208,16 +208,37 @@
             <div class="popuptext" id="myPopup">
                 <div class="row justify-content-around">
                     <div class="col">
-                        <input id="controller1"/>
-                        <label class="font">Density Controller</label>
+                        <input id="controller1" readonly/>
+                        <select id="select1">
+                            <option value="density-knob">Density</option>
+                            <option value="pitch-knob">Pitch</option>
+                            <option value="spread-knob">Spread</option>
+                            <option value="attack-knob">Attack</option>
+                            <option value="release-knob">Release</option>
+                            <option value="volume-knob">Volume</option>
+                          </select>
                     </div>
                     <div class="col">
-                        <input id="controller2"/>
-                        <label class="font">Pitch Controller</label>
+                        <input id="controller2" readonly/>
+                        <select id="select2">
+                            <option value="density-knob">Density</option>
+                            <option value="pitch-knob">Pitch</option>
+                            <option value="spread-knob">Spread</option>
+                            <option value="attack-knob">Attack</option>
+                            <option value="release-knob">Release</option>
+                            <option value="volume-knob">Volume</option>
+                          </select>
                     </div>
                     <div class="col">
-                        <input id="controller3"/>
-                        <label class="font">Spread Controller</label>
+                        <input id="controller3" readonly/>
+                        <select id="select3">
+                            <option value="density-knob">Density</option>
+                            <option value="pitch-knob">Pitch</option>
+                            <option value="spread-knob">Spread</option>
+                            <option value="attack-knob">Attack</option>
+                            <option value="release-knob">Release</option>
+                            <option value="volume-knob">Volume</option>
+                          </select>
                     </div>
                 </div>
 
