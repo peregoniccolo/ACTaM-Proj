@@ -71,11 +71,13 @@ h1 {
 
 .waveform-container {
 	border: 5px solid #3c4041;
+	filter: blur(0.4px);
 	background: repeating-linear-gradient(#096a79 58px, #5edcf0d7 60px);
-	filter: blur(0.6px);
+	height: 31%;
 	overflow: hidden;
 	margin-bottom: 15px;
 }
+
 
 /* new sample button */
 #container_button {
@@ -109,6 +111,10 @@ h1 {
 }
 
 /* bars */
+#bar-container{
+	width: 90%;
+}
+
 .bar {
 	justify-content: center;
 	border-style: solid;
@@ -184,13 +190,20 @@ footer {
 
 .title-effect {
 	background-color: #333333;
+	padding-bottom: 2%;
 	margin-bottom: 10px;
 }
 
-.eff-name {
+.eff-name-up {
 	color: white;
 	font-size: large;
-	padding: 1% 0% 1% 0%;
+	padding-top: 0.8%;
+}
+
+.eff-name-down {
+	color: white;
+	font-size: large;
+	padding-top: 0.8%;
 }
 
 .effect-box {
@@ -247,7 +260,7 @@ footer {
 }
 
 .words span {
-	font-size: 5rem;
+	font-size: 3rem;
 	display: inline-block;
 	animation: move 3s ease-in-out infinite;
 }

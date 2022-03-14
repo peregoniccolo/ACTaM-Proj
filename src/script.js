@@ -389,7 +389,7 @@ var wavesurfer = WaveSurfer.create({
     waveColor: '#9fa9a3',
     progressColor: '#e3e0cc',
     cursorColor: '#405d27',
-    height: 256,
+    height: 185,
     responsive: true,
     cursorWidth: 2,
     plugins: [

@@ -44,7 +44,7 @@
     </h1>
 
 
-    <div class='nodisplay container waveform-container rounded' id="wave-container">
+    <div class='nodisplay container w-75 waveform-container rounded' id="wave-container">
         <div class="waveform" id="waveform"></div>
     </div>
 
@@ -78,19 +78,21 @@
             </div>
         </div>
 
+
         <div class="bar row rounded" id="effect-bar">
             <!-- first row: delay and reverb -->
             <div class="row justify-content-around">
+
+
                 <div class="col-5  mb-3  effect-box rounded" id="delay">
                     <div class='row title-effect'>
                         <div class="col-2">
                             <button id='delay-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-10 eff-name">
+                        <div class="col-10 eff-name-up">
                             Delay
                         </div>
                     </div>
-
                     <div class="row justify-content-around">
                         <div class="col-5 knob-col-small">
                             <input id="feedback-knob" class="knob animated" default="0.4" data-min="0"
@@ -103,12 +105,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-5 ml-auto mb-3 effect-box rounded" id="reverb">
+
+
+
+                <div class="col-5  mb-3 effect-box rounded" id="reverb">
                     <div class='row title-effect'>
                         <div class="col-2">
                             <button id='reverb-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-10  eff-name">
+                        <div class="col-10  eff-name-up">
                             Reverb
                         </div>
                     </div>
@@ -121,6 +126,8 @@
                 </div>
             </div>
 
+
+
             <!-- second row: distortion and lpf -->
             <div class="row justify-content-around">
                 <div class="col-5 effect-box rounded" id="distortion">
@@ -128,7 +135,7 @@
                         <div class="col-2 ">
                             <button id='distortion-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-10  eff-name">
+                        <div class="col-10  eff-name-down">
                             Distortion
                         </div>
                     </div>
@@ -139,12 +146,14 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col-5 effect-box rounded" id="lpf">
                     <div class='row title-effect'>
                         <div class="col-2">
                             <button id='lpf-toggle' class="toggle"></button>
                         </div>
-                        <div class="col-2 eff-name">
+                        <div class="col-2 eff-name-down">
                             LPF
                         </div>
                     </div>
@@ -159,6 +168,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
