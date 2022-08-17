@@ -243,6 +243,7 @@ $("#amount-knob").each(function () {
     $this.trigger(
         'configure',
         {
+            'step': 1,
             'change': function (v) {
                 effects.setDistrotionAmount(v)
             },
@@ -280,7 +281,7 @@ $("#resonance-knob").each(function () {
     $this.trigger(
         'configure',
         {
-            'step': 1,
+            'step': 0.01,
             'change': function (v) {
                 effects.setFilterResonance(v)
             },
