@@ -86,7 +86,7 @@ h1 {
 	margin-top: 30px;
 }
 
-#new_sample_but {
+.big-green-btn {
 	font-size: 24px;
 	padding: 10px;
 	cursor: pointer;
@@ -102,17 +102,17 @@ h1 {
 	padding: 20px;
 }
 
-#new_sample_but:hover {
+.big-green-btn:hover {
 	background-color: #618685;
 }
 
-#new_sample_but:active {
+.big-green-btn:active {
 	background-color: #456d80;
 	box-shadow: 0 5px rgb(143, 192, 207);
 }
 
 /* bars */
-#bar-container{
+#bar-container {
 	width: 90%;
 }
 
@@ -217,10 +217,8 @@ footer {
 
 /* bottone scelta samples */
 .dft-sample {
-	display: inline-block;
 	padding: 0.35em 1.2em;
 	border: 0.1em solid #009ea3;
-	margin: 0 0.3em 0.3em 0;
 	border-radius: 0.12em;
 	box-sizing: border-box;
 	font-weight: 300;
@@ -240,17 +238,11 @@ footer {
 	}
 }
 
-.naboli {
-	width: 5px;
-	height: 5px;
-}
-
 .font {
 	font-family: 'Helvetica Neue', sans-serif;
 }
 
 #preset-select {
-	margin: 0px 0.3em 0.3em 0px;
 	text-align: center;
 }
 
@@ -357,40 +349,34 @@ footer {
 
 /* Popup container */
 .popup {
-position: relative;
-display: inline-block;
-cursor: pointer;
-}
-  
-/* The actual popup (appears on top) */
-.popup .popuptext {
-visibility: hidden;
-background-color: rgb(49, 100, 104);
-color: #fff;
-text-align: center;
-border-radius: 6px;
-padding: 8px 8px;
-margin-top: 10px;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
 }
 
-  
+/* The actual popup (appears on top) */
+.popup .popuptext {
+	visibility: hidden;
+	background-color: rgb(49, 100, 104);
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 8px 8px;
+	margin-top: 10px;
+}
+
+
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
-visibility: visible;
--webkit-animation: fadeIn 0.25s;
-animation: fadeIn 0.25s;
+	visibility: visible;
+	-webkit-animation: fadeIn 0.25s;
+	animation: fadeIn 0.25s;
 }
 
 #controllerset {
 	width: 20%;
 	border: 0em;
 	margin: 10 0.3em 0.3em 0;
-	background-color: white;
-}
-
-#popupButton {
-	border: 0em;
-	margin: 20 0.3em 0.3em 0;
 	background-color: white;
 }
 
@@ -432,14 +418,24 @@ animation: fadeIn 0.25s;
 }
 
 
-  
+
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-from {opacity: 0;}
-to {opacity: 1;}
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
 }
-  
+
 @keyframes fadeIn {
-from {opacity: 0;}
-to {opacity:1 ;}
-} 
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
