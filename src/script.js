@@ -771,7 +771,7 @@ function onMIDISuccess(midiAccess) {
 
     midiAccess.addEventListener('statechange', updateDevices)
     const input = midiAccess.inputs;
-    
+
     input.forEach((input) => {
         input.addEventListener('midimessage', handleInput);
     })
@@ -796,25 +796,25 @@ function handleInput(input) {
     var velocity = handleVelocity(input.data[2])
     console.log(command + "|" + note + "|" + velocity)
 
-    if (contr1enabled && command == 176){ //sto settando parametro 1
-        controllerArray[0] = {[note]: select1.value};
+    if (contr1enabled && command == 176) { //sto settando parametro 1
+        controllerArray[0] = { [note]: select1.value };
         contr1.value = note;
         console.log("CONTRARRAY[0] ", controllerArray[0])
     }
 
     else if (contr2enabled && command == 176) { //sto settando parametro 2
-        controllerArray[1] = {[note]: select2.value};
+        controllerArray[1] = { [note]: select2.value };
         contr2.value = note;
         console.log("CONTRARRAY[1] ", controllerArray[1])
     }
 
     else if (contr3enabled && command == 176) { //sto settando parametro 3
-        controllerArray[2] = {[note]: select3.value};
+        controllerArray[2] = { [note]: select3.value };
         contr3.value = note;
         console.log("CONTRARRAY[2] ", controllerArray[2])
     }
 
-    else{
+    else {
 
         switch (command) {
             case 144:
@@ -829,44 +829,44 @@ function handleInput(input) {
 
             case 128:
                 numnotes -= 1;
-                if(numnotes < 1) {
+                if (numnotes < 1) {
                     noteoff(note);
                 }
                 break;
-    
+
             case 176: //controllo da parte di un knob/slider
 
 
-                if(controllerArray[0]){
+                if (controllerArray[0]) {
 
                     var scale = 1;
 
                     var knobname = controllerArray[0][input.data[1]];
-                    var paramvalue = input.data[2]/127 * scale ;
+                    var paramvalue = input.data[2] / 127 * scale;
                     $("#" + knobname).val(paramvalue).trigger("change");
 
                 }
 
-                if(controllerArray[1]){
+                if (controllerArray[1]) {
 
                     var scale = 1;
 
                     var knobname = controllerArray[1][input.data[1]];
-                    var paramvalue = input.data[2]/127 * scale ;
+                    var paramvalue = input.data[2] / 127 * scale;
                     $("#" + knobname).val(paramvalue).trigger("change");
 
                 }
 
-                if(controllerArray[2]){
+                if (controllerArray[2]) {
 
                     var scale = 1;
 
                     var knobname = controllerArray[2][input.data[1]];
-                    var paramvalue = input.data[2]/127 * scale ;
+                    var paramvalue = input.data[2] / 127 * scale;
                     $("#" + knobname).val(paramvalue).trigger("change");
 
                 }
- 
+
         }
 
     }
@@ -894,7 +894,7 @@ const contr2 = document.getElementById('controller2');
 const contr3 = document.getElementById('controller3');
 const select1 = document.getElementById('select1');
 const select2 = document.getElementById('select2');
-const select3 = document.getElementById('select3');  
+const select3 = document.getElementById('select3');
 var contr1enabled = false;
 var contr2enabled = false;
 var contr3enabled = false;
@@ -903,7 +903,7 @@ var contr3enabled = false;
 popupB.addEventListener('click', () => {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
-  }
+}
 );
 
 contrSet.addEventListener('click', () => {
@@ -914,7 +914,7 @@ contrSet.addEventListener('click', () => {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
 
-  }
+}
 );
 
 //resetta primo parametro e permette il suo settaggio
@@ -927,7 +927,7 @@ contr1.addEventListener('click', () => {
     contr1enabled = true;
     contr2enabled = false;
     contr3enabled = false;
-  }
+}
 );
 
 //resetta secondo parametro e permette il suo settaggio
@@ -940,7 +940,7 @@ contr2.addEventListener('click', () => {
     contr2enabled = true;
     contr1enabled = false;
     contr3enabled = false;
-  }
+}
 );
 
 //resetta terzo parametro e permette il suo settaggio
@@ -953,25 +953,25 @@ contr3.addEventListener('click', () => {
     contr3enabled = true;
     contr2enabled = false;
     contr1enabled = false;
-  }
+}
 );
 
 
 select1.addEventListener('change', () => {
     controllerArray[0] = 0;
     contr1.value = "";
-  }
+}
 );
 
 select2.addEventListener('change', () => {
     controllerArray[1] = 0;
     contr2.value = "";
-  }
+}
 );
 
 select3.addEventListener('change', () => {
     controllerArray[2] = 0;
     contr3.value = "";
-  }
+}
 );
 

@@ -180,39 +180,37 @@
     </div>
 
     <div id="samples" class="container">
-        <div class="row justify-content-center mt-5 gx-3">
-            <div class="col-2">
-                <div id='sample1' class="dft-sample">
-                    Sample 1
-                </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-2" style="min-width: 135px">
+                <div id='sample1' class="dft-sample">Sample 1</div>
             </div>
 
-            <div class="col-2">
-                <div id='sample2' class="dft-sample">
-                    Sample 2
-                </div>
+            <div class="col-2" style="min-width: 135px">
+                <div id='sample2' class="dft-sample">Sample 2</div>
             </div>
         </div>
     </div>
 
     <div class="container nodisplay" id="button-container">
 
-        <div class="row m-3">
+        <div class="row justify-content-around m-3">
             <div class="col-5">
                 <select id="preset-select" class="form-select">
                     <!-- populated in js -->
                 </select>
             </div>
-            <div class="col-5">
-                <div id='reverse' class="dft-sample">
-                    Reverse sample
-                </div>
-            </div>
         </div>
 
-        <div class="row justify-content-center m-3 g-2">
-            <button id="new_sample_but" class="big-green-btn w-25 h-5 col-2">Change sample</button>
-            <button id="popupButton" class="big-green-btn w-25 h-5 col-2">Controllers</button>
+        <div class="row justify-content-center m-3">
+            <div class="col-3 mb-4" style="min-width: 185px">
+                <button id='reverse' class="big-green-btn">Reverse sample</button>
+            </div>
+            <div class="col-3 mb-4" style="min-width: 185px">
+                <button id="new_sample_but" class="big-green-btn">Change sample</button>
+            </div>
+            <div class="col-3 mb-4" style="min-width: 185px">
+                <button id="popupButton" class="big-green-btn">Controllers</button>
+            </div>
         </div>
 
         <div class="popup row justify-content-center">
