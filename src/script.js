@@ -901,7 +901,8 @@ var contr3enabled = false;
 
 //mostra popup
 popupB.addEventListener('click', () => {
-    var popup = document.getElementById("myPopup");
+    var popup = document.getElementById("popup-container");
+    popup.classList.toggle("nodisplay");
     popup.classList.toggle("show");
 }
 );
@@ -911,9 +912,9 @@ contrSet.addEventListener('click', () => {
     contr2enabled = false;
     contr3enabled = false;
 
-    var popup = document.getElementById("myPopup");
+    var popup = document.getElementById("popup-container");
+    popup.classList.toggle("nodisplay");
     popup.classList.toggle("show");
-
 }
 );
 
@@ -974,4 +975,3 @@ select3.addEventListener('change', () => {
     contr3.value = "";
 }
 );
-

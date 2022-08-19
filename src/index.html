@@ -47,9 +47,8 @@
         <div class="waveform" id="waveform"></div>
     </div>
 
-
     <div class='container nodisplay' id="bar-container">
-        <div class="bar row rounded font" id="knob-bar">
+        <div class="bar row rounded font mt-3" id="knob-bar">
             <!-- granular parameter bar -->
             <div class="col-2 knob-col">
                 <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
@@ -74,6 +73,14 @@
             <div class="col-2 knob-col">
                 <input id="volume-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
                 <label class="font">Volume</label>
+            </div>
+        </div>
+
+        <div class="row justify-content-center m-3">
+            <div class="col-5">
+                <select id="preset-select" class="form-select">
+                    <!-- populated in js -->
+                </select>
             </div>
         </div>
 
@@ -104,7 +111,6 @@
                         </div>
                     </div>
                 </div>
-
 
 
                 <div class="col-5  mb-3 effect-box rounded" id="reverb">
@@ -169,7 +175,6 @@
                     </div>
                 </div>
 
-
             </div>
         </div>
     </div>
@@ -193,14 +198,6 @@
 
     <div class="container nodisplay" id="button-container">
 
-        <div class="row justify-content-around m-3">
-            <div class="col-5">
-                <select id="preset-select" class="form-select">
-                    <!-- populated in js -->
-                </select>
-            </div>
-        </div>
-
         <div class="row justify-content-center m-3">
             <div class="col-3 mb-4" style="min-width: 185px">
                 <button id='reverse' class="big-green-btn">Reverse sample</button>
@@ -212,7 +209,9 @@
                 <button id="popupButton" class="big-green-btn">Controllers</button>
             </div>
         </div>
+    </div>
 
+    <div class="container nodisplay" id="popup-container">
         <div class="popup row justify-content-center">
             <div class="popuptext col-10" id="myPopup">
                 <div class="row justify-content-around">

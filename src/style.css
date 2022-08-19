@@ -76,7 +76,6 @@ h1 {
 	height: fit-content;
 	overflow: hidden;
 	padding: 10px;
-	margin-bottom: 1.5%;
 }
 
 
@@ -114,17 +113,12 @@ h1 {
 }
 
 /* bars */
-/* #bar-container {
-	width: 90%;
-} */
-
 .bar {
 	justify-content: center;
 	border-style: solid;
 	border-color: #517075;
 	border-width: 5px;
 	background-color: rgb(127, 168, 179);
-	margin-bottom: 2%;
 }
 
 #knob-bar {
@@ -345,8 +339,6 @@ footer {
 }
 
 
-
-
 /* Popup container */
 .popup {
 	position: relative;
@@ -356,7 +348,6 @@ footer {
 
 /* The actual popup (appears on top) */
 .popup .popuptext {
-	visibility: hidden;
 	background-color: rgb(49, 100, 104);
 	color: #fff;
 	text-align: center;
@@ -368,9 +359,8 @@ footer {
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
-	visibility: visible;
-	-webkit-animation: fadeIn 0.25s;
-	animation: fadeIn 0.25s;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
 }
 
 #controllerset {
