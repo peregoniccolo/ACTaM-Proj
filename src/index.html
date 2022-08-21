@@ -78,7 +78,7 @@
 
         <div class="row justify-content-center m-3">
             <div class="col-5">
-                <select id="preset-select" class="form-select">
+                <select id="preset-select" class="form-select select-text">
                     <!-- populated in js -->
                 </select>
             </div>
@@ -212,46 +212,69 @@
     </div>
 
     <div class="container nodisplay" id="popup-container">
-        <div class="popup row justify-content-center">
+        <div class="popup row justify-content-center m-3">
             <div class="popuptext col-10" id="myPopup">
-                <div class="row justify-content-around">
-                    <div class="col">
-                        <input class="form-control" id="controller1" readonly />
-                        <select class="form-select" id="select1">
-                            <option value="density-knob">Density</option>
-                            <option value="pitch-knob">Pitch</option>
-                            <option value="spread-knob">Spread</option>
-                            <option value="attack-knob">Attack</option>
-                            <option value="release-knob">Release</option>
-                            <option value="volume-knob">Volume</option>
-                        </select>
+                <div class="row justify-content-around p-3 pb-1">
+                    <div class="col-4 mb-3" style="min-width: 225px;">
+                        <div class="row gx-1">
+                            <div class="col-4">
+                                <input class="form-control mouse-over-cursor" id="controller1" readonly />
+                            </div>
+                            <div class="col-8">
+                                <select class="form-select select-text" id="select1">
+                                    <option value="density-knob">Density</option>
+                                    <option value="pitch-knob">Pitch</option>
+                                    <option value="spread-knob">Spread</option>
+                                    <option value="attack-knob">Attack</option>
+                                    <option value="release-knob">Release</option>
+                                    <option value="volume-knob">Volume</option>
+                                </select>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col">
-                        <input class="form-control" id="controller2" readonly />
-                        <select class="form-select" id="select2">
-                            <option value="density-knob">Density</option>
-                            <option value="pitch-knob">Pitch</option>
-                            <option value="spread-knob">Spread</option>
-                            <option value="attack-knob">Attack</option>
-                            <option value="release-knob">Release</option>
-                            <option value="volume-knob">Volume</option>
-                        </select>
+                    <div class="col-4 mb-3" style="min-width: 225px;">
+                        <div class="row gx-1">
+                            <div class="col-4">
+                                <input class="form-control mouse-over-cursor" id="controller2" readonly />
+                            </div>
+                            <div class="col-8">
+                                <select class="form-select select-text" id="select3">
+                                    <option value="density-knob">Density</option>
+                                    <option value="pitch-knob">Pitch</option>
+                                    <option value="spread-knob">Spread</option>
+                                    <option value="attack-knob">Attack</option>
+                                    <option value="release-knob">Release</option>
+                                    <option value="volume-knob">Volume</option>
+                                </select>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col">
-                        <input class="form-control" id="controller3" readonly />
-                        <select class="form-select" id="select3">
-                            <option value="density-knob">Density</option>
-                            <option value="pitch-knob">Pitch</option>
-                            <option value="spread-knob">Spread</option>
-                            <option value="attack-knob">Attack</option>
-                            <option value="release-knob">Release</option>
-                            <option value="volume-knob">Volume</option>
-                        </select>
+                    <div class="col-4 mb-3" style="min-width: 225px;">
+                        <div class="row gx-1">
+                            <div class="col-4">
+                                <input class="form-control mouse-over-cursor" id="controller3" readonly />
+                            </div>
+                            <div class="col-8">
+                                <select class="form-select select-text" id="select3">
+                                    <option value="density-knob">Density</option>
+                                    <option value="pitch-knob">Pitch</option>
+                                    <option value="spread-knob">Spread</option>
+                                    <option value="attack-knob">Attack</option>
+                                    <option value="release-knob">Release</option>
+                                    <option value="volume-knob">Volume</option>
+                                </select>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
-                <div class="justify-content-around">
-                    <button id="controllerset" class="dft-sample font btn">Ok!</button>
+                <div class="row justify-content-center p-3 pt-1">
+                    <div class="col-4" style="min-width: 225px;">
+                        <button id="controllerset" class="btn font" style="width: 100%;">Set!</button>
+                    </div>
                 </div>
             </div>
         </div>

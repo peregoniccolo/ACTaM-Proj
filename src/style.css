@@ -236,7 +236,7 @@ footer {
 	font-family: 'Helvetica Neue', sans-serif;
 }
 
-#preset-select {
+.select-text {
 	text-align: center;
 }
 
@@ -341,19 +341,15 @@ footer {
 
 /* Popup container */
 .popup {
-	position: relative;
-	display: inline-block;
-	cursor: pointer;
+	min-width: fit-content;
 }
 
 /* The actual popup (appears on top) */
 .popup .popuptext {
 	background-color: rgb(49, 100, 104);
 	color: #fff;
-	text-align: center;
-	border-radius: 6px;
-	padding: 8px 8px;
-	margin-top: 10px;
+	border-radius: 15px;
+	box-shadow: 0 9px rgb(100, 152, 168);
 }
 
 
@@ -364,50 +360,13 @@ footer {
 }
 
 #controllerset {
-	width: 20%;
 	border: 0em;
-	margin: 10 0.3em 0.3em 0;
 	background-color: white;
 }
 
-#select1 {
-	width: auto;
-	height: auto;
-	display: inline-block;
+.mouse-over-cursor {
+	cursor: pointer;
 }
-
-#select2 {
-	width: auto;
-	height: auto;
-	display: inline-block;
-}
-
-#select3 {
-	width: auto;
-	height: auto;
-	display: inline-block;
-}
-
-
-#controller1 {
-	width: 50%;
-	height: auto;
-	display: inline-block;
-}
-
-#controller2 {
-	width: 50%;
-	height: auto;
-	display: inline-block;
-}
-
-#controller3 {
-	width: 50%;
-	height: auto;
-	display: inline-block;
-}
-
-
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
