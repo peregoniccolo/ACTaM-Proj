@@ -293,7 +293,6 @@ $("#resonance-knob").each(function () {
 
 });
 
-
 // lpf
 var isSetLPF = false;
 var lpfButton = document.getElementById('lpf-toggle');
@@ -516,7 +515,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
                 dropZoneElement.classList.remove('drop_zone--over');
                 document.getElementById('wave-container').classList.toggle('nodisplay');
-                document.getElementById('samples').classList.toggle('nodisplay');
+                document.getElementById('sample-container').classList.toggle('nodisplay');
 
 
 
@@ -558,7 +557,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
                     document.getElementById("button-container").classList.toggle("nodisplay");
                     document.getElementById('wave-container').classList.toggle('nodisplay');
-                    document.getElementById('samples').classList.toggle('nodisplay');
+                    document.getElementById('sample-container').classList.toggle('nodisplay');
 
 
                     // mostra knobs
@@ -582,10 +581,9 @@ new_sample_button.addEventListener('click', () => {
 
     document.getElementById("button-container").classList.toggle("nodisplay");
     document.getElementById('wave-container').classList.toggle('nodisplay');
-    document.getElementById('samples').classList.toggle('nodisplay');
-
-
-
+    document.getElementById('sample-container').classList.toggle('nodisplay');
+    if (!document.getElementById('popup-container').classList.contains("nodisplay"))
+        document.getElementById('popup-container').classList.toggle("nodisplay");
 
     // mostra knobs
     toggleBarContainer()
@@ -593,10 +591,10 @@ new_sample_button.addEventListener('click', () => {
     $("#preset-select").val("default");
 })
 
-// Default samples buttons
+// Default sample-container buttons
 
-const sample1 = document.getElementById('sample1');
-const sample2 = document.getElementById('sample2');
+const defaultSample1 = document.getElementById('sample1');
+const defaultSample2 = document.getElementById('sample2');
 const audioUrl1 = require('../media/Distort.wav');
 const audioUrl2 = require('../media/pipa.wav');
 var sampleLoaded1 = false;
@@ -606,7 +604,7 @@ let audio2;
 
 // To fetch a file parcel needs you to build the url with 'require'
 // https://github.com/parcel-bundler/parcel/issues/1911
-sample1.addEventListener('click', () => {
+defaultSample1.addEventListener('click', () => {
 
     if (!sampleLoaded1) {
 
@@ -625,7 +623,7 @@ sample1.addEventListener('click', () => {
                 document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
                 document.getElementById("button-container").classList.toggle("nodisplay");
                 document.getElementById('wave-container').classList.toggle('nodisplay');
-                document.getElementById('samples').classList.toggle('nodisplay');
+                document.getElementById('sample-container').classList.toggle('nodisplay');
                 toggleBarContainer();
 
             });
@@ -635,7 +633,7 @@ sample1.addEventListener('click', () => {
     }
 });
 
-sample2.addEventListener('click', () => {
+defaultSample2.addEventListener('click', () => {
 
 
     if (!sampleLoaded2) {
@@ -655,7 +653,7 @@ sample2.addEventListener('click', () => {
                 document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
                 document.getElementById("button-container").classList.toggle("nodisplay");
                 document.getElementById('wave-container').classList.toggle('nodisplay');
-                document.getElementById('samples').classList.toggle('nodisplay');
+                document.getElementById('sample-container').classList.toggle('nodisplay');
                 toggleBarContainer();
 
             });
@@ -903,7 +901,7 @@ var contr3enabled = false;
 popupB.addEventListener('click', () => {
     var popup = document.getElementById("popup-container");
     popup.classList.toggle("nodisplay");
-    popup.classList.toggle("show");
+    // popup.classList.toggle("show");
 }
 );
 
@@ -914,7 +912,7 @@ contrSet.addEventListener('click', () => {
 
     var popup = document.getElementById("popup-container");
     popup.classList.toggle("nodisplay");
-    popup.classList.toggle("show");
+    // popup.classList.toggle("show");
 }
 );
 

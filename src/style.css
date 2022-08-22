@@ -212,6 +212,7 @@ footer {
 
 /* bottone scelta samples */
 .dft-sample {
+	cursor: pointer;
 	padding: 0.35em 1.2em;
 	border: 0.1em solid #009ea3;
 	border-radius: 0.12em;
@@ -236,8 +237,9 @@ footer {
 	font-family: 'Helvetica Neue', sans-serif;
 }
 
-.select-text {
+.select-style {
 	text-align: center;
+	cursor: pointer;
 }
 
 .words {
@@ -362,6 +364,7 @@ footer {
 #controllerset {
 	border: 0em;
 	background-color: white;
+	width: 100%;
 }
 
 .mouse-over-cursor {

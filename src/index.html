@@ -1,7 +1,6 @@
 <html>
 
 <head>
-
     <title>GranSynth</title>
 
     <link rel="stylesheet" href="style.css" />
@@ -11,9 +10,15 @@
     <!-- jquery & knobs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
-    <!-- bootstrap -->
+    <!-- bootstrap & popperjs -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </head>
 
 <body style="background-color: rgb(167, 202, 212)">
@@ -78,7 +83,7 @@
 
         <div class="row justify-content-center m-3">
             <div class="col-5">
-                <select id="preset-select" class="form-select select-text">
+                <select id="preset-select" class="form-select select-style">
                     <!-- populated in js -->
                 </select>
             </div>
@@ -184,7 +189,7 @@
         <input type="file" accept="audio/*" id="dft-sample" name="myFile" class="drop_zone_input" />
     </div>
 
-    <div id="samples" class="container">
+    <div class="container" id="sample-container">
         <div class="row justify-content-center mt-5">
             <div class="col-2" style="min-width: 135px">
                 <div id='sample1' class="dft-sample">Sample 1</div>
@@ -218,10 +223,13 @@
                     <div class="col-4 mb-3" style="min-width: 225px;">
                         <div class="row gx-1">
                             <div class="col-4">
-                                <input class="form-control mouse-over-cursor" id="controller1" readonly />
+                                <span class="ttover" x
+                                    title="Click this box and twist the MIDI knob you want to associate with the selected parameter!">
+                                    <input class="form-control mouse-over-cursor" id="controller1" readonly />
+                                </span>
                             </div>
                             <div class="col-8">
-                                <select class="form-select select-text" id="select1">
+                                <select class="form-select select-style" id="select1">
                                     <option value="density-knob">Density</option>
                                     <option value="pitch-knob">Pitch</option>
                                     <option value="spread-knob">Spread</option>
@@ -233,13 +241,17 @@
 
                         </div>
                     </div>
+
                     <div class="col-4 mb-3" style="min-width: 225px;">
                         <div class="row gx-1">
                             <div class="col-4">
-                                <input class="form-control mouse-over-cursor" id="controller2" readonly />
+                                <span class="ttover" data-bs-placement="top"
+                                    title="Click this box and twist the MIDI knob you want to associate with the selected parameter!">
+                                    <input class="form-control mouse-over-cursor" id="controller3" readonly />
+                                </span>
                             </div>
                             <div class="col-8">
-                                <select class="form-select select-text" id="select3">
+                                <select class="form-select select-style" id="select3">
                                     <option value="density-knob">Density</option>
                                     <option value="pitch-knob">Pitch</option>
                                     <option value="spread-knob">Spread</option>
@@ -251,13 +263,17 @@
 
                         </div>
                     </div>
+
                     <div class="col-4 mb-3" style="min-width: 225px;">
                         <div class="row gx-1">
                             <div class="col-4">
-                                <input class="form-control mouse-over-cursor" id="controller3" readonly />
+                                <span class="ttover" data-bs-placement="top"
+                                    title="Click this box and twist the MIDI knob you want to associate with the selected parameter!">
+                                    <input class="form-control mouse-over-cursor" id="controller3" readonly />
+                                </span>
                             </div>
                             <div class="col-8">
-                                <select class="form-select select-text" id="select3">
+                                <select class="form-select select-style" id="select3">
                                     <option value="density-knob">Density</option>
                                     <option value="pitch-knob">Pitch</option>
                                     <option value="spread-knob">Spread</option>
@@ -266,14 +282,13 @@
                                     <option value="volume-knob">Volume</option>
                                 </select>
                             </div>
-
                         </div>
                     </div>
                 </div>
 
                 <div class="row justify-content-center p-3 pt-1">
                     <div class="col-4" style="min-width: 225px;">
-                        <button id="controllerset" class="btn font" style="width: 100%;">Set!</button>
+                        <button id="controllerset" class="btn font">Set!</button>
                     </div>
                 </div>
             </div>
@@ -287,6 +302,13 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // generate tooltips
+        const tooltips = document.querySelectorAll(".ttover");
+        tooltips.forEach(t => {
+            new bootstrap.Tooltip(t);
+        });
+    </script>
 </body>
 
 </html>
