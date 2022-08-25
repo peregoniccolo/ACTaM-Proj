@@ -4,16 +4,11 @@ html {
 }
 
 body {
-	margin-bottom: 40px;
-	background-color: #7ab2bb;
-
+	background-color: rgb(167, 202, 212) !important;
 }
 
 h1 {
 	padding: 20px;
-	font-size: larger;
-	font-weight: bold;
-	line-height: 1;
 	text-align: center;
 }
 
@@ -25,12 +20,11 @@ h1 {
 	height: 300px;
 	padding: 25px;
 	display: flex;
-	margin-top: 50px;
+	margin-top: 20px;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
 	font-size: 20px;
-	margin: auto;
 }
 
 .drop_zone--over {
