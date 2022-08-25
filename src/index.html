@@ -57,35 +57,38 @@
             <!-- granular parameter bar -->
             <div class="col-2 knob-col">
                 <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-                <label class="font">Density</label>
+                <label class="font label-style">Density</label>
             </div>
             <div class="col-2 knob-col">
                 <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-                <label class="font">Spread</label>
+                <label class="font label-style">Spread</label>
             </div>
             <div class="col-2 knob-col">
                 <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
-                <label class="font">Pitch</label>
+                <label class="font label-style">Pitch</label>
             </div>
             <div class="col-2 knob-col">
                 <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1" />
-                <label class="font">Attack</label>
+                <label class="font label-style">Attack</label>
             </div>
             <div class="col-2 knob-col">
                 <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1" />
-                <label class="font">Release</label>
+                <label class="font label-style">Release</label>
             </div>
             <div class="col-2 knob-col">
                 <input id="volume-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
-                <label class="font">Volume</label>
+                <label class="font label-style">Volume</label>
             </div>
         </div>
 
         <div class="row justify-content-center m-3">
-            <div class="col-5">
-                <select id="preset-select" class="form-select select-style">
-                    <!-- populated in js -->
-                </select>
+            <div class="col-4" style="min-width: 365px;">
+                <div class="form-floating">
+                    <select id="preset-select" class="form-select select-style">
+                        <!-- populated in js -->
+                    </select>
+                    <label for="preset-select">Select a preset for the granular parameters</label>
+                </div>
             </div>
         </div>
 
@@ -108,11 +111,11 @@
                         <div class="col-5 knob-col-small">
                             <input id="feedback-knob" class="knob animated" default="0.4" data-min="0"
                                 data-max="0.75" />
-                            <label class="font">Feedback</label>
+                            <label class="font label-style">Feedback</label>
                         </div>
                         <div class="col-5 knob-col-small">
                             <input id="delay-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
-                            <label class="font">Time</label>
+                            <label class="font label-style">Time</label>
                         </div>
                     </div>
                 </div>
@@ -130,7 +133,7 @@
                     <div class="row justify-content-center">
                         <div class="col-12 knob-col-small">
                             <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10" />
-                            <label class="font">Decay</label>
+                            <label class="font label-style">Decay</label>
                         </div>
                     </div>
                 </div>
@@ -152,7 +155,7 @@
                     <div class="row justify-content-center">
                         <div class="col-12 knob-col-small">
                             <input id="amount-knob" class="knob animated" default="1" data-min="0" data-max="5" />
-                            <label class="font">Amount</label>
+                            <label class="font label-style">Amount</label>
                         </div>
                     </div>
                 </div>
@@ -170,12 +173,12 @@
                     <div class="row justify-content-around">
                         <div class="col-5 knob-col-small">
                             <input id="freq-knob" class="knob animated" default="3000" data-min="10" data-max="9999" />
-                            <label class="font">Cut off</label>
+                            <label class="font label-style">Cut off</label>
                         </div>
                         <div class="col-5 knob-col-small">
                             <input id="resonance-knob" class="knob animated" default="0.5" data-min="0.01"
                                 data-max="1" />
-                            <label class="font">Resonance</label>
+                            <label class="font label-style">Resonance</label>
                         </div>
                     </div>
                 </div>

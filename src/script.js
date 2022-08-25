@@ -794,7 +794,8 @@ function handleInput(input) {
     var velocity = handleVelocity(input.data[2])
     console.log(command + "|" + note + "|" + velocity)
 
-    if (contr1enabled && command == 176) { //sto settando parametro 1
+    // setting a new midi knob for the parameters
+    if (contr1enabled && command == 176) {      //sto settando parametro 1
         controllerArray[0] = { [note]: select1.value };
         contr1.value = note;
         console.log("CONTRARRAY[0] ", controllerArray[0])
