@@ -21,13 +21,15 @@ export default class Effects {
             // resonance: 10
         };
 
+        this.source = source;
+        this.source.disconnect();
+
+        this.#createNewFilter();
+        this.#createNewDistrortion();
         this.#createNewDelay();
         this.#createNewReverb();
-        this.#createNewDistrortion();
-        this.#createNewFilter();
-        this.source = source;
 
-        this.#chainEffects();
+        //this.#chainEffects();
     }
 
     #createNewDelay() {
@@ -37,7 +39,7 @@ export default class Effects {
     delayOn() {
         if (this.delay == null)
             this.#createNewDelay();
-        this.delay.process(this.source, this.currentState.delay, this.currentState.feedback, this.currentState.filterFreq); // source, delayTime, feedback, filter frequency
+        this.delay.process(this.distortion, this.currentState.delay, this.currentState.feedback, this.currentState.filterFreq); // source, delayTime, feedback, filter frequency
     }
 
     delayOff() {
@@ -54,7 +56,7 @@ export default class Effects {
     reverbOn() {
         if (this.reverb == null)
             this.#createNewReverb();
-        this.reverb.process(this.source, 2, 1);
+        this.reverb.process(this.distortion, 2, 1);
     }
 
     reverbOff() {
@@ -66,35 +68,41 @@ export default class Effects {
 
     #createNewFilter() {
         this.filter = new p5.Filter();
+        this.source.connect(this.filter);
+        this.filter.drywet(0);
     }
 
     filterOn() {
         if (this.filter == null)
             this.#createNewFilter();
-        this.filter.process(this.source, 5000);
+        //this.filter.process(this.source, 5000);
+        this.filter.drywet(1);
     }
 
     filterOff() {
-        this.filter.disconnect();
-        this.filter = null;
-
+        //this.filter.disconnect();
+        //this.filter = null;
+        this.filter.drywet(0);
         console.log(this.currentState);
     }
 
     #createNewDistrortion() {
         this.distortion = new p5.Distortion();
+        this.filter.connect(this.distortion);
+        this.distortion.drywet(0);
     }
 
     distortionOn() {
         if (this.distortion == null)
             this.#createNewDistrortion();
-        this.distortion.process(this.source, 0.10);
+        //this.distortion.process(this.filter, 0.10);
+        this.distortion.drywet(1);
     }
 
     distortionOff() {
-        this.distortion.disconnect();
-        this.distortion = null;
-
+        //this.distortion.disconnect();
+        //this.distortion = null;
+        this.distortion.drywet(0);
         console.log(this.currentState);
     }
 
