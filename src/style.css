@@ -5,6 +5,7 @@ html {
 
 body {
 	background-color: rgb(167, 202, 212) !important;
+	font-family: 'Helvetica Neue', sans-serif !important;
 }
 
 h1 {
@@ -113,14 +114,6 @@ h1 {
 	border-color: #517075;
 	border-width: 5px;
 	background-color: rgb(127, 168, 179);
-}
-
-#knob-bar {
-	padding: 15px 15px 0px 15px;
-}
-
-#effect-bar {
-	padding: 15px;
 }
 
 .knob-col {
