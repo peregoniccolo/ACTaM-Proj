@@ -18,7 +18,7 @@ export default class Effects {
             // amount: 0.05,
             // lpf
             // freq: 3000,
-            // resonance: 10
+            // resonance: 0.5
         };
 
         this.source = source;
@@ -93,6 +93,8 @@ export default class Effects {
     }
 
     distortionOn() {
+        console.log(this.currentState);
+
         if (this.distortion == null)
             this.#createNewDistrortion();
         //this.distortion.process(this.filter, 0.10);
@@ -104,12 +106,6 @@ export default class Effects {
         //this.distortion = null;
         this.distortion.drywet(0);
         console.log(this.currentState);
-    }
-
-    #chainEffects() {
-        this.distortion.chain(this.delay);
-        this.delay.chain(this.reverb);
-        this.reverb.chain(this.filter);
     }
 
     setDelayTime(time) {            //from 0 to 1
@@ -130,8 +126,8 @@ export default class Effects {
             this.reverb.set(this.currentState.decay);
     }
 
-    setDistrotionAmount(amount) {   //from 0 to 0.15
-        this.#updateCurrentState({ amount: amount*0.3 })
+    setDistrotionAmount(amount) {   //from 0.02 to 0.1
+        this.#updateCurrentState({ amount: amount * 0.02 })
         if (this.distortion != null)
             this.distortion.set(this.currentState.amount);
     }
@@ -142,8 +138,8 @@ export default class Effects {
             this.filter.freq(this.currentState.freq);
     }
 
-    setFilterResonance(resonance) { //from 0.01 to 100
-        this.#updateCurrentState({ resonance })
+    setFilterResonance(resonance) { //from 1 to 30
+        this.#updateCurrentState({ resonance: resonance * 30 })
         if (this.filter != null)
             this.filter.res(this.currentState.resonance);
     }
@@ -153,4 +149,3 @@ export default class Effects {
     }
 
 }
-
