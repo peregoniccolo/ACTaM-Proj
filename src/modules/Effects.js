@@ -127,7 +127,7 @@ export default class Effects {
     }
 
     setDistrotionAmount(amount) {   //from 0.02 to 0.1
-        this.#updateCurrentState({ amount: amount * 0.02 })
+        this.#updateCurrentState({ amount: amount * 0.010 })
         if (this.distortion != null)
             this.distortion.set(this.currentState.amount);
     }
