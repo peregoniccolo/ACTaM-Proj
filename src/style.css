@@ -3,9 +3,34 @@ html {
 	min-height: 100%;
 }
 
+@font-face {
+	font-family: minecraft;
+	src: url(../fonts/MinecrafterReg.ttf);
+  }
+
+@font-face {
+	font-family: up;
+	src: url(../fonts/up.ttf);
+}
+
+@font-face {
+	font-family: squarely;
+	src: url(../fonts/Square.ttf);
+}
+
+@font-face {
+	font-family: unbutton;
+	src: url(../fonts/unbutton.ttf);
+}
+
+@font-face {
+	font-family: golden;
+	src: url(../fonts/Golden_Age.ttf);
+}
+
 body {
 	background-color: rgb(167, 202, 212) !important;
-	font-family: 'Helvetica Neue', sans-serif !important;
+	font-family: squarely !important;
 	text-rendering: optimizeLegibility;
 }
 
@@ -13,6 +38,8 @@ h1 {
 	padding: 20px;
 	text-align: center;
 }
+
+
 
 /* dropzone */
 .drop_zone {
@@ -110,28 +137,30 @@ h1 {
 
 /* bars */
 .bar {
+	justify-content: center;
 	border-style: solid;
 	border-color: #517075;
 	border-width: 5px;
 	background-color: rgb(127, 168, 179);
 }
 
-#knob-bar {
-	min-height: 180px;
-}
-
-.effect-cont {
-	min-height: 160px;
-}
-
 .knob-col {
 	margin-top: 5px !important;
-	min-width: 155px;
+	min-width: 150px;
+	min-height: 200px;
+	text-align: center;
+	font-family: squarely;
+}
+
+.knob-col-small {
+	margin-top: 5px !important;
+	min-width: 150px;
+	height: 170px;
 	text-align: center;
 }
 
 .knob {
-	/* font-size: 35 !important; */
+	font-size: 2vw !important;
 	font-weight: bold !important;
 }
 
@@ -175,7 +204,8 @@ footer {
 
 .title-effect {
 	background-color: #333333;
-	padding-bottom: 2%;
+	font-family: squarely;
+	padding-bottom: 1%;
 	margin-bottom: 10px;
 }
 
@@ -233,6 +263,7 @@ footer {
 
 #preset-select {
 	font-size: larger;
+	font-family: golden;
 }
 
 
