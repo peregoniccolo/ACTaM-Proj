@@ -2,7 +2,7 @@
 import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular, getBuffer, setRawFile, getRawFile, getVolume } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-import Effects from "./modules/Effects";
+// import Effects from "./modules/Effects";
 // import Granular from "granular-js";
 
 // firebase configuration and initialization
@@ -82,8 +82,6 @@ $('.knob').each(function () {
         'angleArc': 270,
         'angleOffset': -135,
         'lineCap': 'round',
-        'height': '90%',
-        'width': '90%',
         'fgColor': '#222222',
     });
 
@@ -281,7 +279,6 @@ $("#resonance-knob").each(function () {
     $this.trigger(
         'configure',
         {
-            'step': 0.01,
             'change': function (v) {
                 effects.setFilterResonance(v)
             },
@@ -303,8 +300,6 @@ lpfButton.addEventListener('click', () => {
         effects.filterOn();
     isSetLPF = !isSetLPF;
 });
-
-
 
 function updateGranParValue(id, newVal) {
     // fa l'update dello stato di granular tramite un metodo di granular_module
@@ -381,7 +376,11 @@ function toggleBarContainer() {
 
     if (!barContainer.classList.contains("nodisplay"))
         animateToDefaultValue();
+
+    window.dispatchEvent(new Event('resize'));
 }
+
+
 
 // Wave Representation Object
 var wavesurfer = WaveSurfer.create({
@@ -586,7 +585,7 @@ new_sample_button.addEventListener('click', () => {
         document.getElementById('popup-container').classList.toggle("nodisplay");
 
     // mostra knobs
-    toggleBarContainer()
+    toggleBarContainer();
 
     $("#preset-select").val("default");
 })
@@ -703,7 +702,7 @@ function fileValidation(file) {
         /(\.mp3|\.wav|\.ogg|\.aac)$/i;
 
     if (!allowedExtensions.exec(filePath)) {
-        alert('Invalid file type: pleas upload only audio file with extension .mp3, .wav, .ogg, .aac');
+        alert('Invalid file type: please upload only audio file with extension .mp3, .wav, .ogg, .aac');
         fileInput.value = '';
         return false;
     } else {

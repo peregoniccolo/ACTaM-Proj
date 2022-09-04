@@ -6,6 +6,7 @@ html {
 body {
 	background-color: rgb(167, 202, 212) !important;
 	font-family: 'Helvetica Neue', sans-serif !important;
+	text-rendering: optimizeLegibility;
 }
 
 h1 {
@@ -109,29 +110,28 @@ h1 {
 
 /* bars */
 .bar {
-	justify-content: center;
 	border-style: solid;
 	border-color: #517075;
 	border-width: 5px;
 	background-color: rgb(127, 168, 179);
 }
 
-.knob-col {
-	margin-top: 5px !important;
-	min-width: 150px;
-	min-height: 200px;
-	text-align: center;
+#knob-bar {
+	min-height: 180px;
 }
 
-.knob-col-small {
+.effect-cont {
+	min-height: 160px;
+}
+
+.knob-col {
 	margin-top: 5px !important;
-	min-width: 150px;
-	height: 170px;
+	min-width: 155px;
 	text-align: center;
 }
 
 .knob {
-	font-size: 2vw !important;
+	/* font-size: 35 !important; */
 	font-weight: bold !important;
 }
 

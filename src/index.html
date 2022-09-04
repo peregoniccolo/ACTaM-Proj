@@ -53,30 +53,36 @@
     </div>
 
     <div class='container nodisplay' id="bar-container">
-        <div class="bar row rounded mt-3 p-2" id="knob-bar">
+        <div class="bar row rounded mt-3 p-2 justify-content-center" id="knob-bar">
             <!-- granular parameter bar -->
             <div class="col-2 knob-col">
-                <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
+                <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1"
+                    data-width="85%" data-height="85%" />
                 <label class="label-style">Density</label>
             </div>
             <div class="col-2 knob-col">
-                <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
+                <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1"
+                    data-width="85%" data-height="85%" />
                 <label class="label-style">Spread</label>
             </div>
             <div class="col-2 knob-col">
-                <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1" />
+                <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1"
+                    data-width="85%" data-height="85%" />
                 <label class="label-style">Pitch</label>
             </div>
             <div class="col-2 knob-col">
-                <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1" />
+                <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1"
+                    data-width="85%" data-height="85%" />
                 <label class="label-style">Attack</label>
             </div>
             <div class="col-2 knob-col">
-                <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1" />
+                <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1"
+                    data-width="85%" data-height="85%" />
                 <label class="label-style">Release</label>
             </div>
             <div class="col-2 knob-col">
-                <input id="volume-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
+                <input id="volume-knob" class="knob animated" default="0.5" data-min="0" data-max="1" data-width="85%"
+                    data-height="85%" />
                 <label class="label-style">Volume</label>
             </div>
         </div>
@@ -107,14 +113,15 @@
                             Delay
                         </div>
                     </div>
-                    <div class="row justify-content-around">
-                        <div class="col-5 knob-col-small">
-                            <input id="feedback-knob" class="knob animated" default="0.4" data-min="0"
-                                data-max="0.75" />
+                    <div class="row effect-cont justify-content-around">
+                        <div class="col-5 knob-col">
+                            <input id="feedback-knob" class="knob animated" default="0.4" data-min="0" data-max="0.75"
+                                data-width="80%" data-height="80%" />
                             <label class="label-style">Feedback</label>
                         </div>
-                        <div class="col-5 knob-col-small">
-                            <input id="delay-knob" class="knob animated" default="0.5" data-min="0" data-max="1" />
+                        <div class="col-5 knob-col">
+                            <input id="delay-knob" class="knob animated" default="0.5" data-min="0" data-max="1"
+                                data-width="80%" data-height="80%" />
                             <label class="label-style">Time</label>
                         </div>
                     </div>
@@ -130,9 +137,10 @@
                             Reverb
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-12 knob-col-small">
-                            <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10" />
+                    <div class="row effect-cont justify-content-center">
+                        <div class="col-12 knob-col">
+                            <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10"
+                                data-width="80%" data-height="80%" />
                             <label class="label-style">Decay</label>
                         </div>
                     </div>
@@ -152,9 +160,10 @@
                             Distortion
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-12 knob-col-small">
-                            <input id="amount-knob" class="knob animated" default="3" data-min="1" data-max="10" />
+                    <div class="row effect-cont justify-content-center">
+                        <div class="col-12 knob-col">
+                            <input id="amount-knob" class="knob animated" default="3" data-min="1" data-max="10"
+                                data-width="80%" data-height="80%" />
                             <label class="label-style">Amount</label>
                         </div>
                     </div>
@@ -170,14 +179,15 @@
                             LPF
                         </div>
                     </div>
-                    <div class="row justify-content-around">
-                        <div class="col-5 knob-col-small">
-                            <input id="freq-knob" class="knob animated" default="3000" data-min="10" data-max="9999" />
+                    <div class="row effect-cont justify-content-around">
+                        <div class="col-5 knob-col">
+                            <input id="freq-knob" class="knob animated" default="3000" data-min="10" data-max="9999"
+                                data-width="80%" data-height="80%" />
                             <label class="label-style">Cut off</label>
                         </div>
-                        <div class="col-5 knob-col-small">
-                            <input id="resonance-knob" class="knob animated" default="0.5" data-min="0.01"
-                                data-max="1" />
+                        <div class="col-5 knob-col">
+                            <input id="resonance-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1"
+                                data-width="80%" data-height="80%" />
                             <label class="label-style">Resonance</label>
                         </div>
                     </div>
