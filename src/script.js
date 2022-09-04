@@ -82,7 +82,7 @@ $('.knob').each(function () {
         'angleArc': 270,
         'angleOffset': -135,
         'lineCap': 'round',
-        'fgColor': '#222222',
+        'fgColor': '#33383a',
     });
 
 });
