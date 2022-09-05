@@ -212,6 +212,7 @@ $("#decay-knob").each(function () {
     $this.trigger(
         'configure',
         {
+            'step': 1,
             'change': function (v) {
                 effects.setReverbDecayTime(v)
             },

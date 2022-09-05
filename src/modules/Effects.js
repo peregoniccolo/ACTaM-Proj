@@ -28,8 +28,6 @@ export default class Effects {
         this.#createNewDistrortion();
         this.#createNewDelay();
         this.#createNewReverb();
-
-        //this.#chainEffects();
     }
 
     #createNewDelay() {
@@ -56,7 +54,7 @@ export default class Effects {
     reverbOn() {
         if (this.reverb == null)
             this.#createNewReverb();
-        this.reverb.process(this.distortion, 2, 1);
+        this.reverb.process(this.distortion, this.currentState.decay, 1);
     }
 
     reverbOff() {
@@ -108,37 +106,37 @@ export default class Effects {
         console.log(this.currentState);
     }
 
-    setDelayTime(time) {            //from 0 to 1
+    setDelayTime(time) {            //from 0 to 1 (true to input)
         this.#updateCurrentState({ delay: time });
         if (this.delay != null)
             this.delay.delayTime(this.currentState.delay); // se è null setto solo il current, che verrà ripreso quando ricreo l'oggetto
     }
 
-    setDelayFeedback(feedback) {    //from 0 to 0.75
+    setDelayFeedback(feedback) {    //from 0 to 0.75 (true to input)
         this.#updateCurrentState({ feedback: feedback });
         if (this.delay != null)
             this.delay.feedback(this.currentState.feedback);
     }
 
-    setReverbDecayTime(time) {      //from 0 to 10
-        this.#updateCurrentState({ decay: time });
+    setReverbDecayTime(time) {      //from 0 to 10 (true to input)
+        this.#updateCurrentState({ decay: Math.floor(time) });
         if (this.reverb != null)
             this.reverb.set(this.currentState.decay);
     }
 
-    setDistrotionAmount(amount) {   //from 0.02 to 0.1
-        this.#updateCurrentState({ amount: amount * 0.005 })
+    setDistrotionAmount(amount) {   //from 0.02 to 0.1 (input 1-10)
+        this.#updateCurrentState({ amount: Math.floor(amount) * 0.005 })
         if (this.distortion != null)
             this.distortion.set(this.currentState.amount);
     }
 
-    setFilterCutoff(freq) {         //from 10 to 9999
+    setFilterCutoff(freq) {         //from 10 to 9999 (true to input)
         this.#updateCurrentState({ freq: freq });
         if (this.filter != null)
             this.filter.freq(this.currentState.freq);
     }
 
-    setFilterResonance(resonance) { //from 1 to 30
+    setFilterResonance(resonance) { //from 1 to 30 (input 0.01 - 1)
         this.#updateCurrentState({ resonance: resonance * 30 })
         if (this.filter != null)
             this.filter.res(this.currentState.resonance);
