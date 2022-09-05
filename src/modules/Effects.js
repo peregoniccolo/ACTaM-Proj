@@ -145,5 +145,4 @@ export default class Effects {
     #updateCurrentState(state) {
         this.currentState = merge(this.currentState, state);
     }
-
 }
