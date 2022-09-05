@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>GranSynth</title>
+    <title>Granular Synthesizer</title>
 
     <link rel="stylesheet" href="style.css" />
     <!-- wavesurfer -->
@@ -23,19 +23,23 @@
 
 <body>
 
+    <!-- title container -->
     <div class="container" id="title-container">
         <div class="row justify-content-center p-2 mb-1">
-            <img class="col-xxl-6 col-md-8 col-sm-9 col-10 img-responsive" src="../images/logo.png">
+            <img class="col-xxl-8 col-md-8 col-sm-10 col-11 img-responsive" src="../images/logo.png">
         </div>
     </div>
 
+    <!-- waveform container -->
     <div class='nodisplay container waveform-container rounded' id="wave-container">
         <div class="waveform" id="waveform"></div>
     </div>
 
+    <!-- bar container -->
     <div class='container nodisplay' id="bar-container">
+
+        <!-- granular parameter bar -->
         <div class="bar row rounded mt-3 p-2 justify-content-center" id="knob-bar">
-            <!-- granular parameter bar -->
             <div class="col-xl-2 col-lg-4 col-md-4 col-2 knob-col">
                 <input id="density-knob" class="knob knob-font-big par-knob animated" default="0.5" data-min="0"
                     data-max="1" data-width="140" data-height="140" />
@@ -72,7 +76,7 @@
         <div class="row justify-content-center m-3">
             <div class="col-4" style="min-width: 420px;">
                 <div class="form-floating">
-                    <select id="preset-select" class="form-select select-style">
+                    <select id="preset-select" class="form-select select-style mouse-over-cursor">
                         <!-- populated in js -->
                     </select>
                     <label for="preset-select">Select a preset for the granular parameters</label>
@@ -80,17 +84,14 @@
             </div>
         </div>
 
-
-        <!-- effects -->
+        <!-- effects bar -->
         <div class="row bar rounded justify-content-around p-2" id="effect-bar">
-            <!-- first row: delay and reverb -->
-            <!-- <div class="row justify-content-around"> -->
 
-            <div class="col-xxl-4 col-xl-8 col-lg-8 col-md-8 col-sm-12 p-1" style="min-width: 200px;">
+            <div class="col-xxl-4 col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 p-1" style="min-width: 200px;">
                 <div class="effect-box rounded" id="delay">
                     <div class='row title-effect p-1'>
                         <div class="col-2">
-                            <button id='delay-toggle' class="toggle"></button>
+                            <button id='delay-toggle' class="toggle mouse-over-cursor"></button>
                         </div>
                         <div class="col-10">
                             Delay
@@ -112,7 +113,7 @@
             </div>
 
 
-            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 p-1" style="min-width: 200px;">
+            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-1" style="min-width: 200px;">
                 <div class="effect-box rounded" id="reverb">
                     <div class='row title-effect p-1'>
                         <div class="col-2">
@@ -132,13 +133,8 @@
                 </div>
             </div>
 
-            <!-- </div> -->
 
-
-
-            <!-- second row: distortion and lpf
-                    <div class="row justify-content-around"> -->
-            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 p-1" style="min-width: 200px;">
+            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 p-1" style="min-width: 200px;">
                 <div class="effect-box rounded" id="distortion">
                     <div class='row title-effect p-1'>
                         <div class="col-2">
@@ -159,7 +155,7 @@
             </div>
 
 
-            <div class="col-xxl-4 col-xl-8 col-lg-8 col-md-8 col-sm-12 p-1" style="min-width: 200px;">
+            <div class="col-xxl-4 col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 p-1" style="min-width: 200px;">
                 <div class="effect-box rounded" id="lpf">
                     <div class='row title-effect p-1'>
                         <div class="col-2">
@@ -184,30 +180,30 @@
                 </div>
             </div>
 
-
-            <!-- </div> -->
         </div>
     </div>
 
-    <div class="container drop_zone">
+    <!-- dropzone container -->
+    <div class="container drop_zone mouse-over-cursor">
         <span class="drop_zone_prompt">Drag your sample or click here...</span>
         <input type="file" accept="audio/*" id="dft-sample" name="myFile" class="drop_zone_input" />
     </div>
 
+    <!-- sample container -->
     <div class="container" id="sample-container">
         <div class="row justify-content-center mt-5">
             <div class="col-2" style="min-width: 150px">
-                <div id='sample1' class="dft-sample">Sample 1</div>
+                <div id='sample1' class="sample-button mouse-over-cursor">Sample 1</div>
             </div>
 
             <div class="col-2" style="min-width: 150px">
-                <div id='sample2' class="dft-sample">Sample 2</div>
+                <div id='sample2' class="sample-button mouse-over-cursor">Sample 2</div>
             </div>
         </div>
     </div>
 
+    <!-- big green buttons container -->
     <div class="container nodisplay" id="button-container">
-
         <div class="row justify-content-center m-2">
             <div class="col-3 mb-4" style="min-width: 220px">
                 <button id='reverse' class="big-green-btn">Reverse sample</button>
@@ -221,10 +217,13 @@
         </div>
     </div>
 
+    <!-- MIDI controller popup container -->
     <div class="container nodisplay" id="popup-container">
         <div class="popup row justify-content-center m-3">
             <div class="popuptext col-10" id="myPopup">
+
                 <div class="row justify-content-around p-3 pb-1">
+
                     <div class="col-4 mb-3" style="min-width: 225px;">
                         <div class="row gx-1">
                             <div class="col-4">
@@ -289,6 +288,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row justify-content-center p-3 pt-1">
@@ -296,6 +296,7 @@
                         <button id="controllerset" class="btn">Set!</button>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -314,6 +315,7 @@
             new bootstrap.Tooltip(t);
         });
     </script>
+
 </body>
 
 </html>

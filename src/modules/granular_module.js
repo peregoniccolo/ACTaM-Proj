@@ -2,7 +2,6 @@ import Granular from '../../libs/Granular/Granular';
 import p5, { Effect } from 'p5';
 import 'p5/lib/addons/p5.sound';
 import Effects from './Effects';
-// import { async } from '@firebase/util';
 
 // PROCESSO GENERALE: creo un oggetto granular con vari parametri,
 // a cui passo un buffer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
@@ -20,12 +19,13 @@ var granular = new Granular({
 	// i default values per il granular state vengono caricati leggendo il valore da html
 	// l'oggetto granular è parte del model
 	// envelope: {
-	// 	attack: , //occhio a mettere attack 0 perchè poi verrà impostato random, ma ho messo il minimo a 0.01
-	// 	release: 
+	// 	attack: 0.1, 
+	// 	release: 0.5
 	// },
-	// density: ,
-	// spread ,
-	// pitch: 
+	// density: 0.5,
+	// spread 0.5,
+	// pitch: 0.5
+	// }
 });
 
 granular.setMaster(1);

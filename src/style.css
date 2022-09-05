@@ -1,9 +1,4 @@
-html {
-	position: relative;
-	min-height: 100%;
-}
-
-@font-face {
+/* @font-face {
 	font-family: minecraft;
 	src: url(../fonts/MinecrafterReg.ttf);
 }
@@ -11,21 +6,26 @@ html {
 @font-face {
 	font-family: up;
 	src: url(../fonts/up.ttf);
-}
+} */
 
 @font-face {
 	font-family: squarely;
 	src: url(../fonts/Square.ttf);
 }
 
-@font-face {
+/* @font-face {
 	font-family: unbutton;
 	src: url(../fonts/unbutton.ttf);
-}
+} */
 
 @font-face {
 	font-family: golden;
 	src: url(../fonts/Golden_Age.ttf);
+}
+
+html {
+	position: relative;
+	min-height: 100%;
 }
 
 body {
@@ -34,7 +34,13 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+.mouse-over-cursor {
+	cursor: pointer;
+}
 
+.nodisplay {
+	display: none;
+}
 
 /* dropzone */
 .drop_zone {
@@ -82,27 +88,21 @@ body {
 	text-align: center;
 }
 
-/* waveform */
 .nodisplay {
 	display: none;
 }
 
+/* waveform */
 .waveform-container {
 	border: 5px solid #3c4041;
 	filter: blur(0.4px);
 	background: repeating-linear-gradient(#096a79 58px, #5edcf0d7 60px);
 	height: fit-content;
 	overflow: hidden;
-	padding: 10px;
 }
 
 
-/* new sample button */
-#container_button {
-	position: relative;
-	margin-top: 30px;
-}
-
+/* big green buttons */
 .big-green-btn {
 	width: 100%;
 	height: 100%;
@@ -170,26 +170,15 @@ body {
 	font-weight: bolder;
 }
 
-footer {
-	text-align: center;
-	position: absolute !important;
-	bottom: auto !important;
-	width: 100%;
-	height: 40px;
-	margin-top: 40px;
-}
-
 /* effect bar */
-
 .toggle {
 	width: 20px;
 	height: 20px;
 	border-color: #3a3a3a;
-	border-radius: 100px;
+	border-radius: 15px;
 	outline: none;
 	background: #637277;
 	color: white;
-	cursor: pointer;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -198,6 +187,7 @@ footer {
 }
 
 .title-effect {
+	font-size: 20 !important;
 	margin: -1 !important;
 	background-color: #333333;
 	height: 35px;
@@ -211,8 +201,7 @@ footer {
 }
 
 /* bottone scelta samples */
-.dft-sample {
-	cursor: pointer;
+.sample-button {
 	padding: 0.35em 1.2em;
 	border: 0.1em solid #009ea3;
 	border-radius: 0.12em;
@@ -221,21 +210,21 @@ footer {
 	text-align: center;
 }
 
-.dft-sample:hover {
+.sample-button:hover {
 	color: #000000;
 	background-color: #55b4bb;
 }
 
 @media all and (max-width:30em) {
-	.dft-sample {
+	.sample-button {
 		display: block;
 		margin: 0.4em auto;
 	}
 }
 
+/* select preset */
 .select-style {
 	text-align: center;
-	cursor: pointer;
 }
 
 #preset-select {
@@ -244,12 +233,11 @@ footer {
 }
 
 
-/* Popup container */
+/* popup container */
 .popup {
 	min-width: fit-content;
 }
 
-/* The actual popup (appears on top) */
 .popup .popuptext {
 	background-color: rgb(49, 100, 104);
 	color: #fff;
@@ -263,6 +251,11 @@ footer {
 	width: 100%;
 }
 
-.mouse-over-cursor {
-	cursor: pointer;
+footer {
+	text-align: center;
+	position: absolute !important;
+	bottom: auto !important;
+	width: 100%;
+	height: 40px;
+	margin-top: 30px;
 }
