@@ -1,9 +1,7 @@
-//import "../libs/jquery-knobs/jquery.knob";
-import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular, getBuffer, setRawFile, getRawFile, getVolume } from "./modules/granular_module";
+import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular, getBuffer, setRawFile, getRawFile, getVolume, getState } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-// import Effects from "./modules/Effects";
-// import Granular from "granular-js";
+import { getFirestore, collection, getDocs, doc, setDoc } from "firebase/firestore";
+
 
 // firebase configuration and initialization
 const firebaseConfig = {
@@ -21,6 +19,8 @@ const dbRef = getFirestore();
 // preset list population
 const presetSelect = document.getElementById("preset-select");
 const preset_collection = collection(dbRef, "presets");
+const initialPresetNum = 5;
+
 var presetMap = {};
 
 async function populatePresetList() {
@@ -38,7 +38,6 @@ async function populatePresetList() {
 populatePresetList();
 
 // bind onchange listener
-
 presetSelect.addEventListener("change", e => {
 
     if (presetSelect.value == "default") {
@@ -66,6 +65,38 @@ presetSelect.addEventListener("change", e => {
     });
 
 })
+
+var savePresetBtn = document.getElementById("save-preset");
+
+savePresetBtn.addEventListener('click', e => {
+    var presetCounter = presetSelect.length - initialPresetNum;
+    console.log(presetCounter);
+    var stateToSave = getState();
+    console.log(stateToSave);
+
+    const docRef = doc(dbRef, "presets", "userPreset" + presetCounter);
+
+    const data = {
+        name: "userPreset" + presetCounter,
+        density: stateToSave.density,
+        spread: stateToSave.spread,
+        pitch: stateToSave.pitch,
+        envelope: {
+            attack: stateToSave.envelope.attack,
+            release: stateToSave.envelope.release
+        }
+    };
+
+    setDoc(docRef, data).then(() => {
+        var i, L = presetSelect.options.length - 1;
+        for (i = L; i >= 0; i--) {
+            presetSelect.remove(i);
+        }
+        populatePresetList().then(() => {
+            presetSelect.value = "userPreset" + presetCounter;
+        });
+    });
+});
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var ctx = new AudioContext();
@@ -303,14 +334,14 @@ lpfButton.addEventListener('click', () => {
 });
 
 function updateGranParValue(id, newVal) {
-    // 
+    // upgrade of granular state with granular_module method 
     updateState({
         [id]: newVal
     });
 }
 
 function updateGranEnvValue(id, newVal) {
-    // upgrade of granular with s granular_module method
+    // upgrade of granular state with granular_module method
     updateState({
         "envelope": { [id]: newVal }
     });

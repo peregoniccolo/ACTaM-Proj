@@ -80,6 +80,10 @@ export default class Granular {
         this.state = merge(this.state, state);
     }
 
+    getState() {
+        return this.state;
+    }
+
     /**
      *
      * @param {*} data 

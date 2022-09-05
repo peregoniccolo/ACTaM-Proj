@@ -57,6 +57,10 @@ export function updateState(state) {
 	granular.set(state);
 }
 
+export function getState() {
+	return granular.getState();
+}
+
 export function playGrain(position = null, velocity = 1, frequency = null) {
 
 	if (position) {

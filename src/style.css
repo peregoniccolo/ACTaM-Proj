@@ -200,7 +200,7 @@ body {
 	border: solid 5px #475152;
 }
 
-/* bottone scelta samples */
+/* default sample buttons */
 .sample-button {
 	padding: 0.35em 1.2em;
 	border: 0.1em solid #009ea3;
@@ -225,11 +225,19 @@ body {
 /* select preset */
 .select-style {
 	text-align: center;
+	height: inherit !important;
 }
 
 #preset-select {
 	font-size: larger;
 	font-family: golden;
+}
+
+#save-preset {
+	font-size: larger;
+	font-family: golden;
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
 }
 
 
@@ -249,6 +257,8 @@ body {
 	border: 0em;
 	background-color: white;
 	width: 100%;
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
 }
 
 footer {
