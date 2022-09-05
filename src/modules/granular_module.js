@@ -4,9 +4,9 @@ import 'p5/lib/addons/p5.sound';
 import Effects from './Effects';
 // import { async } from '@firebase/util';
 
-// PROCESSO GENERALE: creo un oggetto granular con vari parametri,
-// a cui passo un buffer audio con setBuffer, al click di un bottone faccio startVoice (passando posizione iniziale e volume)
-// questa funzione crea e fa suonare delle Voice (che a loro volta creano e fanno suonare dei grain).
+// PROCESS: a granular object is built with various parameters,
+// an audio buffer is passed with setBuffer, with the click of a button startVoice passes initial position and volume 
+// this function creates and plays a Voice.
 
 const audioContext = p5.prototype.getAudioContext();
 

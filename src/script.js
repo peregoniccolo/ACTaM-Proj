@@ -72,7 +72,7 @@ var ctx = new AudioContext();
 var inputBuffer, currentAudio;
 var waveformDiv = document.getElementById('waveform');
 
-// jquery knobs setup e metodi di update e altro
+// jquery knobs setup and update methods
 $('.knob').each(function () {
 
     var $this = $(this);
@@ -100,7 +100,7 @@ $(".par-knob").each(function () {
             },
             'release': function (v) {
                 updateGranParValue(elementId, v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -119,7 +119,7 @@ $(".env-knob").each(function () {
             },
             'release': function (v) {
                 updateGranEnvValue(elementId, v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -137,7 +137,7 @@ $("#volume-knob").each(function () {
             },
             'release': function (v) {
                 setVolume(v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -170,7 +170,7 @@ $("#feedback-knob").each(function () {
             },
             'release': function (v) {
                 effects.setDelayFeedback(v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -188,7 +188,7 @@ $("#delay-knob").each(function () {
             },
             'release': function (v) {
                 effects.setDelayTime(v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -218,7 +218,7 @@ $("#decay-knob").each(function () {
             },
             'release': function (v) {
                 effects.setReverbDecayTime(v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -248,7 +248,7 @@ $("#amount-knob").each(function () {
             },
             'release': function (v) {
                 effects.setDistrotionAmount(v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -267,7 +267,7 @@ $("#freq-knob").each(function () {
             },
             'release': function (v) {
                 effects.setFilterCutoff(v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -285,7 +285,7 @@ $("#resonance-knob").each(function () {
             },
             'release': function (v) {
                 effects.setFilterResonance(v);
-            }, // entrambi perchè altrimenti lo scroll non modifica i valori
+            }, // both to let the scroll modify the value
         }
     );
 
@@ -303,22 +303,22 @@ lpfButton.addEventListener('click', () => {
 });
 
 function updateGranParValue(id, newVal) {
-    // fa l'update dello stato di granular tramite un metodo di granular_module
+    // 
     updateState({
         [id]: newVal
     });
 }
 
 function updateGranEnvValue(id, newVal) {
-    // fa l'update dello stato di granular tramite un metodo di granular_module
+    // upgrade of granular with s granular_module method
     updateState({
         "envelope": { [id]: newVal }
     });
 }
 
 function animateToDefaultValue(isPresets = false) {
-    // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
-    // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
+    // starts the default value knobs animation 
+    // values updated with change, back to default 
 
     var knobs;
 
@@ -349,8 +349,7 @@ function animateToDefaultValue(isPresets = false) {
 }
 
 function animateToValue(id, newValue, duration = 1000) {
-    // fa partire l'animazione che porta ai valori di default i knobs quando compaiono
-    // contestualmente i valori vengono updatati nello stato (da change), riportandolo al default 
+    // starts the default value knobs animation 
 
     id = "#" + id + "-knob";
 
@@ -369,7 +368,6 @@ function animateToValue(id, newValue, duration = 1000) {
 }
 
 function toggleBarContainer() {
-    // compare e scompare gli knobs
     var barContainer = document.querySelector("#bar-container");
     barContainer.classList.toggle("nodisplay");
 
@@ -454,7 +452,7 @@ waveformDiv.addEventListener('mouseout', (e) => {
     }
 })
 
-//Da posizione in pixel a posizione in secondi
+//pixels and seconds position
 function updateCursorPosition(xpos) {
     const duration = wavesurfer.getDuration();
     const elementWidth =
@@ -486,9 +484,9 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
         inputElement.click()
 
-        // Usato per gestire il caso in cui venga caricato lo stesso file 2 volte:
+        // in case of a file uploaded multiple times:
         // https://stackoverflow.com/questions/3144419/how-do-i-remove-a-file-from-the-filelist
-        // "resetta" la FileList
+        // reset FileList
         if (inputElement.files.length) {
             inputElement.value = '';
         }
@@ -504,13 +502,13 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                     inputBuffer = decodedAudio
 
-                    init(inputBuffer) // inizializza granular
+                    init(inputBuffer) // inizialize granular
 
-                    // rimuovi dropzone e mostra change button
+                    // removes dropzone and shows change button
                     dropZoneElement.classList.toggle("nodisplay");
                     document.getElementById("button-container").classList.toggle("nodisplay");
 
-                    loadFile(file); // mostra wavesurfer
+                    loadFile(file); // shows wavesurfer
                 });
 
                 dropZoneElement.classList.remove('drop_zone--over');
@@ -519,7 +517,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 
 
 
-                // mostra bar-container
+                // shows bar-container
                 toggleBarContainer();
             }
 
@@ -552,7 +550,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                 file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                     inputBuffer = decodedAudio;
                     init(inputBuffer)
-                    // rimuovi dropzone e mostra change button
+                    // removes dropzone and shows change button
                     dropZoneElement.classList.toggle("nodisplay");
 
                     document.getElementById("button-container").classList.toggle("nodisplay");
@@ -560,10 +558,10 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                     document.getElementById('sample-container').classList.toggle('nodisplay');
 
 
-                    // mostra knobs
+                    // shows knobs
                     toggleBarContainer();
 
-                    loadFile(file); // mostra wavesurfer
+                    loadFile(file); // shows wavesurfer
                 });
             }
 
@@ -572,11 +570,11 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     });
 });
 
-// GESTIONE change button
+// change button handle
 const new_sample_button = document.getElementById('new_sample_but');
 
 new_sample_button.addEventListener('click', () => {
-    // mostra dropzone e rimuovi change button
+    // shows dropzone and removes change button
     document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
 
     document.getElementById("button-container").classList.toggle("nodisplay");
@@ -585,7 +583,7 @@ new_sample_button.addEventListener('click', () => {
     if (!document.getElementById('popup-container').classList.contains("nodisplay"))
         document.getElementById('popup-container').classList.toggle("nodisplay");
 
-    // mostra knobs
+    // shows knobs
     toggleBarContainer();
 
     $("#preset-select").val("default");
@@ -604,6 +602,7 @@ let audio2;
 
 // To fetch a file parcel needs you to build the url with 'require'
 // https://github.com/parcel-bundler/parcel/issues/1911
+
 defaultSample1.addEventListener('click', () => {
 
     if (!sampleLoaded1) {
@@ -628,7 +627,7 @@ defaultSample1.addEventListener('click', () => {
 
             });
 
-        // mostra bar-container
+        // shows bar-container
 
     }
 });
@@ -662,7 +661,7 @@ defaultSample2.addEventListener('click', () => {
 
 });
 
-// Gestione click toggle effetti
+// effects toggle handle
 
 document.querySelectorAll('.toggle').forEach(inputElement => {
     inputElement.addEventListener('click', () => {
@@ -711,49 +710,7 @@ function fileValidation(file) {
     }
 }
 
-/* MIDI PROTOCOL
-
-function dropHandler(ev) {
-    console.log('File dropped');
-
-    ev.preventDefault()
-
-    if (ev.dataTransfer.items) {
-        // We use DataTransferItemList interface to access the file
-        for (var i=0; i < ev.dataTransfer.items.length; i++){
-            if (ev.dataTransfer.items.kind === 'file') {
-                var file = ev.dataTransfer.items[i].getAsFile();
-                console.log('file '+i+' : ' + file.name)
-            }
-        }
-    }
-
-    else {
-        // Use DataTransfer interface to access the file
-        for(var i = 0; i< ev.dataTransfer.files.length; i++){
-            console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
-        }
-    }
-}
-
-function dragOverHandler(ev) {
-    console.log('Files in drop zone')
-
-    ev.preventDefault()
-}
-
-*/
-
-/*
-
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-let ctx;
-const startButton = document.querySelector('button'); // need a button to create the audio context
-startButton.addEventListener('click', () =>{
-    ctx = new AudioContext;
-})
-
-*/
+// MIDI PROTOCOL
 
 var controllerArray = [0, 0, 0];
 var numnotes = 0;
@@ -795,19 +752,19 @@ function handleInput(input) {
     console.log(command + "|" + note + "|" + velocity)
 
     // setting a new midi knob for the parameters
-    if (contr1enabled && command == 176) {      //sto settando parametro 1
+    if (contr1enabled && command == 176) {  // first parameter setting
         controllerArray[0] = { [note]: select1.value };
         contr1.value = note;
         console.log("CONTRARRAY[0] ", controllerArray[0])
     }
 
-    else if (contr2enabled && command == 176) { //sto settando parametro 2
+    else if (contr2enabled && command == 176) { // second parameter setting
         controllerArray[1] = { [note]: select2.value };
         contr2.value = note;
         console.log("CONTRARRAY[1] ", controllerArray[1])
     }
 
-    else if (contr3enabled && command == 176) { //sto settando parametro 3
+    else if (contr3enabled && command == 176) { // third parameter setting
         controllerArray[2] = { [note]: select3.value };
         contr3.value = note;
         console.log("CONTRARRAY[2] ", controllerArray[2])
@@ -833,7 +790,7 @@ function handleInput(input) {
                 }
                 break;
 
-            case 176: //controllo da parte di un knob/slider
+            case 176: // knob/slider control
 
 
                 if (controllerArray[0]) {
@@ -884,7 +841,7 @@ function noteoff(note, velocity) {
 }
 
 
-//gestione popup
+// handles popup
 
 const popupB = document.getElementById('popupButton');
 const contrSet = document.getElementById('controllerset');
@@ -898,11 +855,10 @@ var contr1enabled = false;
 var contr2enabled = false;
 var contr3enabled = false;
 
-//mostra popup
+// shows popup
 popupB.addEventListener('click', () => {
     var popup = document.getElementById("popup-container");
     popup.classList.toggle("nodisplay");
-    // popup.classList.toggle("show");
 }
 );
 
@@ -913,11 +869,10 @@ contrSet.addEventListener('click', () => {
 
     var popup = document.getElementById("popup-container");
     popup.classList.toggle("nodisplay");
-    // popup.classList.toggle("show");
 }
 );
 
-//resetta primo parametro e permette il suo settaggio
+// reset first parameter and let us change it
 contr1.addEventListener('click', () => {
     console.log("1")
 
@@ -930,7 +885,7 @@ contr1.addEventListener('click', () => {
 }
 );
 
-//resetta secondo parametro e permette il suo settaggio
+// reset second parameter and let us change it
 contr2.addEventListener('click', () => {
     console.log("2")
 
@@ -943,7 +898,7 @@ contr2.addEventListener('click', () => {
 }
 );
 
-//resetta terzo parametro e permette il suo settaggio
+// reset third parameter and let us change it
 contr3.addEventListener('click', () => {
     console.log("3")
 
