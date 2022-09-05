@@ -23,10 +23,9 @@
 
 <body>
 
-    <h1>
-        <img src="../images/logo.png">
-
-    </h1>
+    <div class="row justify-content-center p-2 mb-1">
+        <img class="col-xxl-6 col-md-8 col-sm-9 col-10 img-responsive" src="../images/logo.png">
+    </div>
 
     <div class='nodisplay container waveform-container rounded' id="wave-container">
         <div class="waveform" id="waveform"></div>
@@ -35,32 +34,32 @@
     <div class='container nodisplay' id="bar-container">
         <div class="bar row rounded mt-3 p-2 justify-content-center" id="knob-bar">
             <!-- granular parameter bar -->
-            <div class="col-2 knob-col">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-2 knob-col">
                 <input id="density-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1"
                     data-width="140" data-height="140" />
                 <label class="label-style">Density</label>
             </div>
-            <div class="col-2 knob-col">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-2 knob-col">
                 <input id="spread-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1"
                     data-width="140" data-height="140" />
                 <label class="label-style">Spread</label>
             </div>
-            <div class="col-2 knob-col">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-2 knob-col">
                 <input id="pitch-knob" class="knob par-knob animated" default="0.5" data-min="0" data-max="1"
                     data-width="140" data-height="140" />
                 <label class="label-style">Pitch</label>
             </div>
-            <div class="col-2 knob-col">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-2 knob-col">
                 <input id="attack-knob" class="knob env-knob animated" default="0.1" data-min="0.01" data-max="1"
                     data-width="140" data-height="140" />
                 <label class="label-style">Attack</label>
             </div>
-            <div class="col-2 knob-col">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-2 knob-col">
                 <input id="release-knob" class="knob env-knob animated" default="0.5" data-min="0.01" data-max="1"
                     data-width="140" data-height="140" />
                 <label class="label-style align-baseline">Release</label>
             </div>
-            <div class="col-2 knob-col">
+            <div class="col-xl-2 col-lg-4 col-md-4 col-2 knob-col">
                 <input id="volume-knob" class="knob animated" default="0.5" data-min="0" data-max="1" data-width="140"
                     data-height="140" />
                 <label class="label-style align-baseline">Volume</label>
@@ -81,99 +80,108 @@
 
 
         <!-- effects -->
-        <div class="bar row rounded justify-content-around p-2" id="effect-bar">
+        <div class="row bar rounded justify-content-around p-2" id="effect-bar">
             <!-- first row: delay and reverb -->
             <!-- <div class="row justify-content-around"> -->
 
-
-            <div class="col-4 effect-box rounded" id="delay">
-                <div class='row title-effect'>
-                    <div class="col-2">
-                        <button id='delay-toggle' class="toggle"></button>
+            <div class="col-xxl-4 col-xl-8 col-lg-8 col-md-8 col-sm-12 p-1" style="min-width: 200px;">
+                <div class="effect-box rounded" id="delay">
+                    <div class='row title-effect p-1 m-0'>
+                        <div class="col-2">
+                            <button id='delay-toggle' class="toggle"></button>
+                        </div>
+                        <div class="col-10">
+                            Delay
+                        </div>
                     </div>
-                    <div class="col-10 eff-name-up">
-                        Delay
+                    <div class="row justify-content-center pt-2 m-0">
+                        <div class="col-6 knob-col-small p-0">
+                            <input id="feedback-knob" class="knob animated" default="0.4" data-min="0" data-max="0.75"
+                                data-width="115" data-height="115" />
+                            <label class="label-style">Feedback</label>
+                        </div>
+                        <div class="col-6 knob-col-small p-0">
+                            <input id="delay-knob" class="knob animated" default="0.5" data-min="0" data-max="1"
+                                data-width="115" data-height="115" />
+                            <label class="label-style">Time</label>
+                        </div>
                     </div>
                 </div>
-                <div class="row justify-content-around p-2">
-                    <div class="col-5 knob-col">
-                        <input id="feedback-knob" class="knob animated" default="0.4" data-min="0" data-max="0.75"
-                            data-width="115" data-height="115" />
-                        <label class="label-style">Feedback</label>
+            </div>
+
+
+            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 p-1" style="min-width: 200px;">
+                <div class="effect-box rounded" id="reverb">
+                    <div class='row title-effect p-1 m-0'>
+                        <div class="col-2">
+                            <button id='reverb-toggle' class="toggle"></button>
+                        </div>
+                        <div class="col-10">
+                            Reverb
+                        </div>
                     </div>
-                    <div class="col-5 knob-col">
-                        <input id="delay-knob" class="knob animated" default="0.5" data-min="0" data-max="1"
-                            data-width="115" data-height="115" />
-                        <label class="label-style">Time</label>
+                    <div class="row justify-content-center pt-2 m-0">
+                        <div class="col-12 knob-col-small p-0">
+                            <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10"
+                                data-width="115" data-height="115" />
+                            <label class="label-style">Decay</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
-            <div class="col-2 effect-box rounded" id="reverb">
-                <div class='row title-effect'>
-                    <div class="col-2">
-                        <button id='reverb-toggle' class="toggle"></button>
-                    </div>
-                    <div class="col-10 eff-name-up">
-                        Reverb
-                    </div>
-                </div>
-                <div class="row justify-content-around p-2">
-                    <div class="col-12 knob-col">
-                        <input id="decay-knob" class="knob animated" default="3" data-min="0" data-max="10"
-                            data-width="115" data-height="115" />
-                        <label class="label-style">Decay</label>
-                    </div>
-                </div>
-            </div>
             <!-- </div> -->
 
 
 
             <!-- second row: distortion and lpf
-            <div class="row justify-content-around"> -->
-            <div class="col-2 effect-box rounded" id="distortion">
-                <div class='row title-effect'>
-                    <div class="col-2">
-                        <button id='distortion-toggle' class="toggle"></button>
+                    <div class="row justify-content-around"> -->
+            <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-6 p-1" style="min-width: 200px;">
+                <div class="effect-box rounded" id="distortion">
+                    <div class='row title-effect p-1 m-0'>
+                        <div class="col-2">
+                            <button id='distortion-toggle' class="toggle"></button>
+                        </div>
+                        <div class="col-10">
+                            Distortion
+                        </div>
                     </div>
-                    <div class="col-10 eff-name-down">
-                        Distortion
-                    </div>
-                </div>
-                <div class="row justify-content-around p-2">
-                    <div class="col-12 knob-col">
-                        <input id="amount-knob" class="knob animated" default="3" data-min="1" data-max="10"
-                            data-width="115" data-height="115" />
-                        <label class="label-style">Amount</label>
+                    <div class="row justify-content-center pt-2 m-0">
+                        <div class="col-12 knob-col-small p-0">
+                            <input id="amount-knob" class="knob animated" default="3" data-min="1" data-max="10"
+                                data-width="115" data-height="115" />
+                            <label class="label-style">Amount</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="col-4 effect-box rounded" id="lpf">
-                <div class='row title-effect'>
-                    <div class="col-2">
-                        <button id='lpf-toggle' class="toggle"></button>
+            <div class="col-xxl-4 col-xl-8 col-lg-8 col-md-8 col-sm-12 p-1" style="min-width: 200px;">
+                <div class="effect-box rounded" id="lpf">
+                    <div class='row title-effect p-1 m-0'>
+                        <div class="col-2">
+                            <button id='lpf-toggle' class="toggle"></button>
+                        </div>
+                        <div class="col-2">
+                            LPF
+                        </div>
                     </div>
-                    <div class="col-2 eff-name-down">
-                        LPF
-                    </div>
-                </div>
-                <div class="row justify-content-around p-2">
-                    <div class="col-5 knob-col">
-                        <input id="freq-knob" class="knob animated" default="3000" data-min="10" data-max="9999"
-                            data-width="115" data-height="115" />
-                        <label class="label-style">Cut off</label>
-                    </div>
-                    <div class="col-5 knob-col">
-                        <input id="resonance-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1"
-                            data-width="115" data-height="115" />
-                        <label class="label-style">Resonance</label>
+                    <div class="row justify-content-center pt-2 m-0">
+                        <div class="col-6 knob-col-small p-0">
+                            <input id="freq-knob" class="knob animated" default="3000" data-min="10" data-max="9999"
+                                data-width="115" data-height="115" />
+                            <label class="label-style">Cut off</label>
+                        </div>
+                        <div class="col-6 knob-col-small p-0">
+                            <input id="resonance-knob" class="knob animated" default="0.5" data-min="0.01" data-max="1"
+                                data-width="115" data-height="115" />
+                            <label class="label-style">Resonance</label>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- </div> -->
         </div>
@@ -198,7 +206,7 @@
 
     <div class="container nodisplay" id="button-container">
 
-        <div class="row justify-content-center m-3">
+        <div class="row justify-content-center m-2">
             <div class="col-3 mb-4" style="min-width: 220px">
                 <button id='reverse' class="big-green-btn">Reverse sample</button>
             </div>

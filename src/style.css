@@ -34,11 +34,6 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
-h1 {
-	padding: 20px;
-	text-align: center;
-}
-
 
 
 /* dropzone */
@@ -149,6 +144,12 @@ h1 {
 	text-align: center;
 }
 
+.knob-col-small {
+	margin-top: 5px !important;
+	min-width: 150px;
+	text-align: center;
+}
+
 .knob {
 	/* font-size: 28 !important; */
 	font-weight: bold !important;
@@ -195,18 +196,8 @@ footer {
 	background-color: #333333;
 	height: 35px;
 	align-items: center;
-}
-
-.eff-name-up {
 	color: white;
 	font-size: large;
-	padding-top: 0.8%;
-}
-
-.eff-name-down {
-	color: white;
-	font-size: large;
-	padding-top: 0.8%;
 }
 
 .effect-box {
