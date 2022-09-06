@@ -1,6 +1,6 @@
-import { init, stopGrain, setPosition, playGrain, setVolume, updateState, effects, deleteGranular, getBuffer, setRawFile, getRawFile, getVolume, getState } from "./modules/granular_module";
+import { init, stopGrain, playGrain, setVolume, updateState, effects, getBuffer, setRawFile, getState } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, getDoc, getDocs, doc, setDoc } from "firebase/firestore";
 
 
 // firebase configuration and initialization
@@ -18,14 +18,15 @@ const dbRef = getFirestore();
 
 // preset list population
 const presetSelect = document.getElementById("preset-select");
-const preset_collection = collection(dbRef, "presets");
-const initialPresetNum = 5;
+const presetCollection = collection(dbRef, "presets");
+const userPresetCollection = collection(dbRef, "user_presets");
+const docPresetNumRef = doc(dbRef, "preset_num", "counter_doc");
 
 var presetMap = {};
 
 async function populatePresetList() {
-    // for each preset create a new option in the select
-    const querySnapshot = await getDocs(preset_collection);
+    // for each preset and create a new options in the select
+    const querySnapshot = await getDocs(presetCollection);
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         presetMap[doc.id] = doc.data();
@@ -36,7 +37,22 @@ async function populatePresetList() {
     });
 }
 
-populatePresetList(); // first population
+async function populatePresetListUser() {
+    // for each user_preset and create a new options in the select
+    const querySnapshot = await getDocs(userPresetCollection);
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        presetMap[doc.id] = doc.data();
+        var newOption = document.createElement('option');
+        newOption.value = doc.id;
+        newOption.innerHTML = doc.data().name;
+        presetSelect.appendChild(newOption);
+    });
+}
+
+populatePresetList().then(() => {
+    populatePresetListUser();
+}); // first population
 
 // bind onchange listener
 presetSelect.addEventListener("change", e => {
@@ -68,37 +84,51 @@ presetSelect.addEventListener("change", e => {
 
 // add save preset button listener
 var savePresetBtn = document.getElementById("save-preset");
+var presetNum;
+
+async function getCurrNumOfPresets() {
+    // read current number of elements on the db
+
+    const docSnap = await getDoc(docPresetNumRef);
+    presetNum = docSnap.data()['counter'];
+}
 
 savePresetBtn.addEventListener('click', e => {
-    var presetCounter = presetSelect.length - initialPresetNum; // number of the preset to insert
-    // console.log(presetCounter);
-    var stateToSave = getState();
-    // console.log(stateToSave);
 
-    const docRef = doc(dbRef, "presets", "userPreset" + presetCounter);
+    getCurrNumOfPresets().then(() => {
 
-    const data = {
-        name: "userPreset" + presetCounter,
-        density: stateToSave.density,
-        spread: stateToSave.spread,
-        pitch: stateToSave.pitch,
-        envelope: {
-            attack: stateToSave.envelope.attack,
-            release: stateToSave.envelope.release
-        }
-    };
+        var stateToSave = getState();
+        var id = "userPreset" + presetNum;
 
-    setDoc(docRef, data).then(() => {
-        // depopulate and remove
-        var i, L = presetSelect.options.length - 1;
-        for (i = L; i >= 0; i--) {
-            presetSelect.remove(i);
-        }
-        populatePresetList().then(() => {
-            // when promise is done, set the new preset as selected
-            presetSelect.value = "userPreset" + presetCounter;
+        const docRefNewPreset = doc(dbRef, "user_presets", id);
+
+        const dataNewPreset = {
+            name: id,
+            density: stateToSave.density,
+            spread: stateToSave.spread,
+            pitch: stateToSave.pitch,
+            envelope: {
+                attack: stateToSave.envelope.attack,
+                release: stateToSave.envelope.release
+            }
+        };
+
+        setDoc(docRefNewPreset, dataNewPreset).then(() => {
+            // depopulate user sets
+            var i, L = presetSelect.options.length - 1;
+            for (i = L; i >= 5; i--) // leave the first 4
+                presetSelect.remove(i);
+
+            populatePresetListUser().then(() => {
+                presetSelect.value = id;
+            });
+
+            // increment number of presents
+            setDoc(docPresetNumRef, { counter: presetNum + 1 });
         });
+
     });
+
 });
 
 // audio context
