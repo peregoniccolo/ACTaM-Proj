@@ -26,15 +26,37 @@ NB: mainly tested on Chrome
 # Functionalities
 
 <div>
-<image src="media/images/gui.png" style="border-radius: 15px"></image>
+<image src="media/images/gui.png" style="border-radius: 15px; margin-bottom: 10px;"></image>
 </div>
 
-
 * Granular synthesizer with customizable parameters
-* 4 effects parametric to play with: Delay, Reverb, Distortion and a LPF
-* Default parameter presets
+* Possibility to some presets we prepare for our users
 * Possibility to save you very own parameter presets
+* 4 parametric effects to play with: Delay, Reverb, Distortion and a LPF
 * MIDI controls to play and control the synthesizer
+
+# Customizable parameters
+## Synthesizer knobs
+* Density: time density of the played grains
+* Spread: area around the waveform pointer in which the grains to be played are created
+* Pitch: perceived frequency of the played grains
+* Attack: envelope attack of each single grain
+* Release: envelope release of each single grain
+* Volume: master volume of the synthesizer
+
+## Effects
+### Delay
+* Feedback: the amout of signal fed back to be delayed
+* Time: actual time delay
+### Reverb
+* Decay: seconds of decay of the reverb
+### Distortion
+* Amount: quantity of distortion applyed to the grains
+### LPF
+* Cutoff: frequency at which the filter begins to attenutate the signal
+* Resonance: emphatization or suppression of portions of the signal above or below the defined cutoff frequency
+
+# Implementation
 
 ## Used libs
 * Granular
