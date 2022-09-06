@@ -7,7 +7,7 @@ export default class Effects {
 
     constructor(source) {
         this.currentState = {
-            // defaults are loaded 
+            // defaults are loaded in html 
             // delay
             // delay: 0.5,
             // feedback: 0.5,
@@ -35,16 +35,20 @@ export default class Effects {
     }
 
     delayOn() {
+        // if necessary create new delay with current state values and connect it in the chain
         if (this.delay == null)
             this.#createNewDelay();
-        this.delay.process(this.distortion, this.currentState.delay, this.currentState.feedback, this.currentState.filterFreq); // source, delayTime, feedback, filter frequency
+        
+        this.delay.process(this.distortion, this.currentState.delay, this.currentState.feedback, this.currentState.filterFreq);
+                           // source, delayTime, feedback, filter frequency
     }
 
     delayOff() {
+        // disconnect and delete current delay 
         this.delay.disconnect();
-        this.delay = null;
+        this.delay = null; // needed for chaining purposes
 
-        console.log(this.currentState);
+        // console.log(this.currentState);
     }
 
     #createNewReverb() {
@@ -52,64 +56,68 @@ export default class Effects {
     }
 
     reverbOn() {
+        // if necessary create new reverb with current state values and connect it in the chain
         if (this.reverb == null)
             this.#createNewReverb();
+
         this.reverb.process(this.distortion, this.currentState.decay, 1);
+                            // source, seconds, decay rate
     }
 
     reverbOff() {
+        // disconnect and delete current reverb 
         this.reverb.disconnect();
         this.reverb = null;
 
-        console.log(this.currentState);
+        // console.log(this.currentState);
     }
 
     #createNewFilter() {
+        // create new lpf
         this.filter = new p5.Filter();
-        this.source.connect(this.filter);
-        this.filter.drywet(0);
+        this.source.connect(this.filter);   // chain it
+        this.filter.drywet(0);              // set only dry
     }
 
     filterOn() {
         if (this.filter == null)
             this.#createNewFilter();
-        //this.filter.process(this.source, 5000);
-        this.filter.drywet(1);
+
+        this.filter.drywet(1); // set only wet
     }
 
     filterOff() {
-        //this.filter.disconnect();
-        //this.filter = null;
-        this.filter.drywet(0);
-        console.log(this.currentState);
+        this.filter.drywet(0); // set only dry
+
+        // console.log(this.currentState);
     }
 
     #createNewDistrortion() {
+        // create new distortion
         this.distortion = new p5.Distortion();
-        this.filter.connect(this.distortion);
-        this.distortion.drywet(0);
+        this.filter.connect(this.distortion);   // chain it
+        this.distortion.drywet(0);              // set only dry
     }
 
     distortionOn() {
-        console.log(this.currentState);
-
         if (this.distortion == null)
             this.#createNewDistrortion();
-        //this.distortion.process(this.filter, 0.10);
-        this.distortion.drywet(1);
+
+        this.distortion.drywet(1); // set only wet
+
+        // console.log(this.currentState);
     }
 
     distortionOff() {
-        //this.distortion.disconnect();
-        //this.distortion = null;
-        this.distortion.drywet(0);
-        console.log(this.currentState);
+        this.distortion.drywet(0); // set only dry
+
+        // console.log(this.currentState);
     }
 
     setDelayTime(time) {            //from 0 to 1 (true to input)
         this.#updateCurrentState({ delay: time });
-        if (this.delay != null)
-            this.delay.delayTime(this.currentState.delay); // se è null setto solo il current, che verrà ripreso quando ricreo l'oggetto
+        if (this.delay != null)     // if null, only update the current state variable
+            this.delay.delayTime(this.currentState.delay);
     }
 
     setDelayFeedback(feedback) {    //from 0 to 0.75 (true to input)
@@ -143,6 +151,7 @@ export default class Effects {
     }
 
     #updateCurrentState(state) {
+        // merge incoming modified values to the effect state 
         this.currentState = merge(this.currentState, state);
     }
 }

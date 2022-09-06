@@ -1,26 +1,11 @@
-/* @font-face {
-	font-family: minecraft;
-	src: url(../fonts/MinecrafterReg.ttf);
-}
-
-@font-face {
-	font-family: up;
-	src: url(../fonts/up.ttf);
-} */
-
 @font-face {
 	font-family: squarely;
-	src: url(../fonts/Square.ttf);
+	src: url(../media/fonts/Square.ttf);
 }
-
-/* @font-face {
-	font-family: unbutton;
-	src: url(../fonts/unbutton.ttf);
-} */
 
 @font-face {
 	font-family: golden;
-	src: url(../fonts/Golden_Age.ttf);
+	src: url(../media/fonts/Golden_Age.ttf);
 }
 
 html {

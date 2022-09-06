@@ -24,6 +24,7 @@ const initialPresetNum = 5;
 var presetMap = {};
 
 async function populatePresetList() {
+    // for each preset create a new option in the select
     const querySnapshot = await getDocs(preset_collection);
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
@@ -35,7 +36,7 @@ async function populatePresetList() {
     });
 }
 
-populatePresetList();
+populatePresetList(); // first population
 
 // bind onchange listener
 presetSelect.addEventListener("change", e => {
@@ -59,20 +60,20 @@ presetSelect.addEventListener("change", e => {
     Object.keys(chosenPreset).filter(function ($key) {
         return $key != "envelope";
     }).forEach(key => {
-        //updateGranParValue(key, chosenPreset[key]);
-        console.log(key);
         animateToValue(key, chosenPreset[key]);
     });
 
 })
 
+
+// add save preset button listener
 var savePresetBtn = document.getElementById("save-preset");
 
 savePresetBtn.addEventListener('click', e => {
-    var presetCounter = presetSelect.length - initialPresetNum;
-    console.log(presetCounter);
+    var presetCounter = presetSelect.length - initialPresetNum; // number of the preset to insert
+    // console.log(presetCounter);
     var stateToSave = getState();
-    console.log(stateToSave);
+    // console.log(stateToSave);
 
     const docRef = doc(dbRef, "presets", "userPreset" + presetCounter);
 
@@ -88,23 +89,28 @@ savePresetBtn.addEventListener('click', e => {
     };
 
     setDoc(docRef, data).then(() => {
+        // depopulate and remove
         var i, L = presetSelect.options.length - 1;
         for (i = L; i >= 0; i--) {
             presetSelect.remove(i);
         }
         populatePresetList().then(() => {
+            // when promise is done, set the new preset as selected
             presetSelect.value = "userPreset" + presetCounter;
         });
     });
 });
 
+// audio context
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var ctx = new AudioContext();
 var inputBuffer, currentAudio;
-var waveformDiv = document.getElementById('waveform');
+
+// KNOBS
 
 // jquery knobs setup and update methods
 $('.knob').each(function () {
+    // basic for each knob, other parameters are specified directly in the HTML
 
     var $this = $(this);
 
@@ -119,6 +125,7 @@ $('.knob').each(function () {
 });
 
 $(".par-knob").each(function () {
+    // specifications for granular parameter knobs
 
     var $this = $(this);
     var elementId = $this.attr("id").split("-")[0];
@@ -138,6 +145,7 @@ $(".par-knob").each(function () {
 });
 
 $(".env-knob").each(function () {
+    // specifications for granular parameter envelope knobs
 
     var $this = $(this);
     var elementId = $this.attr("id").split("-")[0];
@@ -157,6 +165,7 @@ $(".env-knob").each(function () {
 });
 
 $("#volume-knob").each(function () {
+    // specifications for the master volume knobs
 
     var $this = $(this);
 
@@ -176,10 +185,17 @@ $("#volume-knob").each(function () {
 
 // EFFECT knobs and buttons
 
+// effects toggle handle
+document.querySelectorAll('.toggle').forEach(inputElement => {
+    inputElement.addEventListener('click', () => {
+        inputElement.classList.toggle('toggle-active');
+    });
+});
+
 // delay
 var isSetDelay = false;
 var delayButton = document.getElementById('delay-toggle');
-delayButton.addEventListener('click', () => {
+delayButton.addEventListener('click', () => { // delay effect toggle
     if (isSetDelay)
         effects.delayOff();
     else
@@ -187,8 +203,7 @@ delayButton.addEventListener('click', () => {
     isSetDelay = !isSetDelay;
 });
 
-// feedback & delay time
-
+// delay: feedback & delay time knobs
 $("#feedback-knob").each(function () {
 
     var $this = $(this);
@@ -228,7 +243,7 @@ $("#delay-knob").each(function () {
 // reverb
 var isSetReverb = false;
 var reverbButton = document.getElementById('reverb-toggle');
-reverbButton.addEventListener('click', () => {
+reverbButton.addEventListener('click', () => { // reverb effect toggle
     if (isSetReverb)
         effects.reverbOff();
     else
@@ -236,6 +251,7 @@ reverbButton.addEventListener('click', () => {
     isSetReverb = !isSetReverb;
 });
 
+// reverb: time decay knob
 $("#decay-knob").each(function () {
 
     var $this = $(this);
@@ -258,7 +274,7 @@ $("#decay-knob").each(function () {
 // distortion
 var isSetDistortion = false;
 var distortionButton = document.getElementById('distortion-toggle');
-distortionButton.addEventListener('click', () => {
+distortionButton.addEventListener('click', () => { // distortion effect toggle
     if (isSetDistortion)
         effects.distortionOff();
     else
@@ -266,6 +282,7 @@ distortionButton.addEventListener('click', () => {
     isSetDistortion = !isSetDistortion;
 });
 
+// distortion: amount knob
 $("#amount-knob").each(function () {
 
     var $this = $(this);
@@ -285,6 +302,18 @@ $("#amount-knob").each(function () {
 
 });
 
+// lpf
+var isSetLPF = false;
+var lpfButton = document.getElementById('lpf-toggle');
+lpfButton.addEventListener('click', () => { // lpf effect toggle
+    if (isSetLPF)
+        effects.filterOff();
+    else
+        effects.filterOn();
+    isSetLPF = !isSetLPF;
+});
+
+// lfp: frequency and resonance knobs
 $("#freq-knob").each(function () {
 
     var $this = $(this);
@@ -322,16 +351,6 @@ $("#resonance-knob").each(function () {
 
 });
 
-// lpf
-var isSetLPF = false;
-var lpfButton = document.getElementById('lpf-toggle');
-lpfButton.addEventListener('click', () => {
-    if (isSetLPF)
-        effects.filterOff();
-    else
-        effects.filterOn();
-    isSetLPF = !isSetLPF;
-});
 
 function updateGranParValue(id, newVal) {
     // upgrade of granular state with granular_module method 
@@ -341,7 +360,7 @@ function updateGranParValue(id, newVal) {
 }
 
 function updateGranEnvValue(id, newVal) {
-    // upgrade of granular state with granular_module method
+    // upgrade of granular state envelope with granular_module method
     updateState({
         "envelope": { [id]: newVal }
     });
@@ -399,20 +418,19 @@ function animateToValue(id, newValue, duration = 1000) {
 }
 
 function toggleBarContainer() {
+    // display the main bar container
     var barContainer = document.querySelector("#bar-container");
     barContainer.classList.toggle("nodisplay");
 
-    $(barContainer).trigger('resize');
-
+    // then animate to default value
     if (!barContainer.classList.contains("nodisplay"))
         animateToDefaultValue();
-
-    window.dispatchEvent(new Event('resize'));
 }
 
 
+// waveform bar
+var waveformDiv = document.getElementById('waveform');
 
-// Wave Representation Object
 var wavesurfer = WaveSurfer.create({
     container: document.querySelector('#waveform'),
     waveColor: '#9fa9a3',
@@ -440,13 +458,15 @@ var wavesurfer = WaveSurfer.create({
 
 });
 
-ctx.resume()
+ctx.resume();
 
 
-// WAVEFORM EVENT LISTENERS
+// Waveform event listeners
 var mouseState = false;
 
 waveformDiv.addEventListener('mousedown', (e) => {
+    // sets correct position and updates it correctly based on the normalization and movement
+
     mouseState = true;
     var bnds = e.target.getBoundingClientRect();
     var x = e.clientX - bnds.left;
@@ -464,8 +484,7 @@ waveformDiv.addEventListener('mousedown', (e) => {
         if (mouseState) {
             playGrain(normalizeTime(posX));
             wavesurfer.drawer.progress(normalizeTime(posX));
-
-            //console.log("pos in mousemove: " + posX);
+            // console.log("pos in mousemove: " + posX);
         }
     })
 })
@@ -483,8 +502,10 @@ waveformDiv.addEventListener('mouseout', (e) => {
     }
 })
 
-//pixels and seconds position
+// pixels and seconds position
 function updateCursorPosition(xpos) {
+    // returns time corresponding to xpos on the waveform 
+
     const duration = wavesurfer.getDuration();
     const elementWidth =
         wavesurfer.drawer.width /
@@ -500,28 +521,25 @@ function updateCursorPosition(xpos) {
 }
 
 function normalizeTime(time) {
+    // returns normalized time 
+
     var fileLen = wavesurfer.getDuration();
     return time / fileLen
 }
 
 
-// VIEW
-// The methods below handle the interaction of the user with the drag & drop upload zone.
+// The methods below handle the interaction of the user with the drag & drop upload zone
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     const dropZoneElement = inputElement.closest(".drop_zone");
 
-    // Manual upload by clicking the drop-zone
+    // click upload
     dropZoneElement.addEventListener('click', e => {
-
         inputElement.click()
 
-        // in case of a file uploaded multiple times:
-        // https://stackoverflow.com/questions/3144419/how-do-i-remove-a-file-from-the-filelist
         // reset FileList
         if (inputElement.files.length) {
             inputElement.value = '';
         }
-
     });
 
     inputElement.addEventListener('change', e => {
@@ -529,67 +547,66 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
             var file = inputElement.files[0]
             setRawFile(file); // fotl
             if (fileValidation(file)) {
-                // Conversion to data buffer (inputBuffer)
+                // conversion to data buffer (inputBuffer)
                 file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                     inputBuffer = decodedAudio
 
                     init(inputBuffer) // inizialize granular
 
-                    // removes dropzone and shows change button
+                    // removes dropzone and button container
                     dropZoneElement.classList.toggle("nodisplay");
                     document.getElementById("button-container").classList.toggle("nodisplay");
 
-                    loadFile(file); // shows wavesurfer
+                    loadFile(file); // shows waveform 
                 });
 
+                // display necessary containers
                 dropZoneElement.classList.remove('drop_zone--over');
                 document.getElementById('wave-container').classList.toggle('nodisplay');
                 document.getElementById('sample-container').classList.toggle('nodisplay');
 
-
-
-                // shows bar-container
+                // show bar-container
                 toggleBarContainer();
             }
 
         }
     })
 
-    // Callback function called when the user drag a file in drop zone. 
+    // drag and drop upload
     dropZoneElement.addEventListener('dragover', e => {
         e.preventDefault();
         dropZoneElement.classList.add("drop_zone--over");
     });
 
-    // Event handler for drag animation.
+    // event handler for drag animation
     ['dragleave', 'dragend'].forEach(type => {
         dropZoneElement.addEventListener(type, e => {
             dropZoneElement.classList.remove('drop_zone--over');
         });
     });
 
-    // File handling
+    // file handling
     dropZoneElement.addEventListener('drop', e => {
         e.preventDefault();
 
         if (e.dataTransfer.files.length) {
-            // Dropped file is handled here
+            // dropped file is handled here
             var file = e.dataTransfer.files[0];
             setRawFile(file);
             if (fileValidation(file)) {
-                // Conversion to data buffer (inputBuffer)
+                // conversion to data buffer (inputBuffer)
                 file.arrayBuffer().then((arrayBuffer) => ctx.decodeAudioData(arrayBuffer)).then((decodedAudio) => {
                     inputBuffer = decodedAudio;
                     init(inputBuffer)
-                    // removes dropzone and shows change button
+                    // removes dropzone
                     dropZoneElement.classList.toggle("nodisplay");
 
+                    // display necessary containers
                     document.getElementById("button-container").classList.toggle("nodisplay");
                     document.getElementById('wave-container').classList.toggle('nodisplay');
                     document.getElementById('sample-container').classList.toggle('nodisplay');
 
-
-                    // shows knobs
+                    // show bar-container
                     toggleBarContainer();
 
                     loadFile(file); // shows wavesurfer
@@ -601,29 +618,30 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
     });
 });
 
-// change button handle
+// change sample button handler
 const new_sample_button = document.getElementById('new_sample_but');
 
 new_sample_button.addEventListener('click', () => {
-    // shows dropzone and removes change button
+    // shows dropzone
     document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
 
+    // hide necessary bars
     document.getElementById("button-container").classList.toggle("nodisplay");
     document.getElementById('wave-container').classList.toggle('nodisplay');
     document.getElementById('sample-container').classList.toggle('nodisplay');
     if (!document.getElementById('popup-container').classList.contains("nodisplay"))
         document.getElementById('popup-container').classList.toggle("nodisplay");
 
-    // shows knobs
+    // show bar-container
     toggleBarContainer();
 
     $("#preset-select").val("default");
 })
 
-// Default sample-container buttons
-
+// sample-container buttons: default audio files
 const defaultSample1 = document.getElementById('sample1');
 const defaultSample2 = document.getElementById('sample2');
+// audio files
 const audioUrl1 = require('../media/Distort.wav');
 const audioUrl2 = require('../media/pipa.wav');
 var sampleLoaded1 = false;
@@ -631,9 +649,7 @@ var sampleLoaded2 = false;
 let audio;
 let audio2;
 
-// To fetch a file parcel needs you to build the url with 'require'
-// https://github.com/parcel-bundler/parcel/issues/1911
-
+// add listeners to sample buttons
 defaultSample1.addEventListener('click', () => {
 
     if (!sampleLoaded1) {
@@ -650,6 +666,7 @@ defaultSample1.addEventListener('click', () => {
                 init(audio); // create granular object
                 wavesurfer.load(audioUrl1) // load wavesurfer object
 
+                // hide dropzone and show other containers
                 document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
                 document.getElementById("button-container").classList.toggle("nodisplay");
                 document.getElementById('wave-container').classList.toggle('nodisplay');
@@ -657,8 +674,6 @@ defaultSample1.addEventListener('click', () => {
                 toggleBarContainer();
 
             });
-
-        // shows bar-container
 
     }
 });
@@ -680,6 +695,7 @@ defaultSample2.addEventListener('click', () => {
                 init(audio2); // create granular object
                 wavesurfer.load(audioUrl2) // load wavesurfer object
 
+                // hide dropzone and show other containers
                 document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
                 document.getElementById("button-container").classList.toggle("nodisplay");
                 document.getElementById('wave-container').classList.toggle('nodisplay');
@@ -692,33 +708,24 @@ defaultSample2.addEventListener('click', () => {
 
 });
 
-// effects toggle handle
-
-document.querySelectorAll('.toggle').forEach(inputElement => {
-    inputElement.addEventListener('click', () => {
-        inputElement.classList.toggle('toggle-active');
-    });
-});
-
-// reverse sample
+// reverse sample button listener
 document.getElementById('reverse').addEventListener('click', () => {
 
     if (getBuffer() != null) {
-
+        // reverse the current audio buffer
         var buffer = getBuffer();
         Array.prototype.reverse.call(buffer.getChannelData(0));
         Array.prototype.reverse.call(buffer.getChannelData(1));
 
-        init(buffer);
+        init(buffer); // init new granular
 
-        wavesurfer.loadDecodedBuffer(buffer);
+        wavesurfer.loadDecodedBuffer(buffer); // load new buffer on the waveform
     }
 
 })
 
 
-
-// Utility: create a new waveform representation based on the audio file passed as an argument.
+// create a new waveform representation based on the audio file passed as an argument
 function loadFile(file) {
     wavesurfer.loadBlob(file);
 }
@@ -728,7 +735,7 @@ function fileValidation(file) {
 
     var filePath = fileInput.name;
 
-    // Allowing file type
+    // allowing file type
     var allowedExtensions =
         /(\.mp3|\.wav|\.ogg|\.aac)$/i;
 
@@ -748,12 +755,12 @@ var numnotes = 0;
 
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-    console.log('connesso');
+    // console.log('MIDI connesso');
 }
 
 function onMIDISuccess(midiAccess) {
 
-    console.log(midiAccess)
+    // console.log(midiAccess)
 
     midiAccess.addEventListener('statechange', updateDevices)
     const input = midiAccess.inputs;
@@ -764,7 +771,7 @@ function onMIDISuccess(midiAccess) {
 }
 
 function onMIDIFailure() {
-    console.log("Failed to get MIDI access ");
+    console.log("Failed to get MIDI access.");
 }
 
 function updateDevices(event) {
@@ -773,38 +780,41 @@ function updateDevices(event) {
 
 
 function handleVelocity(velocity) {
+    // normalize velocity value
     return velocity / 128
 }
 
 function handleInput(input) {
+    // main midi input handling method
+
     var command = input.data[0]
     var note = input.data[1]
     var velocity = handleVelocity(input.data[2])
-    console.log(command + "|" + note + "|" + velocity)
+    // console.log(command + "|" + note + "|" + velocity)
 
     // setting a new midi knob for the parameters
     if (contr1enabled && command == 176) {  // first parameter setting
         controllerArray[0] = { [note]: select1.value };
         contr1.value = note;
-        console.log("CONTRARRAY[0] ", controllerArray[0])
+        // console.log("CONTRARRAY[0] ", controllerArray[0])
     }
 
     else if (contr2enabled && command == 176) { // second parameter setting
         controllerArray[1] = { [note]: select2.value };
         contr2.value = note;
-        console.log("CONTRARRAY[1] ", controllerArray[1])
+        // console.log("CONTRARRAY[1] ", controllerArray[1])
     }
 
     else if (contr3enabled && command == 176) { // third parameter setting
         controllerArray[2] = { [note]: select3.value };
         contr3.value = note;
-        console.log("CONTRARRAY[2] ", controllerArray[2])
+        // console.log("CONTRARRAY[2] ", controllerArray[2])
     }
 
     else {
 
         switch (command) {
-            case 144:
+            case 144: // keyboard message
                 numnotes += 1;
                 if (velocity > 0) {
                     noteon(note, velocity);
@@ -821,7 +831,7 @@ function handleInput(input) {
                 }
                 break;
 
-            case 176: // knob/slider control
+            case 176: // knob/slider control message
 
 
                 if (controllerArray[0]) {
@@ -860,10 +870,11 @@ function handleInput(input) {
 
 }
 
-
 function noteon(note, velocity) {
+    // calculate pitch shift due to midi note numeber and play new grain 
+
     var frequency = Math.pow(2, (note - 48) / 12);
-    console.log("freq: " + frequency)
+    // console.log("freq: " + frequency)
     playGrain(null, velocity, frequency);
 }
 
@@ -872,8 +883,9 @@ function noteoff(note, velocity) {
 }
 
 
-// handles popup
+// CONTROLLER POPUP
 
+const popupCont = document.getElementById("popup-container");
 const popupB = document.getElementById('popupButton');
 const contrSet = document.getElementById('controllerset');
 const contr1 = document.getElementById('controller1');
@@ -886,26 +898,27 @@ var contr1enabled = false;
 var contr2enabled = false;
 var contr3enabled = false;
 
-// shows popup
+// controller popup button handler
 popupB.addEventListener('click', () => {
-    var popup = document.getElementById("popup-container");
-    popup.classList.toggle("nodisplay");
-}
-);
+    // show popup
+
+    popupCont.classList.toggle("nodisplay");
+});
 
 contrSet.addEventListener('click', () => {
+    // set specified knobs and remove popup display
+
     contr1enabled = false;
     contr2enabled = false;
     contr3enabled = false;
 
-    var popup = document.getElementById("popup-container");
-    popup.classList.toggle("nodisplay");
-}
-);
+    popupCont.classList.toggle("nodisplay");
+});
 
-// reset first parameter and let us change it
 contr1.addEventListener('click', () => {
-    console.log("1")
+    // reset first parameter and change it
+
+    // console.log("1")
 
     controllerArray[0] = 0;
     contr1.value = "";
@@ -913,12 +926,12 @@ contr1.addEventListener('click', () => {
     contr1enabled = true;
     contr2enabled = false;
     contr3enabled = false;
-}
-);
+});
 
-// reset second parameter and let us change it
 contr2.addEventListener('click', () => {
-    console.log("2")
+    // reset second parameter and change it
+
+    // console.log("2")
 
     controllerArray[1] = 0;
     contr2.value = "";
@@ -926,12 +939,12 @@ contr2.addEventListener('click', () => {
     contr2enabled = true;
     contr1enabled = false;
     contr3enabled = false;
-}
-);
+});
 
-// reset third parameter and let us change it
 contr3.addEventListener('click', () => {
-    console.log("3")
+    // reset third parameter and let us change it
+
+    // console.log("3")
 
     controllerArray[2] = 0;
     contr3.value = "";
@@ -939,24 +952,20 @@ contr3.addEventListener('click', () => {
     contr3enabled = true;
     contr2enabled = false;
     contr1enabled = false;
-}
-);
+});
 
-
+// reset selected parameter name to preper new set for input
 select1.addEventListener('change', () => {
     controllerArray[0] = 0;
     contr1.value = "";
-}
-);
+});
 
 select2.addEventListener('change', () => {
     controllerArray[1] = 0;
     contr2.value = "";
-}
-);
+});
 
 select3.addEventListener('change', () => {
     controllerArray[2] = 0;
     contr3.value = "";
-}
-);
+});

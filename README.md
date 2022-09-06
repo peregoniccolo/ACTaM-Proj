@@ -1,7 +1,8 @@
-# ACTaM Project: Granular Synthetizer
+![wagliu](media/images/logo.png)
+
 
 ## Run with Parcel!
-* Download the project
+* Download/clone the project
 * In the project folder:
 ```console
 npm i
@@ -19,38 +20,24 @@ Browserslist: caniuse-lite is outdated. Please run next command `npm update cani
 npm update caniuse-lite browserslist
 ```
 
-## Functionalities
-* Granular synthetizer with modifiable parameters
-* Cool effects
-* Re-usable presets
-* MIDI controls
+NB: mainly tested on Chrome
+
+# Functionalities
+
+* Granular synthesizer with customizable parameters
+* 4 effects parametric to play with: Delay, Reverb, Distortion and a LPF
+* Default parameter presets
+* Possibility to save you very own parameter presets
+* MIDI controls to play and control the synthesizer
 
 ## Used libs
 * Granular
 * Wavesurfer
-* Firebase
+* Firebase & Firestore
 * P5
 * JQuery & JQuery-Knob
-* Bootstrap
+* Bootstrap & Popper
 
-## Domande
-* Come sfruttare le idee?
-* Come collegare le cose?
-* Come realizzare la granular synthesis?
-* Come sfruttarla per il progetto? Produrre un suono da un sample, per metterlo dove?
-* Facciamo un intero synth che usa la granular synthesis? 
-* Bruschi or Rana
-
-## Piano definito fin ora
-Realizzeremo un applicativo che permette di caricare un file audio o registrarlo e che permette
-di realizzarne la granular synthesis per creare un nuovo eccitante timbro. 
-Vari effetti possibili:
-* insert elenco
-
-Eventualmente grosso visualizzatore psichedelico.
-
-## Trello
-https://trello.com/b/IWccLP6l/lezzosteps
-
-## Authors
-### Gargiulo - Morena - Orsatti - Perego
+# Authors
+#### Gargiulo - Morena - Orsatti - Perego
+![getirs](media/images/getir.png) 

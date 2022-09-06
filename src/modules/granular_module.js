@@ -89,7 +89,7 @@ export function stopGrain() {
 	grainIds = [];
 }
 
-//used for displaying the waveform
+// used for displaying the waveform
 export function setRawFile(file){
 	rawFile = file;
 }
@@ -103,10 +103,10 @@ export function getBuffer() {
 }
 
 export async function init(file) {
-	// setGranular();
 	const data = file;
-	//await getDataFromFile(file);
-	//console.log(data)
+
+	// console.log(data)
+	
 	await granular.setBuffer(data);
 }
 

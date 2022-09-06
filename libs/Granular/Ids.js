@@ -1,4 +1,4 @@
-
+// class id
 export default class Ids {
   constructor(prefix = '') {
     this.id = 0;
