@@ -16,16 +16,15 @@ var rawFile = null;
 
 var granular = new Granular({
 	audioContext
-	// i default values per il granular state vengono caricati leggendo il valore da html
-	// l'oggetto granular è parte del model
+	// all default values for granular state are uploaded by reading their values from html
+	// the granular object is part of the model
 	// envelope: {
-	// 	attack: 0.1, 
-	// 	release: 0.5
+	// attack: 0.1, 
+	// release: 0.5
 	// },
 	// density: 0.5,
 	// spread 0.5,
 	// pitch: 0.5
-	// }
 });
 
 granular.setMaster(1);
