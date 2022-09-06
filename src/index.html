@@ -30,6 +30,25 @@
         </div>
     </div>
 
+    <!-- dropzone container -->
+    <div class="container drop_zone mouse-over-cursor mt-4">
+        <span class="drop_zone_prompt">Drag your sample or click here...</span>
+        <input type="file" accept="audio/*" id="dft-sample" name="myFile" class="drop_zone_input" />
+    </div>
+
+    <!-- sample container -->
+    <div class="container" id="sample-container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-2" style="min-width: 150px">
+                <div id='sample1' class="sample-button mouse-over-cursor">Sample 1</div>
+            </div>
+
+            <div class="col-2" style="min-width: 150px">
+                <div id='sample2' class="sample-button mouse-over-cursor">Sample 2</div>
+            </div>
+        </div>
+    </div>
+
     <!-- waveform container -->
     <div class='nodisplay container waveform-container rounded' id="wave-container">
         <div class="waveform" id="waveform"></div>
@@ -76,13 +95,14 @@
         <div class="row justify-content-center m-3">
             <div class="col-4 mb-2" style="min-width: 420px;">
                 <div class="form-floating">
-                    <select id="preset-select" class="form-select select-style mouse-over-cursor">
+                    <select id="preset-select" class="form-select select-style text-center mouse-over-cursor">
                         <!-- populated in js -->
                     </select>
                     <label for="preset-select">Select a preset for the granular parameters</label>
                 </div>
             </div>
-            <button id="save-preset" class="col-2 btn btn-light mb-2" style="min-width: 150px;">Save preset</button>
+            <button id="save-preset" class="col-2 white-btn btn mb-2" style="min-width: 150px;">Save
+                preset</button>
         </div>
 
         <!-- effects bar -->
@@ -184,36 +204,17 @@
         </div>
     </div>
 
-    <!-- dropzone container -->
-    <div class="container drop_zone mouse-over-cursor">
-        <span class="drop_zone_prompt">Drag your sample or click here...</span>
-        <input type="file" accept="audio/*" id="dft-sample" name="myFile" class="drop_zone_input" />
-    </div>
-
-    <!-- sample container -->
-    <div class="container" id="sample-container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-2" style="min-width: 150px">
-                <div id='sample1' class="sample-button mouse-over-cursor">Sample 1</div>
-            </div>
-
-            <div class="col-2" style="min-width: 150px">
-                <div id='sample2' class="sample-button mouse-over-cursor">Sample 2</div>
-            </div>
-        </div>
-    </div>
-
     <!-- big green buttons container -->
     <div class="container nodisplay" id="button-container">
         <div class="row justify-content-center m-2">
             <div class="col-3 mb-4" style="min-width: 220px">
-                <button id='reverse' class="big-green-btn">Reverse sample</button>
+                <button id='reverse' class="big-green-btn mouse-over-cursor">Reverse sample</button>
             </div>
             <div class="col-3 mb-4" style="min-width: 220px">
-                <button id="new_sample_but" class="big-green-btn">Change sample</button>
+                <button id="new_sample_but" class="big-green-btn mouse-over-cursor">Change sample</button>
             </div>
             <div class="col-3 mb-4" style="min-width: 220px">
-                <button id="popupButton" class="big-green-btn">Controllers</button>
+                <button id="popupButton" class="big-green-btn mouse-over-cursor">Controllers</button>
             </div>
         </div>
     </div>
@@ -294,7 +295,7 @@
 
                 <div class="row justify-content-center p-3 pt-1">
                     <div class="col-4" style="min-width: 225px;">
-                        <button id="controllerset" class="btn normal-button">Set!</button>
+                        <button id="controllerset" class="white-btn btn">Set!</button>
                     </div>
                 </div>
 
@@ -307,6 +308,9 @@
         <p><a href="https://github.com/peregoniccolo/ACTaM-Proj">ACTaM Project</a> - Developed by Gargiulo,
             Morena, Orsatti, Perego</p>
     </footer>
+
+
+    </div>
 
     <script src="script.js"></script>
     <script>

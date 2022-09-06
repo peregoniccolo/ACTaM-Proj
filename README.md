@@ -21,7 +21,7 @@ Browserslist: caniuse-lite is outdated. Please run next command `npm update cani
 npm update caniuse-lite browserslist
 ```
 
-NB: mainly tested on Chrome
+NB: tested on Chrome and Firefox
 
 # Functionalities
 
@@ -78,12 +78,11 @@ Collections:
 Quanta - Granular Synth by Audio Damage
 
 * Artists and songs:
-
-Tim Hecker - Chimeras
-Arca - Alive
-Flume - Voices
-Ighlooghost - Bug Thief
+    * Tim Hecker - Chimeras
+    * Arca - Alive
+    * Flume - Voices
+    * Ighlooghost - Bug Thief
 
 # Authors
-#### Gargiulo - Morena - Orsatti - Perego
+Gargiulo - Morena - Orsatti - Perego
 ![getirs](media/images/getir.png) 

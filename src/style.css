@@ -35,7 +35,6 @@ body {
 	height: 300px;
 	padding: 25px;
 	display: flex;
-	margin-top: 20px;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
@@ -93,7 +92,6 @@ body {
 	height: 100%;
 	align-items: center;
 	font-size: 24px;
-	cursor: pointer;
 	text-align: center;
 	text-decoration: none;
 	outline: none;
@@ -188,11 +186,10 @@ body {
 /* default sample buttons */
 .sample-button {
 	padding: 0.35em 1.2em;
-	border: 0.1em solid #009ea3;
-	border-radius: 0.12em;
-	box-sizing: border-box;
-	font-weight: 300;
+	border: 2px solid #009ea3;
+	border-radius: 4px;
 	text-align: center;
+	font-size: 17px;
 }
 
 .sample-button:hover {
@@ -238,12 +235,11 @@ body {
 	box-shadow: 0 9px rgb(100, 152, 168);
 }
 
-#controllerset {
-	border: 0em;
-	background-color: white;
+.white-btn {
+	background-color: white !important;
 	width: 100%;
-	border: 1px solid #ced4da;
-	border-radius: 0.25rem;
+	border: 1px solid #ced4da !important;
+	border-radius: 0.25rem !important;
 }
 
 footer {

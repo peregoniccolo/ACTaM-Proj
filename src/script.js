@@ -817,6 +817,9 @@ function handleVelocity(velocity) {
 function handleInput(input) {
     // main midi input handling method
 
+    if (document.querySelector("#bar-container").classList.contains("nodisplay"))
+        return; // if so, im not ready to play or i'm changing sample
+
     var command = input.data[0]
     var note = input.data[1]
     var velocity = handleVelocity(input.data[2])
