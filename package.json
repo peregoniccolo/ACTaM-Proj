@@ -28,7 +28,6 @@
   "dependencies": {
     "deasync": "^0.1.24",
     "firebase": "^9.4.1",
-    "granular-js": "^0.6.0",
     "p5": "^0.7.2",
     "parcel-bundler": "^1.12.5"
   }
