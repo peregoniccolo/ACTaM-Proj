@@ -72,6 +72,18 @@ Collections:
 * user_presets: contains all sets of parameters saved by the users
 * preset_num: contains the counter for the saved presets
 
+## References
+
+* VST:
+Quanta - Granular Synth by Audio Damage
+
+* Artists and songs:
+
+Tim Hecker - Chimeras
+Arca - Alive
+Flume - Voices
+Ighlooghost - Bug Thief
+
 # Authors
 #### Gargiulo - Morena - Orsatti - Perego
 ![getirs](media/images/getir.png) 
