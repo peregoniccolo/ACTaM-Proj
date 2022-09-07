@@ -30,7 +30,7 @@ var granular = new Granular({
 granular.setMaster(1);
 
 var voiceOption = {
-	position: 0.5,
+	position: 0,
 	volume: 0.5
 };
 

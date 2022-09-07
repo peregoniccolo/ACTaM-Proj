@@ -785,29 +785,26 @@ var numnotes = 0;
 
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-    // console.log('MIDI connesso');
 }
 
 function onMIDISuccess(midiAccess) {
+    console.log('MIDI available.');
 
-    // console.log(midiAccess)
-
-    midiAccess.addEventListener('statechange', updateDevices)
-    const input = midiAccess.inputs;
-
-    input.forEach((input) => {
-        input.addEventListener('midimessage', handleInput);
-    })
+    midiAccess.onstatechange =  (event) => {
+        updateDevices(event.target)
+    };
+    updateDevices(midiAccess);
 }
 
 function onMIDIFailure() {
-    console.log("Failed to get MIDI access.");
+    console.log("Failed to get MIDI access. Try reloading the page.");
 }
 
-function updateDevices(event) {
-    console.log(event);
+function updateDevices(midiAccess) {
+    midiAccess.inputs.forEach((input) => {
+        input.addEventListener('midimessage', handleInput);
+    })
 }
-
 
 function handleVelocity(velocity) {
     // normalize velocity value
