@@ -2,7 +2,7 @@
 <image src="media/images/logo.png" style="margin-left: -2px; border-radius: 15px"></image>
 </div>
 
-## Run with Parcel!
+## Run it with Parcel!
 * Download/clone the project
 * In the project folder:
 ```console
@@ -30,10 +30,10 @@ NB: tested on Chrome and Firefox
 </div>
 
 * Granular synthesizer with customizable parameters
-* Possibility to some presets we prepare for our users
-* Possibility to save you very own parameter presets
+* Possibility to use some presets we prepared for our users
+* Possibility to save you very own parameter sets
 * 4 parametric effects to play with: Delay, Reverb, Distortion and a LPF
-* MIDI controls to play and control the synthesizer
+* Mappable MIDI controls to play the synthesizer and change its parameters
 
 # Customizable parameters
 ## Synthesizer knobs
@@ -72,7 +72,7 @@ Collections:
 * user_presets: contains all sets of parameters saved by the users
 * preset_num: contains the counter for the saved presets
 
-## References
+# References
 
 * VST:
 Quanta - Granular Synth by Audio Damage
@@ -85,4 +85,5 @@ Quanta - Granular Synth by Audio Damage
 
 # Authors
 Gargiulo - Morena - Orsatti - Perego
+<br>
 ![getirs](media/images/getir.png) 
