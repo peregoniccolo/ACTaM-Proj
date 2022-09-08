@@ -1,4 +1,4 @@
-import { init, stopGrain, playGrain, setVolume, updateState, effects, getBuffer, setRawFile, getState } from "./modules/granular_module";
+import { init, stopGrain, playGrain, setVolume, setPosition, updateState, effects, getBuffer, setRawFile, getState } from "./modules/granular_module";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDoc, getDocs, doc, setDoc } from "firebase/firestore";
 
@@ -652,6 +652,9 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
 const new_sample_button = document.getElementById('new_sample_but');
 
 new_sample_button.addEventListener('click', () => {
+    //set position to 0
+    setPosition(0);
+
     // shows dropzone
     document.getElementsByClassName("drop_zone")[0].classList.toggle("nodisplay");
 
