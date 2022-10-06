@@ -24,6 +24,7 @@ export default class Effects {
         this.source = source;
         this.source.disconnect();
 
+        // initialize effect objects
         this.#createNewFilter();
         this.#createNewDistrortion();
         this.#createNewDelay();

@@ -54,17 +54,18 @@ populatePresetList().then(() => {
     populatePresetListUser();
 }); // first population
 
-// bind onchange listener
+// bind onchange listener to the preset-select HTML element
 presetSelect.addEventListener("change", e => {
 
-    if (presetSelect.value == "default") {
-        animateToDefaultValue(true); // reset only par & env knobs
+    if (presetSelect.value == "default") {  // default has been selected
+        animateToDefaultValue(true);        // reset only par & env knobs
         return;
     }
 
+    // get the selected preset from the presetMap through its id (name)
     var chosenPreset = presetMap[presetSelect.value];
 
-    // envelope
+    // handle envelope update animation
     var chosenEnv = chosenPreset["envelope"];
     if (chosenEnv != null)
         Object.keys(chosenEnv).forEach(key => {
@@ -72,7 +73,7 @@ presetSelect.addEventListener("change", e => {
             animateToValue(key, chosenEnv[key]);
         })
 
-    // parameters
+    // handle parameters update animation
     Object.keys(chosenPreset).filter(function ($key) {
         return $key != "envelope";
     }).forEach(key => {
@@ -82,24 +83,27 @@ presetSelect.addEventListener("change", e => {
 })
 
 
-// add save preset button listener
+// user saved preset handling
 var savePresetBtn = document.getElementById("save-preset");
 var presetNum;
 
 async function getCurrNumOfPresets() {
-    // read current number of elements on the db
+    // read current number of elements on the preset_num collection in firebase
 
     const docSnap = await getDoc(docPresetNumRef);
     presetNum = docSnap.data()['counter'];
 }
 
+// add save preset button listener
 savePresetBtn.addEventListener('click', e => {
 
     getCurrNumOfPresets().then(() => {
 
+        // get the state from the granular object in granular_modules
         var stateToSave = getState();
         var id = "userPreset" + presetNum;
 
+        // create new document with specific id
         const docRefNewPreset = doc(dbRef, "user_presets", id);
 
         const dataNewPreset = {
@@ -113,17 +117,22 @@ savePresetBtn.addEventListener('click', e => {
             }
         };
 
+        // write document on db
         setDoc(docRefNewPreset, dataNewPreset).then(() => {
+            // when the document is saved
+
             // depopulate user sets
             var i, L = presetSelect.options.length - 1;
             for (i = L; i >= 5; i--) // leave the first 4
                 presetSelect.remove(i);
 
+            // repopulate list
             populatePresetListUser().then(() => {
+                // select newly added item
                 presetSelect.value = id;
             });
 
-            // increment number of presents
+            // increment number of presets
             setDoc(docPresetNumRef, { counter: presetNum + 1 });
         });
 
@@ -140,7 +149,7 @@ var inputBuffer, currentAudio;
 
 // jquery knobs setup and update methods
 $('.knob').each(function () {
-    // basic for each knob, other parameters are specified directly in the HTML
+    // basic setup for each knob, other parameters are specified directly in the HTML
 
     var $this = $(this);
 
@@ -215,7 +224,7 @@ $("#volume-knob").each(function () {
 
 // EFFECT knobs and buttons
 
-// effects toggle handle
+// handle style of toggle button for all the effects
 document.querySelectorAll('.toggle').forEach(inputElement => {
     inputElement.addEventListener('click', () => {
         inputElement.classList.toggle('toggle-active');
@@ -235,6 +244,7 @@ delayButton.addEventListener('click', () => { // delay effect toggle
 
 // delay: feedback & delay time knobs
 $("#feedback-knob").each(function () {
+    // specifications for the feedback knob
 
     var $this = $(this);
 
@@ -253,6 +263,7 @@ $("#feedback-knob").each(function () {
 });
 
 $("#delay-knob").each(function () {
+    // specifications for the time delay knob
 
     var $this = $(this);
 
@@ -283,6 +294,7 @@ reverbButton.addEventListener('click', () => { // reverb effect toggle
 
 // reverb: time decay knob
 $("#decay-knob").each(function () {
+    // specifications for the time decay knob
 
     var $this = $(this);
 
@@ -314,6 +326,7 @@ distortionButton.addEventListener('click', () => { // distortion effect toggle
 
 // distortion: amount knob
 $("#amount-knob").each(function () {
+    // specifications for the distortion amount knob
 
     var $this = $(this);
 
@@ -345,6 +358,7 @@ lpfButton.addEventListener('click', () => { // lpf effect toggle
 
 // lfp: frequency and resonance knobs
 $("#freq-knob").each(function () {
+    // specifications for the cutoff frequency knob
 
     var $this = $(this);
 
@@ -364,6 +378,7 @@ $("#freq-knob").each(function () {
 });
 
 $("#resonance-knob").each(function () {
+    // specifications for the resonance knob
 
     var $this = $(this);
 
@@ -524,7 +539,6 @@ waveformDiv.addEventListener('mouseup', (e) => {
     stopGrain()
 })
 
-
 waveformDiv.addEventListener('mouseout', (e) => {
     if (mouseState) {
         mouseState = false;
@@ -557,9 +571,10 @@ function normalizeTime(time) {
     return time / fileLen
 }
 
-
-// The methods below handle the interaction of the user with the drag & drop upload zone
+// DROP ZONE
 document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
+    // handle the interaction of the user with the drag & drop upload zone
+
     const dropZoneElement = inputElement.closest(".drop_zone");
 
     // click upload
@@ -682,7 +697,8 @@ var sampleLoaded2 = false;
 let audio;
 let audio2;
 
-// add listeners to sample buttons
+
+// add listeners to default sample buttons
 defaultSample1.addEventListener('click', () => {
 
     if (!sampleLoaded1) {
@@ -712,7 +728,6 @@ defaultSample1.addEventListener('click', () => {
 });
 
 defaultSample2.addEventListener('click', () => {
-
 
     if (!sampleLoaded2) {
 
@@ -764,6 +779,8 @@ function loadFile(file) {
 }
 
 function fileValidation(file) {
+    // checks that the audio file to be selected is indeed an audio file
+
     var fileInput = file;
 
     var filePath = fileInput.name;
@@ -787,6 +804,7 @@ var controllerArray = [0, 0, 0];
 var numnotes = 0;
 
 if (navigator.requestMIDIAccess) {
+    // assign methods to dynamically handle midi access requests
     navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 }
 
@@ -804,6 +822,7 @@ function onMIDIFailure() {
 }
 
 function updateDevices(midiAccess) {
+    // update list of devices once requested 
     midiAccess.inputs.forEach((input) => {
         input.addEventListener('midimessage', handleInput);
     })
@@ -847,7 +866,7 @@ function handleInput(input) {
     else {
 
         switch (command) {
-            case 144: // keyboard message
+            case 144: // keyboard note on message
                 numnotes += 1;
                 if (velocity > 0) {
                     noteon(note, velocity);
@@ -857,7 +876,7 @@ function handleInput(input) {
                 }
                 break;
 
-            case 128:
+            case 128: // note off
                 numnotes -= 1;
                 if (numnotes < 1) {
                     noteoff(note);
@@ -865,7 +884,6 @@ function handleInput(input) {
                 break;
 
             case 176: // knob/slider control message
-
 
                 if (controllerArray[0]) {
 
@@ -896,7 +914,7 @@ function handleInput(input) {
                     $("#" + knobname).val(paramvalue).trigger("change");
 
                 }
-
+                break;
         }
 
     }

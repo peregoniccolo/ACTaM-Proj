@@ -29,6 +29,7 @@ var granular = new Granular({
 
 granular.setMaster(1);
 
+// set initial values
 var voiceOption = {
 	position: 0,
 	volume: 0.5
@@ -36,10 +37,10 @@ var voiceOption = {
 
 export var freq;
 
-// Effects
-
+// Effects object to work the audio effects
 export var effects = new Effects(granular);
 
+// setter methods for the voice options and the granular state
 export function setPosition(pos) {
 	voiceOption.position = pos;
 }
@@ -48,12 +49,13 @@ export function setVolume(vol) {
 	voiceOption.volume = Math.max(vol,0.00001);
 }
 
-export function getVolume(){
-	return voiceOption.volume;
-}
-
 export function updateState(state) {
 	granular.set(state);
+}
+
+// getters
+export function getVolume(){
+	return voiceOption.volume;
 }
 
 export function getState() {
@@ -61,6 +63,7 @@ export function getState() {
 }
 
 export function playGrain(position = null, velocity = 1, frequency = null) {
+	// infers the creation of a new voice with the correct settings, depending on the way the synth is played (MIDI / mouse)
 
 	if (position) {
 		setPosition(position)
@@ -83,12 +86,14 @@ export function playGrain(position = null, velocity = 1, frequency = null) {
 }
 
 export function stopGrain() {
+	// stops the current playing voice
+
 	voiceState = false;
 	granular.stopVoice(grainIds[0]);
 	grainIds = [];
 }
 
-// used for displaying the waveform
+// methods used to display the waveform
 export function setRawFile(file){
 	rawFile = file;
 }
