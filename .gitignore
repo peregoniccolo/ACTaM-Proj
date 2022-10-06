@@ -109,4 +109,11 @@ dist
 
 example/*
 
-# è un po' un magheggio ma poi sistemo meglio quando non ci sarà più example
+# latex
+documentation/latex/*.aux
+documentation/latex/*.fdb_latexmk
+documentation/latex/*.fls
+documentation/latex/*.log
+documentation/latex/*.out
+documentation/latex/*.pdf
+documentation/latex/*.gz

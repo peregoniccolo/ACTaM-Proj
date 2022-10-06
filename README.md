@@ -46,15 +46,15 @@ NB: tested on Chrome and Firefox
 
 ## Effects
 ### Delay
-* Feedback: the amout of signal fed back to be delayed
+* Feedback: the amount of signal fed back to be delayed
 * Time: actual time delay
 ### Reverb
 * Decay: seconds of decay of the reverb
 ### Distortion
-* Amount: quantity of distortion applyed to the grains
+* Amount: quantity of distortion applied to the grains
 ### LPF
 * Cutoff: frequency at which the filter begins to attenutate the signal
-* Resonance: emphatization or suppression of portions of the signal above or below the defined cutoff frequency
+* Resonance:  emphasis or suppression of portions of the signal above or below the defined cutoff frequency
 
 # Implementation
 
@@ -68,9 +68,9 @@ NB: tested on Chrome and Firefox
 
 ## DB structure
 Collections:
-* presets: contains all 4 presets chosen by us for you to play with
-* user_presets: contains all sets of parameters saved by the users
-* preset_num: contains the counter for the saved presets
+* presets: which contains all 4 presets designed by us for you to play with
+* user_presets: which contains all sets of parameters saved by the users
+* preset_num: which contains the counter for the saved sets
 
 # References
 
