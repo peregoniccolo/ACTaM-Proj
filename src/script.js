@@ -602,18 +602,18 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                     dropZoneElement.classList.toggle("nodisplay");
                     document.getElementById("button-container").classList.toggle("nodisplay");
 
+                    // display necessary containers
+                    document.getElementById('wave-container').classList.toggle('nodisplay');
+                    document.getElementById('sample-container').classList.toggle('nodisplay');
+
+                    // show bar-container
+                    toggleBarContainer();
+
                     loadFile(file); // shows waveform 
                 });
-
-                // display necessary containers
-                dropZoneElement.classList.remove('drop_zone--over');
-                document.getElementById('wave-container').classList.toggle('nodisplay');
-                document.getElementById('sample-container').classList.toggle('nodisplay');
-
-                // show bar-container
-                toggleBarContainer();
             }
 
+            dropZoneElement.classList.remove('drop_zone--over');
         }
     })
 
@@ -654,7 +654,7 @@ document.querySelectorAll('.drop_zone_input').forEach(inputElement => {
                     // show bar-container
                     toggleBarContainer();
 
-                    loadFile(file); // shows wavesurfer
+                    loadFile(file); // shows waveform
                 });
             }
 
