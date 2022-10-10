@@ -24,7 +24,7 @@ npm update caniuse-lite browserslist
 NB: tested on Chrome and Firefox
 
 # Functionalities
-Here is a <a href="https://youtu.be/R05Z8otmfb4">DEMO video</a>!
+Here is a <a href="https://youtu.be/XzW5QMOsmZs">DEMO video</a>!
 
 <div>
 <image src="media/images/gui.png" style="border-radius: 15px; margin-bottom: 10px;"></image>
