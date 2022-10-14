@@ -21,18 +21,18 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
 
     <!-- title container -->
     <div class="container" id="title-container">
         <div class="row justify-content-center p-2 mb-1">
-            <img class="col-xxl-8 col-md-8 col-sm-10 col-11 img-responsive" src="../media/images/logo.png">
+            <img class="col-xxl-8 col-md-10 col-sm-11 col-11 img-responsive" src="../media/images/logo.png">
         </div>
     </div>
 
     <!-- dropzone container -->
     <div class="container drop_zone mouse-over-cursor mt-4">
-        <span class="drop_zone_prompt">Drag your sample or click here...</span>
+        <span class="drop_zone_prompt">Drag your sample<br>or click here...</span>
         <input type="file" accept="audio/*" id="dft-sample" name="myFile" class="drop_zone_input" />
     </div>
 
@@ -104,6 +104,7 @@
             <button id="save-preset" class="col-2 white-btn btn mb-2" style="min-width: 150px;">Save
                 preset</button>
         </div>
+        <!-- TODO add naming for user sets -->
 
         <!-- effects bar -->
         <div class="row bar rounded justify-content-around p-2" id="effect-bar">
@@ -304,9 +305,11 @@
 
     </div>
 
-    <footer>
-        <p><a href="https://github.com/peregoniccolo/ACTaM-Proj">ACTaM Project</a> - Developed by Gargiulo,
-            Morena, Orsatti, Perego</p>
+    <footer class="container mt-4">
+        <p>
+            <a href="https://github.com/peregoniccolo/ACTaM-Proj">ACTaM Project</a> 
+            - Developed by Gargiulo, Morena, Orsatti, Perego
+        </p>
     </footer>
 
 
