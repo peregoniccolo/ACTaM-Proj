@@ -798,7 +798,7 @@ if (navigator.requestMIDIAccess) {
 function onMIDISuccess(midiAccess) {
     console.log('MIDI available.');
 
-    midiAccess.onstatechange =  (event) => {
+    midiAccess.onstatechange = (event) => {
         updateDevices(event.target)
     };
     updateDevices(midiAccess);
