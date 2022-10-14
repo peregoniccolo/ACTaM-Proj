@@ -106,6 +106,7 @@ dist
 # non autogenerati
 .DS_Store
 .vscode
+**/.DS_Store
 
 example/*
 

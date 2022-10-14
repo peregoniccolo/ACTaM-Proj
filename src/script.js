@@ -19,27 +19,14 @@ const dbRef = getFirestore();
 // preset list population
 const presetSelect = document.getElementById("preset-select");
 const presetCollection = collection(dbRef, "presets");
-const userPresetCollection = collection(dbRef, "user_presets");
+const userSetCollection = collection(dbRef, "user_presets");
 const docPresetNumRef = doc(dbRef, "preset_num", "counter_doc");
 
 var presetMap = {};
 
-async function populatePresetList() {
-    // for each preset and create a new options in the select
-    const querySnapshot = await getDocs(presetCollection);
-    querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        presetMap[doc.id] = doc.data();
-        var newOption = document.createElement('option');
-        newOption.value = doc.id;
-        newOption.innerHTML = doc.data().name;
-        presetSelect.appendChild(newOption);
-    });
-}
-
-async function populatePresetListUser() {
+async function populateSetList(collection) {
     // for each user_preset and create a new options in the select
-    const querySnapshot = await getDocs(userPresetCollection);
+    const querySnapshot = await getDocs(collection);
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         presetMap[doc.id] = doc.data();
@@ -50,8 +37,8 @@ async function populatePresetListUser() {
     });
 }
 
-populatePresetList().then(() => {
-    populatePresetListUser();
+populateSetList(presetCollection).then(() => {
+    populateSetList(userSetCollection);
 }); // first population
 
 // bind onchange listener to the preset-select HTML element
@@ -127,7 +114,7 @@ savePresetBtn.addEventListener('click', e => {
                 presetSelect.remove(i);
 
             // repopulate list
-            populatePresetListUser().then(() => {
+            populateSetList(userSetCollection).then(() => {
                 // select newly added item
                 presetSelect.value = id;
             });
